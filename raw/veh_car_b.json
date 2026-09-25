@@ -3,7 +3,8 @@
   "endpoint": "/create-8-direction-object",
   "description": "small white hatchback car",
   "view": "low top-down",
-  "reference_image": "<raw/prop_car_b.png>",
-  "objectId": "598bf59c-9f1d-43c0-9d8a-6346095896e9",
-  "generatedAt": "2026-09-25T07:29:16.255Z"
+  "size": 48,
+  "style_object_id": "02bdf071-746b-4d3f-8f05-b71c7d5b31c8",
+  "objectId": "5b873c70-e34c-46f1-a3e7-b5f9bdfd8ae9",
+  "generatedAt": "2026-09-25T22:13:38.221Z"
 }

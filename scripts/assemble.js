@@ -196,7 +196,7 @@ function fillSpecial(type, r0, r1, c0, c1) {
     kind[r][c] = type === 'plaza' ? 'plaza' : 'grass';
     const x = rand();
     if (type === 'plaza') { if (x < 0.15) prop(r, c, 'prop_street_tree'); else if (x < 0.25) prop(r, c, 'prop_bench'); else if (x < 0.3) prop(r, c, 'prop_lamp'); }
-    else { if (x < 0.35) prop(r, c, 'prop_park_tree'); else if (x < 0.45) prop(r, c, 'prop_bench'); }
+    else { if (x < 0.3) prop(r, c, 'prop_park_tree'); else if (x < 0.3 + cfg.lots.parkBenchChance * 1.5) prop(r, c, 'prop_bench'); }
   }
 }
 
@@ -258,7 +258,7 @@ for (const bl of blocks) {
   if (rand() < cfg.lots.parkBlockChance) {
     for (let r = ir0; r <= ir1; r++) for (let c = ic0; c <= ic1; c++) {
       kind[r][c] = 'grass';
-      const x = rand(); if (x < 0.22) prop(r, c, 'prop_park_tree'); else if (x < 0.26) prop(r, c, 'prop_bench');
+      const x = rand(); if (x < 0.22) prop(r, c, 'prop_park_tree'); else if (x < 0.22 + cfg.lots.parkBenchChance) prop(r, c, 'prop_bench');
     }
     continue;
   }
@@ -386,7 +386,9 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
     dirs = l.axis === 'ns' ? ['se', 'nw'] : ['sw', 'ne']; chance = cfg.people.crossingChance;
   }
   if (!dirs || rand() >= chance) continue;
-  const group = weighted(Object.fromEntries(pedestrians.map(g => [g, cfg.people.weights[g] ?? 1])));
+  // Parks get their own mix: joggers, dog walkers, families.
+  const mix = (k === 'grass' || k === 'plaza') && cfg.people.parkWeights ? cfg.people.parkWeights : cfg.people.weights;
+  const group = weighted(Object.fromEntries(pedestrians.map(g => [g, mix[g] ?? 0.5])));
   placeMover(r, c, group, pick(dirs), [jitter(), jitter()]);
 }
 

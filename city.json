@@ -39,7 +39,8 @@
     "cornerTurnChance": 0.5,
     "gapChance": 0.15,
     "openBackChance": 0.25,
-    "squareBlockChance": 0.04
+    "squareBlockChance": 0.04,
+    "parkBenchChance": 0.1
   },
   "districts": {
     "core": {
@@ -93,21 +94,21 @@
     "trashChance": 0.05,
     "trafficLightChance": 0.8,
     "cafeTableChance": 0.6,
-    "streetParkingChance": 0.55,
+    "streetParkingChance": 0.53,
     "curbNudge": 0.28,
-    "trafficChance": 0.07,
+    "trafficChance": 0.055,
     "lotCarChance": 0.7
   },
   "people": {
-    "sidewalkChance": 0.15,
-    "parkChance": 0.06,
-    "crossingChance": 0.15,
+    "sidewalkChance": 0.2,
+    "parkChance": 0.16,
+    "crossingChance": 0.18,
     "weights": {
-      "ped_woman_coat": 1.2,
-      "ped_business": 1.4,
+      "ped_woman_coat": 1.4,
+      "ped_business": 1.5,
       "ped_elder": 0.6,
-      "ped_jogger": 0.5,
-      "ped_student": 0.9,
+      "ped_jogger": 1.4,
+      "ped_student": 1.1,
       "ped_woman_bags": 1,
       "ped_man_dog": 0.7,
       "ped_woman_dog": 0.7,
@@ -115,6 +116,18 @@
       "ped_parent_kids": 0.5,
       "ped_cyclist": 0.5,
       "ped_scooter": 0.4
+    },
+    "parkWeights": {
+      "ped_jogger": 2.5,
+      "ped_man_dog": 1.5,
+      "ped_woman_dog": 1.5,
+      "ped_parent_kid": 1.5,
+      "ped_parent_kids": 1.2,
+      "ped_elder": 1.2,
+      "ped_cyclist": 0.8,
+      "ped_scooter": 0.6,
+      "ped_woman_coat": 0.8,
+      "ped_student": 0.8
     }
   }
 }

@@ -518,7 +518,7 @@
     {"id": "ped_student", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 10, "prompt": "teenager with a backpack walking"},
     {"id": "ped_woman_bags", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 11, "prompt": "woman in a beige trench coat carrying shopping bags"},
     {"id": "veh_car_a", "type": "prop", "mode": "object8", "reference": "prop_car_a", "anchor": "centre", "prompt": "small dark blue sedan car"},
-    {"id": "veh_car_b", "type": "prop", "mode": "object8", "reference": "prop_car_b", "anchor": "centre", "prompt": "small white hatchback car"},
+    {"id": "veh_car_b", "type": "prop", "mode": "object8", "styleFrom": "veh_car_a", "size": [48, 48], "anchor": "centre", "prompt": "small white hatchback car"},
     {"id": "veh_car_c", "type": "prop", "mode": "object8", "reference": "prop_car_c", "anchor": "centre", "prompt": "small tan sedan car"},
     {"id": "veh_taxi", "type": "prop", "mode": "object8", "styleFrom": "veh_car_a", "size": [48, 48], "anchor": "centre", "prompt": "yellow taxi cab car"},
     {"id": "veh_van", "type": "prop", "mode": "object8", "styleFrom": "veh_car_a", "size": [48, 48], "anchor": "centre", "prompt": "small white delivery van"},
