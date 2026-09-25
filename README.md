@@ -75,11 +75,15 @@ Every building is mirrored automatically, which swaps its two visible walls. Tha
 
 ## Building states and animations
 
+**Wiring it into RUN:** see [`docs/RUN_INTEGRATION.md`](docs/RUN_INTEGRATION.md).
+
+Coffee spots that start unbought are marked `startState: "vacant"` in `map.json` (`city.json → shops.startVacant`), so the handed-off map already shows their cones.
+
 Whether a coffee spot is bought, and what's happening to it, is save-file state, so `map.json` never changes. `resolve(objectId)` returns `{ state, tier, producing, progress }`:
 
 | `state` | What's drawn |
 |---|---|
-| `vacant` | An unbought spot: dirt, cones along the street edges, a barrier |
+| `vacant` | An unbought spot (default for spots with `startState: "vacant"`): dirt, cones along the street edges, a barrier |
 | `constructing` | Five frames: foundation, then the frame rising in scaffolding, topped out in bare concrete, cladding going on, and finished with a little dust. Pass `progress` (0–1) to drive it, or leave it out and it loops |
 | `built` (default) | The building for its tier |
 | `renovating` | The building with a four-frame dust loop around its base, up the facade and off the roof |

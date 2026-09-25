@@ -396,6 +396,16 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
 // straight through the list (it still re-sorts if objects move).
 objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
 
+// Coffee spots that start the game unbought: the map marks them
+// `startState: "vacant"`, so RUN shows cones there until the save file says
+// otherwise. Chosen evenly across the map rather than by chance clusters.
+{
+  const shops = objects.filter(o => o.category === 'shop');
+  const n = Math.round(shops.length * cfg.shops.startVacant);
+  const order = shops.map(o => ({ o, k: rand() })).sort((a, b) => a.k - b.k).map(x => x.o);
+  for (const o of order.slice(0, n)) o.startState = 'vacant';
+}
+
 // Door check: every building's door wall must face open ground.
 const byId = new Map(objects.map(o => [o.objectId, o]));
 let blocked = 0;
@@ -424,4 +434,5 @@ const map = { tileW: grid.tileW, tileH: grid.tileH, size: { cols, rows }, seed, 
 fs.writeFileSync(path.join(ROOT, 'dist', 'map.json'), JSON.stringify(map) + '\n');
 const cats = {};
 for (const o of objects) { const k = o.category || 'prop'; cats[k] = (cats[k] || 0) + 1; }
+console.log(`${objects.filter(o => o.startState === 'vacant').length} of ${objects.filter(o => o.category === 'shop').length} coffee spots start vacant`);
 console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${Math.round(100 * built / interior)}% of block interiors built, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);

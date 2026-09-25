@@ -129,5 +129,8 @@
       "ped_woman_coat": 0.8,
       "ped_student": 0.8
     }
+  },
+  "shops": {
+    "startVacant": 0.35
   }
 }

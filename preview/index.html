@@ -66,16 +66,35 @@ const TEST = {
   shop_t1: { tier: 1 }, shop_t2: { tier: 2 }, shop_t3: { tier: 3 }, shop_s1: { tier: 2 },
 };
 function hashId(id) { let h = 7; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; }
+// Stand-in save file, the way RUN would keep it. Vacant spots come from the
+// map (startState); clicking one buys it and plays the build, clicking an open
+// coffee shop renovates it.
+const BUILD_MS = 4000, RENOVATE_MS = 2500;
+const saved = {};
 const save = id => {
   const producing = $('prod').checked;
   if (TEST[id]) return { tier: 1, producing: producing && !TEST[id].state, ...TEST[id] };
-  if (!id.startsWith('shop_')) return { tier: 1, producing: producing && hashId(id) % 3 === 0 };
-  // Across the map: about a third of the coffee spots are still for sale,
-  // a few are being built or renovated, the rest are open.
-  const h = hashId(id) % 100;
-  const state = h < 32 ? 'vacant' : h < 40 ? 'constructing' : h < 47 ? 'renovating' : 'built';
-  return { state, tier: 1 + (hashId(id) >> 4) % 3, producing: producing && state === 'built' };
+  const s = saved[id];
+  if (s?.startedAt) {
+    const t = (performance.now() - s.startedAt) / (s.state === 'constructing' ? BUILD_MS : RENOVATE_MS);
+    if (t >= 1) { delete s.startedAt; s.state = 'built'; }
+    else return { ...s, progress: s.state === 'constructing' ? t : undefined, producing: false };
+  }
+  const tier = s?.tier ?? 1 + (hashId(id) >> 4) % 3;
+  return { ...s, tier, producing: producing && (id.startsWith('shop_') || hashId(id) % 3 === 0) };
 };
+function onClick(sx, sy) {
+  // Screen → world → grid: invert the projection, then find the object whose footprint holds that cell.
+  const k = r.scale, wx = (sx - canvas.clientWidth / 2) / k + cam.x, wy = (sy - canvas.clientHeight / 2) / k + cam.y;
+  const c = Math.floor((wx / 32 + wy / 16) / 2), row = Math.floor((wy / 16 - wx / 32) / 2);
+  const map = mode === 'test' ? testMap : city.map;
+  const o = map.objects.find(o => o.category === 'shop' && c >= o.col && c < o.col + o.footprint[0] && row >= o.row && row < o.row + o.footprint[1]);
+  if (!o || TEST[o.objectId]) return;
+  const state = saved[o.objectId]?.state ?? o.startState ?? 'built';
+  if (state === 'vacant') saved[o.objectId] = { state: 'constructing', startedAt: performance.now(), tier: 1 };
+  else if (state === 'built') saved[o.objectId] = { ...saved[o.objectId], state: 'renovating', startedAt: performance.now() };
+  frame();
+}
 
 let r, cam;
 function build() {
@@ -96,9 +115,9 @@ let last = 0;
 for (const el of ['hour', 'scale', 'prod', 'dbg']) $(el).oninput = frame;
 $('mode').onchange = () => { build(); frame(); };
 let drag = null;
-canvas.onpointerdown = e => drag = { x: e.clientX, y: e.clientY };
-onpointerup = () => drag = null;
-onpointermove = e => { if (!drag) return; cam.x -= (e.clientX - drag.x) / r.scale; cam.y -= (e.clientY - drag.y) / r.scale; drag = { x: e.clientX, y: e.clientY }; frame(); };
+canvas.onpointerdown = e => drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY };
+onpointerup = e => { if (drag && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 4) onClick(e.clientX, e.clientY); drag = null; };
+onpointermove = e => { if (!drag) return; cam.x -= (e.clientX - drag.x) / r.scale; cam.y -= (e.clientY - drag.y) / r.scale; drag = { ...drag, x: e.clientX, y: e.clientY }; frame(); };
 onresize = frame;
 for (const [k, v] of q) { const el = $(k); if (el) el.type === 'checkbox' ? (el.checked = v === '1') : (el.value = v); }
 build();

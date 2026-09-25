@@ -7,7 +7,9 @@
 //   const r = createCityRenderer(canvas, city, { resolve: id => save.buildings[id] });
 //   r.draw({ camX, camY, hour, time });
 //
-// `resolve(objectId)` returns the building's state from the save file:
+// `resolve(objectId)` returns the building's state from the save file (any
+// field may be missing; a missing `state` falls back to the map's
+// `startState`, then 'built'):
 //   { state, tier, producing, progress }
 //   state: 'built' (default) | 'vacant' | 'constructing' | 'renovating'
 //     vacant       — an unbought spot: bare dirt, cones and a barrier
@@ -212,6 +214,11 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
   const glowSheet = buildGlowSheet(image, atlas);
   let scale = opts.scale || 2; // integer only
 
+  // A building's state: what the save file says, else the map's starting
+  // state (`startState: "vacant"` on spots that begin unbought), else built.
+  const byId = new Map(map.objects.map(o => [o.objectId, o]));
+  const stateOf = id => { const saved = resolve(id) || {}; return { ...saved, state: saved.state ?? byId.get(id)?.startState ?? 'built' }; };
+
   const objects = [...map.objects].sort((a, b) => sortKey(a) - sortKey(b) || a.col - b.col);
 
   // Bottom vertex of a footprint in world pixels (origin = top vertex of cell 0,0).
@@ -231,12 +238,12 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
   function layersFor(o) {
     if (o.sprite) {
       // Street furniture that belongs to a shop (café seating) only appears once it's open.
-      if (o.belongsTo && ['vacant', 'constructing'].includes(resolve(o.belongsTo)?.state)) return [];
+      if (o.belongsTo && ['vacant', 'constructing'].includes(stateOf(o.belongsTo).state)) return [];
       const f = atlas.frames[o.sprite], b = bottom(o.col, o.row, o.footprint);
       const [du, dv] = o.nudge || [0, 0];
       return [{ id: o.sprite, x: b.x - f.anchorX + (du - dv) * tileW / 2, y: b.y - f.anchorY + (du + dv) * tileH / 2 }];
     }
-    const state = resolve(o.objectId) || {};
+    const state = stateOf(o.objectId);
     const lotId = atlas.lots?.[fpKey(o.footprint)];
     const lotLayer = () => { const f = atlas.frames[lotId], b = bottom(o.col, o.row, o.footprint); return { id: lotId, x: b.x - f.anchorX, y: b.y - f.anchorY }; };
     if (state.state === 'vacant') return lotId ? [lotLayer()] : [];
@@ -304,7 +311,7 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
       const f = atlas.frames[l.id];
       if (!vis(l.x, l.y, f.w, f.h)) continue;
       blit(image, l.id, l.x, l.y);
-      if (l.base && resolve(o.objectId)?.producing) lit.push(l);
+      if (l.base && stateOf(o.objectId).producing) lit.push(l);
     }
     // 3. Lighting: one multiply for time of day, then window glow on top.
     const sky = skyAt(hour);
@@ -335,7 +342,7 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
 
   // True when something on the map is animating, so the caller knows to keep
   // redrawing (a requestAnimationFrame loop at ~10fps is plenty).
-  const animating = () => objects.some(o => o.category && ['constructing', 'renovating'].includes(resolve(o.objectId)?.state));
+  const animating = () => objects.some(o => o.category && ['constructing', 'renovating'].includes(stateOf(o.objectId).state));
 
   return { draw, bounds, animating, setScale: s => { scale = Math.max(1, Math.round(s)); }, get scale() { return scale; } };
 }
