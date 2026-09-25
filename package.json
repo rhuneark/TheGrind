@@ -1,0 +1,28 @@
+{
+  "name": "grind-city-assets",
+  "version": "1.0.0",
+  "description": "PixelLab → city.png / atlas.json / map.json pipeline for RUN",
+  "scripts": {
+    "reference": "NODE_USE_ENV_PROXY=1 node scripts/make-reference.js",
+    "generate": "NODE_USE_ENV_PROXY=1 node scripts/generate.js",
+    "process": "node scripts/process.js",
+    "pack": "node scripts/pack.js",
+    "assemble": "node scripts/assemble.js",
+    "sheet": "node scripts/contact-sheet.js",
+    "build": "node scripts/process.js && node scripts/pack.js && node scripts/assemble.js && node scripts/contact-sheet.js",
+    "preview": "node scripts/serve.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhuneark/TheGrind.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhuneark/TheGrind/issues"
+  },
+  "homepage": "https://github.com/rhuneark/TheGrind#readme",
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  },
+  "private": true
+}

@@ -1,0 +1,52 @@
+{
+  "defaults": {
+    "palette": "palette.json",
+    "style": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow",
+    "endpoint": "/create-image-bitforge",
+    "params": {
+      "isometric": true,
+      "no_background": true,
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "medium detail"
+    }
+  },
+  "reference": "ref/base_tile.png",
+  "assets": [
+    { "id": "ground_pavement_01", "type": "ground", "source": "ref/base_tile.png", "reference": true,
+      "prompt": "single flat diamond floor tile of worn grey-beige paving stones, top surface only, no side edges" },
+    { "id": "ground_road_ns", "seed": 245779951, "type": "ground", "size": [64, 64], "endpoint": "/create-image-pixflux",
+      "params": { "outline": "lineless", "shading": "flat shading" },
+      "prompt": "single flat diamond floor tile of dark grey asphalt road, one faded cream centre line running diagonally from the top-right edge to the bottom-left edge" },
+    { "id": "ground_road_ew", "type": "ground", "derive": { "from": "ground_road_ns", "flipX": true } },
+    { "id": "ground_road_cross", "seed": 938281614, "type": "ground", "size": [64, 64], "endpoint": "/create-image-pixflux",
+      "params": { "outline": "lineless", "shading": "flat shading" },
+      "prompt": "single flat diamond floor tile of plain dark grey asphalt, no markings" },
+    { "id": "ground_grass_01", "seed": 766730022, "type": "ground", "size": [64, 64], "endpoint": "/create-image-pixflux",
+      "params": { "outline": "lineless", "shading": "flat shading" },
+      "prompt": "single flat diamond floor tile of short soft sage-green lawn grass, no rocks" },
+
+    { "id": "bldg_base_brick_t1", "seed": 319942030, "type": "building", "size": [128, 160], "footprint": [2, 2], "params": { "coverage_percentage": 100 },
+      "sockets": { "awning": { "wall": "right", "height": 30 } },
+      "prompt": "small two storey red brick shop building, flat roof, shop window and door on the ground floor, dark unlit blue-grey windows, standing directly on the ground, no base plate, no awning" },
+    { "id": "bldg_base_brick_t2", "type": "building", "size": [128, 192], "footprint": [2, 2], "params": { "coverage_percentage": 100 },
+      "sockets": { "awning": { "wall": "right", "height": 30 } },
+      "prompt": "tall three storey red brick shop building, flat roof, shop window and door on the ground floor, dark unlit blue-grey windows, standing directly on the ground, no base plate, no awning" },
+
+    { "id": "roof_vents", "type": "overlay", "size": [48, 40], "attach": "roof",
+      "prompt": "small cluster of two metal rooftop air vents on a tiny square base" },
+    { "id": "roof_watertank", "type": "overlay", "size": [48, 64], "attach": "roof",
+      "prompt": "small wooden rooftop water tank on short metal legs" },
+    { "id": "awning_striped", "type": "overlay", "size": [64, 48], "endpoint": "/create-image-pixflux", "attach": "awning", "anchor": "band-right",
+      "prompt": "a single striped cream and terracotta fabric shop awning on its own, no building, no wall, long edge running diagonally up to the right" },
+
+    { "id": "prop_tree_round", "type": "prop", "size": [48, 80], "footprint": [1, 1],
+      "prompt": "single round leafy street tree with a short brown trunk, sage green foliage, isolated, nothing on the ground" }
+  ],
+  "stacks": {
+    "shop": {
+      "1": [["bldg_base_brick_t1"], ["roof_vents"]],
+      "2": [["bldg_base_brick_t2"], ["roof_watertank"]]
+    }
+  }
+}

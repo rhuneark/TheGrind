@@ -1,0 +1,201 @@
+{
+  "image": "city.png",
+  "tileW": 64,
+  "tileH": 32,
+  "frames": {
+    "ground_pavement_01": {
+      "x": 398,
+      "y": 2,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns": {
+      "x": 134,
+      "y": 148,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew": {
+      "x": 68,
+      "y": 148,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_cross": {
+      "x": 2,
+      "y": 148,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_grass_01": {
+      "x": 332,
+      "y": 2,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "bldg_base_brick_t1": {
+      "x": 100,
+      "y": 2,
+      "w": 96,
+      "h": 112,
+      "anchorX": 40,
+      "anchorY": 112,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          33
+        ],
+        "awning": [
+          65,
+          70
+        ]
+      }
+    },
+    "bldg_base_brick_t2": {
+      "x": 2,
+      "y": 2,
+      "w": 96,
+      "h": 144,
+      "anchorX": 58,
+      "anchorY": 144,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          33
+        ],
+        "awning": [
+          73,
+          107
+        ]
+      }
+    },
+    "roof_vents": {
+      "x": 200,
+      "y": 148,
+      "w": 32,
+      "h": 16,
+      "anchorX": 16,
+      "anchorY": 12,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "overlay",
+      "attach": "roof"
+    },
+    "roof_watertank": {
+      "x": 298,
+      "y": 2,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 41,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "overlay",
+      "attach": "roof"
+    },
+    "awning_striped": {
+      "x": 232,
+      "y": 2,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 40,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "overlay",
+      "attach": "awning"
+    },
+    "prop_tree_round": {
+      "x": 198,
+      "y": 2,
+      "w": 32,
+      "h": 64,
+      "anchorX": 17,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    }
+  },
+  "stacks": {
+    "shop": {
+      "1": [
+        [
+          "bldg_base_brick_t1"
+        ],
+        [
+          "roof_vents"
+        ]
+      ],
+      "2": [
+        [
+          "bldg_base_brick_t2"
+        ],
+        [
+          "roof_watertank"
+        ]
+      ]
+    }
+  },
+  "lighting": {
+    "glass": [
+      "#34424F",
+      "#4E6272",
+      "#7690A0"
+    ],
+    "glow": "#E0C27A"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "roof_watertank",
+  "endpoint": "/create-image-bitforge",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, small wooden rooftop water tank on short metal legs",
+  "image_size": {
+    "width": 48,
+    "height": 64
+  },
+  "color_image": "<palette.json>",
+  "seed": 316853027,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:23:00.269Z"
+}

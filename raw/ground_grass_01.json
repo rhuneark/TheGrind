@@ -1,0 +1,21 @@
+{
+  "id": "ground_grass_01",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "lineless",
+  "shading": "flat shading",
+  "detail": "medium detail",
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, single flat diamond floor tile of short soft sage-green lawn grass, no rocks",
+  "image_size": {
+    "width": 64,
+    "height": 64
+  },
+  "color_image": "<palette.json>",
+  "seed": 766730022,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:27:39.647Z"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "awning_striped",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, a single striped cream and terracotta fabric shop awning on its own, no building, no wall, long edge running diagonally up to the right",
+  "image_size": {
+    "width": 64,
+    "height": 48
+  },
+  "color_image": "<palette.json>",
+  "seed": 422115835,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:25:48.757Z"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "prop_tree_round",
+  "endpoint": "/create-image-bitforge",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, single round leafy street tree with a short brown trunk, sage green foliage, isolated, nothing on the ground",
+  "image_size": {
+    "width": 48,
+    "height": 80
+  },
+  "color_image": "<palette.json>",
+  "seed": 688241478,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:22:55.147Z"
+}

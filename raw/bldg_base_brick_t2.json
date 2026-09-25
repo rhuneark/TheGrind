@@ -1,0 +1,22 @@
+{
+  "id": "bldg_base_brick_t2",
+  "endpoint": "/create-image-bitforge",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "coverage_percentage": 100,
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, tall three storey red brick shop building, flat roof, shop window and door on the ground floor, dark unlit blue-grey windows, standing directly on the ground, no base plate, no awning",
+  "image_size": {
+    "width": 128,
+    "height": 192
+  },
+  "color_image": "<palette.json>",
+  "seed": 303164407,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:22:50.554Z"
+}

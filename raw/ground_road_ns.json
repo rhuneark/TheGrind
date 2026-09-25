@@ -1,0 +1,21 @@
+{
+  "id": "ground_road_ns",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "lineless",
+  "shading": "flat shading",
+  "detail": "medium detail",
+  "description": "cozy isometric pixel art, muted colours, flat lighting, no baked shadows, no shadow on the ground, no glow, single flat diamond floor tile of dark grey asphalt road, one faded cream centre line running diagonally from the top-right edge to the bottom-left edge",
+  "image_size": {
+    "width": 64,
+    "height": 64
+  },
+  "color_image": "<palette.json>",
+  "seed": 245779951,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T05:27:03.920Z"
+}

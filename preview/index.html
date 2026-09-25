@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grind City Preview</title>
+<style>
+  :root { --bg: #2B1D14; --ink: #E3DAC4; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 13px ui-monospace, Menlo, monospace; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; image-rendering: pixelated; }
+  #ui { position: fixed; top: 8px; left: 8px; background: #2B1D14cc; padding: 8px 10px; border-radius: 4px; display: grid; gap: 6px; }
+  label { display: flex; gap: 6px; align-items: center; }
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <label>view <select id="mode"><option value="test">4×4 test grid</option><option value="map">full map.json</option></select></label>
+  <label>hour <input id="hour" type="range" min="0" max="24" step="0.25" value="12"><span id="hv">12</span></label>
+  <label>scale <input id="scale" type="range" min="1" max="4" step="1" value="2"></label>
+  <label><input id="prod" type="checkbox" checked> buildings producing</label>
+  <label><input id="dbg" type="checkbox"> footprints</label>
+  <div>drag to pan</div>
+</div>
+<script type="module">
+// Stands in for RUN: loads only dist/{city.png, atlas.json, map.json} and the runtime.
+import { loadCity, createCityRenderer } from '../runtime/city-renderer.js';
+
+const city = await loadCity('../dist/');
+const $ = id => document.getElementById(id);
+const canvas = $('c');
+
+// Build-order step 4: one building at two tiers on a 4x4 grid.
+const testMap = {
+  tileW: city.map.tileW, tileH: city.map.tileH, size: { cols: 4, rows: 4 },
+  ground: Array.from({ length: 4 }, () => Array(4).fill('ground_pavement_01')),
+  objects: [
+    { objectId: 'shop_t1', col: 0, row: 2, footprint: [2, 2], category: 'shop' },
+    { objectId: 'shop_t2', col: 2, row: 0, footprint: [2, 2], category: 'shop' },
+    { objectId: 'tree_a', col: 0, row: 0, footprint: [1, 1], sprite: 'prop_tree_round' },
+    { objectId: 'tree_b', col: 3, row: 3, footprint: [1, 1], sprite: 'prop_tree_round' },
+  ],
+};
+// Stand-in save file: tier and production state live here, never in the map.
+const save = id => ({ tier: id === 'shop_t2' ? 2 : id === 'shop_t1' ? 1 : 1 + (parseInt(id.split('_')[1]) % 2), producing: $('prod').checked });
+
+let r, cam;
+function build() {
+  const map = $('mode').value === 'test' ? testMap : city.map;
+  r = createCityRenderer(canvas, { ...city, map }, { resolve: save, scale: +$('scale').value });
+  cam = { x: (r.bounds.x0 + r.bounds.x1) / 2, y: (r.bounds.y0 + r.bounds.y1) / 2 - ($('mode').value === 'test' ? 40 : 0) };
+}
+function frame() {
+  canvas.width = innerWidth; canvas.height = innerHeight;
+  r.setScale(+$('scale').value);
+  $('hv').textContent = $('hour').value;
+  r.draw({ camX: cam.x, camY: cam.y, hour: +$('hour').value, debug: $('dbg').checked });
+}
+for (const el of ['hour', 'scale', 'prod', 'dbg']) $(el).oninput = frame;
+$('mode').onchange = () => { build(); frame(); };
+let drag = null;
+canvas.onpointerdown = e => drag = { x: e.clientX, y: e.clientY };
+onpointerup = () => drag = null;
+onpointermove = e => { if (!drag) return; cam.x -= (e.clientX - drag.x) / r.scale; cam.y -= (e.clientY - drag.y) / r.scale; drag = { x: e.clientX, y: e.clientY }; frame(); };
+onresize = frame;
+const q = new URLSearchParams(location.search);
+for (const [k, v] of q) { const el = $(k); if (el) el.type === 'checkbox' ? (el.checked = v === '1') : (el.value = v); }
+build(); frame();
+window.ready = true;
+</script>
+</body></html>

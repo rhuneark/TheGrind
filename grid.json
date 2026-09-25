@@ -1,0 +1,6 @@
+{
+  "tileW": 64,
+  "tileH": 32,
+  "scale": 2,
+  "note": "LOCKED. 2:1 dimetric. screenX = (col - row) * tileW/2, screenY = (col + row) * tileH/2. Changing tileW/tileH invalidates every generated sprite."
+}

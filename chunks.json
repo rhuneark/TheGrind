@@ -1,0 +1,114 @@
+{
+  "cellSize": [8, 8],
+  "connectors": {
+    "n": [4, 0],
+    "s": [4, 7],
+    "w": [0, 4],
+    "e": [7, 4]
+  },
+  "templates": [
+    {
+      "id": "district_shops_a",
+      "type": "commercial",
+      "weight": 3,
+      "connectors": {
+        "n": [4, 0],
+        "s": [4, 7],
+        "w": [0, 4],
+        "e": [7, 4]
+      },
+      "ground": [
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_cross", "ground_road_ew", "ground_road_ew", "ground_road_ew"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"]
+      ],
+      "slots": [
+        { "col": 1, "row": 1, "footprint": [2, 2], "category": "shop" },
+        { "col": 5, "row": 1, "footprint": [2, 2], "category": "shop" },
+        { "col": 1, "row": 5, "footprint": [2, 2], "category": "shop" },
+        { "col": 5, "row": 5, "footprint": [2, 2], "category": "shop" }
+      ],
+      "props": [
+        { "col": 0, "row": 0, "sprite": ["prop_tree_round"] },
+        { "col": 3, "row": 2, "sprite": ["prop_tree_round"] },
+        { "col": 7, "row": 0, "sprite": ["prop_tree_round"] },
+        { "col": 0, "row": 7, "sprite": ["prop_tree_round"] },
+        { "col": 3, "row": 6, "sprite": ["prop_tree_round"] },
+        { "col": 7, "row": 6, "sprite": ["prop_tree_round"] }
+      ]
+    },
+    {
+      "id": "district_shops_b",
+      "type": "commercial",
+      "weight": 2,
+      "connectors": {
+        "n": [4, 0],
+        "s": [4, 7],
+        "w": [0, 4],
+        "e": [7, 4]
+      },
+      "ground": [
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_cross", "ground_road_ew", "ground_road_ew", "ground_road_ew"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"],
+        ["ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01", "ground_road_ns", "ground_pavement_01", "ground_pavement_01", "ground_pavement_01"]
+      ],
+      "slots": [
+        { "col": 0, "row": 1, "footprint": [2, 2], "category": "shop" },
+        { "col": 2, "row": 1, "footprint": [2, 2], "category": "shop" },
+        { "col": 5, "row": 5, "footprint": [2, 2], "category": "shop" }
+      ],
+      "props": [
+        { "col": 5, "row": 1, "sprite": ["prop_tree_round"] },
+        { "col": 7, "row": 2, "sprite": ["prop_tree_round"] },
+        { "col": 0, "row": 6, "sprite": ["prop_tree_round"] },
+        { "col": 2, "row": 6, "sprite": ["prop_tree_round"] }
+      ]
+    },
+    {
+      "id": "district_park_a",
+      "type": "park",
+      "weight": 1,
+      "connectors": {
+        "n": [4, 0],
+        "s": [4, 7],
+        "w": [0, 4],
+        "e": [7, 4]
+      },
+      "ground": [
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_ew", "ground_road_cross", "ground_road_ew", "ground_road_ew", "ground_road_ew"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"],
+        ["ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_grass_01", "ground_road_ns", "ground_grass_01", "ground_grass_01", "ground_grass_01"]
+      ],
+      "slots": [],
+      "props": [
+        { "col": 1, "row": 1, "sprite": ["prop_tree_round"] },
+        { "col": 2, "row": 3, "sprite": ["prop_tree_round"] },
+        { "col": 0, "row": 2, "sprite": ["prop_tree_round"] },
+        { "col": 3, "row": 0, "sprite": ["prop_tree_round"] },
+        { "col": 6, "row": 1, "sprite": ["prop_tree_round"] },
+        { "col": 5, "row": 3, "sprite": ["prop_tree_round"] },
+        { "col": 7, "row": 2, "sprite": ["prop_tree_round"] },
+        { "col": 1, "row": 6, "sprite": ["prop_tree_round"] },
+        { "col": 2, "row": 5, "sprite": ["prop_tree_round"] },
+        { "col": 6, "row": 6, "sprite": ["prop_tree_round"] },
+        { "col": 5, "row": 7, "sprite": ["prop_tree_round"] },
+        { "col": 7, "row": 5, "sprite": ["prop_tree_round"] }
+      ]
+    }
+  ]
+}
