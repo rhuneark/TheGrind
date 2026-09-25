@@ -72,7 +72,10 @@ onpointermove = e => { if (!drag) return; cam.x -= (e.clientX - drag.x) / r.scal
 onresize = frame;
 const q = new URLSearchParams(location.search);
 for (const [k, v] of q) { const el = $(k); if (el) el.type === 'checkbox' ? (el.checked = v === '1') : (el.value = v); }
-build(); frame();
+build();
+// Debug: centre the camera on a map cell, e.g. ?mode=map&cell=40,52
+if (q.get('cell')) { const [c, r] = q.get('cell').split(',').map(Number); cam = { x: (c - r) * 32, y: (c + r) * 16 }; }
+frame();
 window.ready = true;
 </script>
 </body></html>

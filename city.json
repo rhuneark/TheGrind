@@ -31,12 +31,15 @@
       "3": 0.15
     },
     "special": {
-      "parking": 0.07,
-      "plaza": 0.04,
+      "parking": 0.05,
+      "plaza": 0.03,
       "pocketPark": 0.04
     },
-    "parkBlockChance": 0.07,
-    "cornerTurnChance": 0.5
+    "parkBlockChance": 0.06,
+    "cornerTurnChance": 0.5,
+    "gapChance": 0.15,
+    "openBackChance": 0.25,
+    "squareBlockChance": 0.04
   },
   "districts": {
     "core": {
@@ -88,6 +91,7 @@
     "lampEvery": 4,
     "hydrantChance": 0.025,
     "trashChance": 0.05,
-    "carChance": 0.55
+    "carChance": 0.7,
+    "carAxis": "row"
   }
 }

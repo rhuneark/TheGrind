@@ -1,22 +1,23 @@
 {
   "id": "prop_trashcan",
-  "endpoint": "/create-image-pixflux",
+  "endpoint": "/create-image-bitforge",
   "isometric": true,
   "no_background": true,
   "outline": "selective outline",
   "shading": "basic shading",
   "detail": "medium detail",
+  "coverage_percentage": 40,
   "description": "isometric pixel art, single object, flat lighting, black metal city trash can",
   "image_size": {
     "width": 32,
     "height": 32
   },
   "color_image": "<palette.json>",
-  "seed": 521926343,
+  "seed": 521926363,
   "usage": {
     "type": "generations",
     "generations": 1
   },
-  "generatedAt": "2026-09-25T06:17:00.450Z",
-  "adoptedFrom": "prop_trashcan:521926343"
+  "generatedAt": "2026-09-25T06:45:20.072Z",
+  "adoptedFrom": "prop_trashcan:521926363"
 }

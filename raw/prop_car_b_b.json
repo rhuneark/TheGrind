@@ -1,22 +1,22 @@
 {
-  "id": "prop_car_c",
+  "id": "prop_car_b_b",
   "endpoint": "/create-image-pixflux",
   "isometric": true,
   "no_background": true,
   "outline": "selective outline",
   "shading": "basic shading",
   "detail": "medium detail",
-  "description": "isometric pixel art, single object, flat lighting, small silver grey sedan car, parked, seen from above at an angle",
+  "description": "isometric pixel art, single object, flat lighting, small white hatchback car, parked, seen from above at an angle",
   "image_size": {
     "width": 48,
     "height": 40
   },
   "color_image": "<palette.json>",
-  "seed": 153494620,
+  "seed": 136717003,
   "usage": {
     "type": "generations",
     "generations": 1
   },
-  "generatedAt": "2026-09-25T06:42:13.809Z",
-  "adoptedFrom": "prop_car_c:153494620"
+  "generatedAt": "2026-09-25T06:41:21.407Z",
+  "adoptedFrom": "prop_car_b:136717003"
 }

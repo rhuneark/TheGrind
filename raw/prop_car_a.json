@@ -6,17 +6,17 @@
   "outline": "selective outline",
   "shading": "basic shading",
   "detail": "medium detail",
-  "description": "isometric pixel art, single object, flat lighting, small dark blue sedan car",
+  "description": "isometric pixel art, single object, flat lighting, small dark blue sedan car, parked, seen from above at an angle",
   "image_size": {
-    "width": 64,
-    "height": 48
+    "width": 48,
+    "height": 40
   },
   "color_image": "<palette.json>",
-  "seed": 187049860,
+  "seed": 187049858,
   "usage": {
     "type": "generations",
     "generations": 1
   },
-  "generatedAt": "2026-09-25T06:17:14.745Z",
-  "adoptedFrom": "prop_car_a:187049860"
+  "generatedAt": "2026-09-25T06:41:04.602Z",
+  "adoptedFrom": "prop_car_a:187049858"
 }

@@ -1,5 +1,5 @@
 {
-  "id": "prop_car_c",
+  "id": "prop_car_c_b",
   "endpoint": "/create-image-pixflux",
   "isometric": true,
   "no_background": true,
@@ -12,11 +12,11 @@
     "height": 40
   },
   "color_image": "<palette.json>",
-  "seed": 153494620,
+  "seed": 153494621,
   "usage": {
     "type": "generations",
     "generations": 1
   },
-  "generatedAt": "2026-09-25T06:42:13.809Z",
-  "adoptedFrom": "prop_car_c:153494620"
+  "generatedAt": "2026-09-25T06:41:42.938Z",
+  "adoptedFrom": "prop_car_c:153494621"
 }

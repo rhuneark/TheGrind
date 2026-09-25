@@ -437,8 +437,8 @@
       "prompt": "black iron street lamp post"
     },
     {
-      "id": "prop_hydrant", "seed": 647022611,
-      "type": "prop",
+      "id": "prop_hydrant", "seed": 647022631,
+      "type": "prop", "endpoint": "/create-image-bitforge", "params": { "coverage_percentage": 40 },
       "size": [32, 32],
       "footprint": [1, 1],
       "prompt": "red fire hydrant"
@@ -451,35 +451,59 @@
       "prompt": "dark green park bench"
     },
     {
-      "id": "prop_trashcan", "seed": 521926343,
-      "type": "prop",
+      "id": "prop_trashcan", "seed": 521926363,
+      "type": "prop", "endpoint": "/create-image-bitforge", "params": { "coverage_percentage": 40 },
       "size": [32, 32],
       "footprint": [1, 1],
       "prompt": "black metal city trash can"
     },
     {
-      "id": "prop_car_a", "seed": 187049860,
-      "type": "prop",
-      "size": [64, 48],
+      "id": "prop_car_a", "seed": 187049858,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
       "footprint": [1, 1],
       "mirror": true,
-      "prompt": "small dark blue sedan car"
+      "prompt": "small dark blue sedan car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_b", "seed": 136717002,
-      "type": "prop",
-      "size": [64, 48],
+      "id": "prop_car_a_b", "seed": 187049860,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
       "footprint": [1, 1],
       "mirror": true,
-      "prompt": "small white hatchback car"
+      "prompt": "small dark blue sedan car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_c", "seed": 153494622,
-      "type": "prop",
-      "size": [64, 48],
+      "id": "prop_car_b", "seed": 136717004,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
       "footprint": [1, 1],
       "mirror": true,
-      "prompt": "small silver grey sedan car"
+      "prompt": "small white hatchback car, parked, seen from above at an angle"
+    },
+    {
+      "id": "prop_car_b_b", "seed": 136717003,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
+      "footprint": [1, 1],
+      "mirror": true,
+      "prompt": "small white hatchback car, parked, seen from above at an angle"
+    },
+    {
+      "id": "prop_car_c", "seed": 153494620,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
+      "footprint": [1, 1],
+      "mirror": true,
+      "prompt": "small silver grey sedan car, parked, seen from above at an angle"
+    },
+    {
+      "id": "prop_car_c_b", "seed": 153494621,
+      "type": "prop", "anchor": "centre",
+      "size": [48, 40],
+      "footprint": [1, 1],
+      "mirror": true,
+      "prompt": "small silver grey sedan car, parked, seen from above at an angle"
     }
   ],
   "rooftops": ["roof_hvac", "roof_watertank"]

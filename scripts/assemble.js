@@ -166,12 +166,32 @@ function chooseBuilding(r, c, maxK, facesAlley) {
 
 const setKind = (r, c, k) => { if (inMap(r, c) && kind[r][c] === null) kind[r][c] = k; };
 
+// A surface car park, laid out like a real one: rows of perpendicular stalls
+// along the lot, a driving aisle between them, every car nosed into its stall
+// on the same axis, centred, one per stall. Back to front the rows go
+// stall / aisle / stall..., so the aisle always opens onto the front sidewalk
+// or has stalls on both sides.
+const carAxis = cfg.props.carAxis || 'col';
+const carsAlongRow = cars.filter(id => id.endsWith('_m') === (carAxis !== 'row'));
+function fillParking(rTop, rFront, c0, c1) {
+  const d = rFront - rTop + 1;
+  const plan = d === 1 ? ['aisle'] : d === 2 ? ['stall', 'aisle'] : Array.from({ length: d }, (_, i) => (i % 3 === 1 ? 'aisle' : 'stall'));
+  plan.forEach((type, i) => {
+    const r = rTop + i;
+    for (let c = c0; c <= c1; c++) {
+      kind[r][c] = type === 'stall' ? 'stall' : 'aisle';
+      if (type === 'stall' && carsAlongRow.length && rand() < cfg.props.carChance) prop(r, c, pick(carsAlongRow));
+    }
+  });
+}
+
 function fillSpecial(type, r0, r1, c0, c1) {
+  if (type === 'parking') return fillParking(r0, r1, c0, c1);
   for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
-    kind[r][c] = type === 'parking' ? 'parking' : type === 'plaza' ? 'plaza' : 'grass';
-    if (type === 'parking' && cars.length && rand() < cfg.props.carChance) prop(r, c, pick(cars));
-    if (type === 'plaza') { const x = rand(); if (x < 0.15) prop(r, c, 'prop_street_tree'); else if (x < 0.25) prop(r, c, 'prop_bench'); else if (x < 0.3) prop(r, c, 'prop_lamp'); }
-    if (type === 'pocketPark') { const x = rand(); if (x < 0.35) prop(r, c, 'prop_park_tree'); else if (x < 0.45) prop(r, c, 'prop_bench'); }
+    kind[r][c] = type === 'plaza' ? 'plaza' : 'grass';
+    const x = rand();
+    if (type === 'plaza') { if (x < 0.15) prop(r, c, 'prop_street_tree'); else if (x < 0.25) prop(r, c, 'prop_bench'); else if (x < 0.3) prop(r, c, 'prop_lamp'); }
+    else { if (x < 0.35) prop(r, c, 'prop_park_tree'); else if (x < 0.45) prop(r, c, 'prop_bench'); }
   }
 }
 
@@ -196,10 +216,20 @@ function fillStrip(rTop, rFront, c0, c1, facesAlley, cornerOnRight) {
     // A corner building may turn to face the side street instead.
     const facing = cornerOnRight && c + b.k - 1 === c1 && !facesAlley && rand() < cfg.lots.cornerTurnChance ? 'right' : 'left';
     place({ objectId: nextId(b.category), col: c, row, footprint: [b.k, b.k], category: b.category, facing });
-    const yard = rand() < 0.25 ? 'grass' : 'yard';
+    const yard = rand() < 0.7 ? 'grass' : 'yard'; // back gardens, mostly
     for (let r = rTop; r < row; r++) for (let cc = c; cc < c + b.k; cc++) kind[r][cc] = yard;
     for (let r = row; r <= rFront; r++) for (let cc = c; cc < c + b.k; cc++) kind[r][cc] = 'lot';
     c += b.k;
+    // Breathing room: now and then a one-tile gap to the next building — a
+    // paved passage or a strip of garden, sometimes with a tree or bench.
+    if (c1 - c + 1 >= 2 && rand() < cfg.lots.gapChance) {
+      const green = rand() < 0.7;
+      for (let r = rTop; r <= rFront; r++) {
+        kind[r][c] = green ? 'grass' : 'plaza';
+        if (r === rFront && rand() < 0.5) prop(r, c, green ? 'prop_park_tree' : 'prop_bench');
+      }
+      c++;
+    }
   }
 }
 
@@ -211,6 +241,15 @@ for (const bl of blocks) {
     if (r < ir0 || r > ir1 || c < ic0 || c > ic1) kind[r][c] = 'sidewalk';
   const W = ic1 - ic0 + 1, H = ir1 - ir0 + 1;
   if (W < 2 || H < 2) { for (let r = ir0; r <= ir1; r++) for (let c = ic0; c <= ic1; c++) kind[r][c] = 'plaza'; continue; }
+  if (rand() < cfg.lots.squareBlockChance) {
+    // A paved city square: trees in a loose grid, benches, lamps.
+    for (let r = ir0; r <= ir1; r++) for (let c = ic0; c <= ic1; c++) {
+      kind[r][c] = 'plaza';
+      if ((r - ir0) % 3 === 1 && (c - ic0) % 3 === 1) prop(r, c, 'prop_street_tree');
+      else if (rand() < 0.06) prop(r, c, pick(['prop_bench', 'prop_lamp']));
+    }
+    continue;
+  }
   if (rand() < cfg.lots.parkBlockChance) {
     for (let r = ir0; r <= ir1; r++) for (let c = ic0; c <= ic1; c++) {
       kind[r][c] = 'grass';
@@ -220,14 +259,17 @@ for (const bl of blocks) {
   }
   // Lot rows from the front (+row street) back: [front strip, alley, back strip],
   // anything left over at the back is a yard.
-  const plan = H <= 3 ? [H] : H === 4 ? [2] : H === 5 ? [2, 'alley', 2] : H === 6 ? (rand() < 0.5 ? [3, 'alley', 2] : [2, 'alley', 3]) : [3, 'alley', 3];
+  const plan = H <= 3 ? [H] : H === 4 ? [2, 'alley', 1] : H === 5 ? [2, 'alley', 2] : H === 6 ? (rand() < 0.5 ? [3, 'alley', 2] : [2, 'alley', 3]) : [3, 'alley', 3];
   let r = ir1, first = true;
   for (const p of plan) {
     if (p === 'alley') { for (let c = ic0; c <= ic1; c++) kind[r][c] = 'alley'; r--; continue; }
-    fillStrip(r - p + 1, r, ic0, ic1, !first, road.right);
+    // The row behind the alley is sometimes left open — a car park or a
+    // shared courtyard — so blocks aren't solid walls of buildings.
+    if (!first && rand() < cfg.lots.openBackChance) fillSpecial(rand() < 0.5 ? 'parking' : 'pocketPark', r - p + 1, r, ic0, ic1);
+    else fillStrip(r - p + 1, r, ic0, ic1, !first, road.right);
     r -= p; first = false;
   }
-  const back = rand() < 0.5 ? 'grass' : 'yard';
+  const back = rand() < 0.75 ? 'grass' : 'yard';
   for (; r >= ir0; r--) for (let c = ic0; c <= ic1; c++) kind[r][c] = back;
 }
 
@@ -247,7 +289,7 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
     if (nearJunction) id = l.axis === 'ns' ? `ground_xwalk_ns_${curb(r, c - 1)}${curb(r, c + 1)}` : `ground_xwalk_ew_${curb(r - 1, c)}${curb(r + 1, c)}`;
     else id = `ground_road_${l.axis}_${LANES[l.w][l.i]}`;
   } else id = {
-    alley: 'ground_road_ew_nn', parking: 'ground_parking_ns', grass: 'ground_grass_01',
+    alley: 'ground_road_ew_nn', stall: 'ground_parking_ns', aisle: 'ground_asphalt', grass: 'ground_grass_01',
   }[k] || 'ground_sidewalk_01';
   if (!atlas.frames[id]) { console.error(`✗ ground sprite ${id} (for ${k} at ${c},${r}) is not in the atlas`); process.exit(1); }
   ground[r][c] = id;
@@ -290,8 +332,17 @@ for (const o of objects) {
 }
 if (blocked) process.exit(1);
 
+// Density: share of block interiors (everything but road and sidewalk)
+// covered by buildings. Downtown should be full but not solid.
+let interior = 0, built = 0;
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  const k = kind[r][c];
+  if (k && k !== 'road' && k !== 'junction' && k !== 'sidewalk') interior++;
+}
+for (const o of objects) if (o.category) built += o.footprint[0] * o.footprint[1];
+
 const map = { tileW: grid.tileW, tileH: grid.tileH, size: { cols, rows }, seed, ground, objects };
 fs.writeFileSync(path.join(ROOT, 'dist', 'map.json'), JSON.stringify(map) + '\n');
 const cats = {};
 for (const o of objects) { const k = o.category || 'prop'; cats[k] = (cats[k] || 0) + 1; }
-console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);
+console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${Math.round(100 * built / interior)}% of block interiors built, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);

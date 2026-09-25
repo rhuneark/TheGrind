@@ -4,97 +4,6 @@
   "tileH": 32,
   "frames": {
     "ground_sidewalk_01": {
-      "x": 662,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_grass_01": {
-      "x": 368,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_cc": {
-      "x": 134,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_cy": {
-      "x": 266,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_yc": {
-      "x": 530,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_cw": {
-      "x": 200,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_wY": {
-      "x": 464,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_Yw": {
       "x": 596,
       "y": 1230,
       "w": 64,
@@ -107,86 +16,8 @@
       ],
       "type": "ground"
     },
-    "ground_road_ns_wc": {
-      "x": 398,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns_nn": {
-      "x": 332,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_xwalk_ns_cn": {
-      "x": 1058,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_xwalk_ns_nc": {
-      "x": 1124,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_xwalk_ns_nn": {
-      "x": 1190,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_xwalk_ns_cc": {
-      "x": 992,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_parking_ns": {
-      "x": 1556,
+    "ground_grass_01": {
+      "x": 302,
       "y": 1180,
       "w": 64,
       "h": 32,
@@ -198,72 +29,7 @@
       ],
       "type": "ground"
     },
-    "ground_road_ew_cc": {
-      "x": 1622,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_cy": {
-      "x": 1754,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_yc": {
-      "x": 2,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_cw": {
-      "x": 1688,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_wY": {
-      "x": 1952,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_Yw": {
+    "ground_road_ns_cc": {
       "x": 68,
       "y": 1230,
       "w": 64,
@@ -276,34 +42,8 @@
       ],
       "type": "ground"
     },
-    "ground_road_ew_wc": {
-      "x": 1886,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew_nn": {
-      "x": 1820,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_xwalk_ew_cn": {
-      "x": 794,
+    "ground_road_ns_cy": {
+      "x": 200,
       "y": 1230,
       "w": 64,
       "h": 32,
@@ -315,8 +55,8 @@
       ],
       "type": "ground"
     },
-    "ground_xwalk_ew_nc": {
-      "x": 860,
+    "ground_road_ns_yc": {
+      "x": 464,
       "y": 1230,
       "w": 64,
       "h": 32,
@@ -328,7 +68,111 @@
       ],
       "type": "ground"
     },
-    "ground_xwalk_ew_nn": {
+    "ground_road_ns_cw": {
+      "x": 134,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_wY": {
+      "x": 398,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_Yw": {
+      "x": 530,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_wc": {
+      "x": 332,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_nn": {
+      "x": 266,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_cn": {
+      "x": 992,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_nc": {
+      "x": 1058,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_nn": {
+      "x": 1124,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_cc": {
       "x": 926,
       "y": 1230,
       "w": 64,
@@ -341,20 +185,7 @@
       ],
       "type": "ground"
     },
-    "ground_xwalk_ew_cc": {
-      "x": 728,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_parking_ew": {
+    "ground_parking_ns": {
       "x": 1490,
       "y": 1180,
       "w": 64,
@@ -367,7 +198,163 @@
       ],
       "type": "ground"
     },
-    "ground_junction_nnnn": {
+    "ground_road_ew_cc": {
+      "x": 1556,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_cy": {
+      "x": 1688,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_yc": {
+      "x": 1952,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_cw": {
+      "x": 1622,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_wY": {
+      "x": 1886,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_Yw": {
+      "x": 2,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_wc": {
+      "x": 1820,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_nn": {
+      "x": 1754,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_cn": {
+      "x": 728,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_nc": {
+      "x": 794,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_nn": {
+      "x": 860,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_cc": {
+      "x": 662,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_parking_ew": {
       "x": 1424,
       "y": 1180,
       "w": 64,
@@ -380,98 +367,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_cnnn": {
-      "x": 896,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_ncnn": {
-      "x": 1160,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_ccnn": {
-      "x": 632,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_nncn": {
-      "x": 1292,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_cncn": {
-      "x": 764,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_nccn": {
-      "x": 1028,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_cccn": {
-      "x": 500,
-      "y": 1180,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_junction_nnnc": {
+    "ground_junction_nnnn": {
       "x": 1358,
       "y": 1180,
       "w": 64,
@@ -484,7 +380,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_cnnc": {
+    "ground_junction_cnnn": {
       "x": 830,
       "y": 1180,
       "w": 64,
@@ -497,7 +393,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_ncnc": {
+    "ground_junction_ncnn": {
       "x": 1094,
       "y": 1180,
       "w": 64,
@@ -510,7 +406,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_ccnc": {
+    "ground_junction_ccnn": {
       "x": 566,
       "y": 1180,
       "w": 64,
@@ -523,7 +419,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_nncc": {
+    "ground_junction_nncn": {
       "x": 1226,
       "y": 1180,
       "w": 64,
@@ -536,7 +432,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_cncc": {
+    "ground_junction_cncn": {
       "x": 698,
       "y": 1180,
       "w": 64,
@@ -549,7 +445,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_nccc": {
+    "ground_junction_nccn": {
       "x": 962,
       "y": 1180,
       "w": 64,
@@ -562,7 +458,7 @@
       ],
       "type": "ground"
     },
-    "ground_junction_cccc": {
+    "ground_junction_cccn": {
       "x": 434,
       "y": 1180,
       "w": 64,
@@ -575,8 +471,112 @@
       ],
       "type": "ground"
     },
+    "ground_junction_nnnc": {
+      "x": 1292,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cnnc": {
+      "x": 764,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ncnc": {
+      "x": 1028,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ccnc": {
+      "x": 500,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nncc": {
+      "x": 1160,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cncc": {
+      "x": 632,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nccc": {
+      "x": 896,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cccc": {
+      "x": 368,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
     "ground_asphalt": {
-      "x": 302,
+      "x": 236,
       "y": 1180,
       "w": 64,
       "h": 32,
@@ -2273,7 +2273,7 @@
       "door": "right"
     },
     "roof_hvac": {
-      "x": 1256,
+      "x": 1586,
       "y": 1230,
       "w": 64,
       "h": 32,
@@ -2287,7 +2287,7 @@
       "attach": "roof"
     },
     "roof_watertank": {
-      "x": 268,
+      "x": 202,
       "y": 1180,
       "w": 32,
       "h": 48,
@@ -2340,11 +2340,11 @@
       "type": "prop"
     },
     "prop_hydrant": {
-      "x": 200,
+      "x": 134,
       "y": 1180,
       "w": 32,
       "h": 48,
-      "anchorX": 17,
+      "anchorX": 16,
       "anchorY": 48,
       "footprint": [
         1,
@@ -2353,7 +2353,7 @@
       "type": "prop"
     },
     "prop_bench": {
-      "x": 1930,
+      "x": 1798,
       "y": 1034,
       "w": 32,
       "h": 48,
@@ -2366,7 +2366,7 @@
       "type": "prop"
     },
     "prop_trashcan": {
-      "x": 234,
+      "x": 168,
       "y": 1180,
       "w": 32,
       "h": 48,
@@ -2379,12 +2379,12 @@
       "type": "prop"
     },
     "prop_car_a": {
-      "x": 1964,
-      "y": 1034,
+      "x": 1190,
+      "y": 1230,
       "w": 64,
-      "h": 48,
-      "anchorX": 23,
-      "anchorY": 48,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
       "footprint": [
         1,
         1
@@ -2392,12 +2392,38 @@
       "type": "prop"
     },
     "prop_car_a_m": {
-      "x": 2,
-      "y": 1180,
+      "x": 1388,
+      "y": 1230,
       "w": 64,
-      "h": 48,
-      "anchorX": 42,
-      "anchorY": 48,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_a_b": {
+      "x": 1256,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_a_b_m": {
+      "x": 1322,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
       "footprint": [
         1,
         1
@@ -2405,12 +2431,12 @@
       "type": "prop"
     },
     "prop_car_b": {
-      "x": 1798,
+      "x": 1832,
       "y": 1034,
-      "w": 64,
-      "h": 64,
-      "anchorX": 26,
-      "anchorY": 64,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 48,
       "footprint": [
         1,
         1
@@ -2418,12 +2444,38 @@
       "type": "prop"
     },
     "prop_car_b_m": {
-      "x": 1864,
+      "x": 1998,
+      "y": 1034,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_b_b": {
+      "x": 1866,
       "y": 1034,
       "w": 64,
-      "h": 64,
-      "anchorX": 40,
-      "anchorY": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_b_b_m": {
+      "x": 1932,
+      "y": 1034,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
       "footprint": [
         1,
         1
@@ -2431,11 +2483,11 @@
       "type": "prop"
     },
     "prop_car_c": {
-      "x": 68,
+      "x": 2,
       "y": 1180,
       "w": 64,
       "h": 48,
-      "anchorX": 29,
+      "anchorX": 32,
       "anchorY": 48,
       "footprint": [
         1,
@@ -2444,12 +2496,38 @@
       "type": "prop"
     },
     "prop_car_c_m": {
-      "x": 134,
+      "x": 68,
       "y": 1180,
       "w": 64,
       "h": 48,
-      "anchorX": 36,
+      "anchorX": 32,
       "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_c_b": {
+      "x": 1454,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 31,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_c_b_m": {
+      "x": 1520,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 31,
       "footprint": [
         1,
         1

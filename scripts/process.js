@@ -175,7 +175,11 @@ function processSprite(asset, img) {
   } else if (asset.type === 'prop') {
     if (b.w > fw) reject(`${b.w}px wide — wider than its ${footprint.join('x')} footprint`);
     // Props stand on the tile centre, which is tileH/2 above the bottom vertex.
-    ax = medianX(img, b.y1, b); ay = by + tileH / 2; extraBottom = tileH / 2;
+    // Posts and trees stand on their lowest point; a vehicle is centred on its
+    // footprint (a 2:1 diamond as wide as the sprite), so it sits mid-stall.
+    ax = asset.anchor === 'centre' ? b.x0 + b.w / 2 : medianX(img, b.y1, b);
+    ay = (asset.anchor === 'centre' ? by - b.w / 4 : by) + tileH / 2;
+    extraBottom = Math.max(0, Math.ceil(ay - by));
   } else reject(`unknown type ${asset.type}`);
 
   // Re-pad: content bottom-aligned (plus any below-content anchor room),

@@ -61,7 +61,9 @@ Every building is mirrored automatically, which swaps its two visible walls. Tha
   - Cross streets are placed per strip, so they jog and form T-junctions.
   - Every block has a 2-tile sidewalk ring, then a row of lots facing the street, a service alley, and a row of lots facing the alley.
   - Buildings share side walls, but **every door faces open ground**: a street sidewalk, the alley, or the side street for corner buildings that turn. The assembler fails the build if any door wall touches another building.
-  - Lots are also parking lots (with cars), plazas and pocket parks, plus the occasional whole-block park.
+  - Lots are also car parks, plazas and pocket parks, plus the occasional whole-block park or paved square.
+  - Car parks are laid out like real ones: rows of perpendicular stalls with white dividers between them, a driving aisle, and every car centred in its stall and pointing the same way (`props.carAxis`).
+  - Breathing room: `lots.gapChance` leaves a one-tile passage or garden between buildings, and `lots.openBackChance` turns the row behind the alley into a courtyard or car park. The assembler prints how much of the block interiors is built on (about a third by default).
   - Districts shift from towers, offices, hotels and civic buildings in the core to retail, shops and residential at the edges.
   - Street trees, lamps, hydrants and bins go only on the curbside row of the sidewalk, and never at corners, so doorways and crosswalks stay clear.
 - **Human check, `contact-sheet.html`.** Shows every atlas sprite at 1× and 3×, grouped by category, with anchors and sockets you can toggle. Also lists rejects and pending seed candidates, each run through the real Stage 3.
