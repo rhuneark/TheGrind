@@ -1,0 +1,22 @@
+{
+  "id": "res_apartments_2x2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, five storey dark red brick apartment building, rows of windows, fire escapes, flat roof",
+  "image_size": {
+    "width": 136,
+    "height": 256
+  },
+  "color_image": "<palette.json>",
+  "seed": 144569796,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:14:36.512Z",
+  "adoptedFrom": "res_apartments_2x2:144569796"
+}

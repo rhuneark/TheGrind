@@ -1,0 +1,22 @@
+{
+  "id": "tower_dark_2x2_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, tall dark grey glass skyscraper with steel frame, flat roof",
+  "image_size": {
+    "width": 200,
+    "height": 400
+  },
+  "color_image": "<palette.json>",
+  "seed": 817921139,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:15:10.754Z",
+  "adoptedFrom": "tower_dark_3x3:817921139"
+}

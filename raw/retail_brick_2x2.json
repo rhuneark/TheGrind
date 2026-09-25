@@ -1,0 +1,22 @@
+{
+  "id": "retail_brick_2x2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, old three storey brick theater with a marquee canopy over the entrance",
+  "image_size": {
+    "width": 136,
+    "height": 208
+  },
+  "color_image": "<palette.json>",
+  "seed": 939210377,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:15:39.438Z",
+  "adoptedFrom": "civic_theater_2x2:939210377"
+}

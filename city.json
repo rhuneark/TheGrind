@@ -1,0 +1,93 @@
+{
+  "note": "Map generator settings (scripts/assemble.js). All distances in tiles.",
+  "size": [
+    80,
+    80
+  ],
+  "seed": 2,
+  "sidewalk": 2,
+  "streets": {
+    "blockLength": [
+      12,
+      20
+    ],
+    "blockDepth": [
+      9,
+      11
+    ],
+    "shallowBlockChance": 0.2,
+    "shallowDepth": [
+      6,
+      7
+    ],
+    "avenueChance": 0.3,
+    "crossAvenues": 1,
+    "partialStreetChance": 0.4
+  },
+  "lots": {
+    "footprint": {
+      "1": 0.35,
+      "2": 0.5,
+      "3": 0.15
+    },
+    "special": {
+      "parking": 0.07,
+      "plaza": 0.04,
+      "pocketPark": 0.04
+    },
+    "parkBlockChance": 0.07,
+    "cornerTurnChance": 0.5
+  },
+  "districts": {
+    "core": {
+      "radius": 0.45,
+      "weights": {
+        "tower": 0.22,
+        "office": 0.24,
+        "hotel": 0.08,
+        "civic": 0.08,
+        "retail": 0.14,
+        "shop": 0.14,
+        "residential": 0.04,
+        "parking": 0.06
+      }
+    },
+    "midtown": {
+      "radius": 0.9,
+      "weights": {
+        "office": 0.14,
+        "retail": 0.24,
+        "shop": 0.2,
+        "residential": 0.26,
+        "civic": 0.05,
+        "hotel": 0.03,
+        "parking": 0.08
+      }
+    },
+    "edge": {
+      "radius": 9,
+      "weights": {
+        "residential": 0.34,
+        "retail": 0.24,
+        "shop": 0.2,
+        "office": 0.1,
+        "civic": 0.03,
+        "parking": 0.09
+      }
+    }
+  },
+  "alleyCategories": [
+    "residential",
+    "office",
+    "parking",
+    "tower",
+    "hotel"
+  ],
+  "props": {
+    "streetTreeEvery": 4,
+    "lampEvery": 4,
+    "hydrantChance": 0.025,
+    "trashChance": 0.05,
+    "carChance": 0.55
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "shop_cafe_2x2_t2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, four storey brick building with a coffee house on the ground floor, apartments above, fire escape, flat roof",
+  "image_size": {
+    "width": 136,
+    "height": 224
+  },
+  "color_image": "<palette.json>",
+  "seed": 305126756,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:11:46.751Z",
+  "adoptedFrom": "shop_cafe_2x2_t2:305126756"
+}

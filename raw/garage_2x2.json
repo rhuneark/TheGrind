@@ -1,0 +1,22 @@
+{
+  "id": "garage_2x2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, four level grey concrete parking garage with open sides and ramps",
+  "image_size": {
+    "width": 136,
+    "height": 192
+  },
+  "color_image": "<palette.json>",
+  "seed": 933370636,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:15:37.608Z",
+  "adoptedFrom": "garage_2x2:933370636"
+}

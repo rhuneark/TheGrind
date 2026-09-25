@@ -46,7 +46,7 @@ if (process.argv[2] === "--refit") { // re-run the fit on existing raw_*.png, no
   fs.mkdirSync(dir, { recursive: true });
   await Promise.all(Array.from({ length: count }, async (_, i) => {
     const res = await post('/create-image-pixflux', {
-      description: `${manifest.defaults.style}, ${refAsset.prompt}`,
+      description: `${manifest.defaults.style}, ${refAsset.prompt}`, // ground: no typeStyle
       image_size: { width: 64, height: 64 },
       isometric: true, no_background: true,
       outline: 'lineless', shading: 'flat shading',

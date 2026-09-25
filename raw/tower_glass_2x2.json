@@ -1,0 +1,22 @@
+{
+  "id": "tower_glass_2x2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, fourteen storey blue glass and steel office tower, flat roof",
+  "image_size": {
+    "width": 136,
+    "height": 384
+  },
+  "color_image": "<palette.json>",
+  "seed": 552917459,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:14:50.774Z",
+  "adoptedFrom": "tower_glass_2x2:552917459"
+}

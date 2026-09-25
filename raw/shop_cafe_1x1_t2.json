@@ -1,0 +1,22 @@
+{
+  "id": "shop_cafe_1x1_t2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, narrow three storey coffee shop, black shopfront with big window, cream stone upper floors",
+  "image_size": {
+    "width": 72,
+    "height": 176
+  },
+  "color_image": "<palette.json>",
+  "seed": 882728717,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:11:26.409Z",
+  "adoptedFrom": "shop_cafe_1x1_t2:882728717"
+}

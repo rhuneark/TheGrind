@@ -1,0 +1,22 @@
+{
+  "id": "prop_bench",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, dark green park bench",
+  "image_size": {
+    "width": 48,
+    "height": 32
+  },
+  "color_image": "<palette.json>",
+  "seed": 192608859,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:17:12.160Z",
+  "adoptedFrom": "prop_bench:192608859"
+}

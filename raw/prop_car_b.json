@@ -1,0 +1,22 @@
+{
+  "id": "prop_car_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, small white hatchback car",
+  "image_size": {
+    "width": 64,
+    "height": 48
+  },
+  "color_image": "<palette.json>",
+  "seed": 136717002,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:17:24.680Z",
+  "adoptedFrom": "prop_car_b:136717002"
+}

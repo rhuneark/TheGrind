@@ -8,7 +8,8 @@
 //   r.draw({ camX, camY, hour });
 //
 // `resolve(objectId)` returns { tier, producing } from the save file. The map
-// only says a building exists; tier never lives in map.json.
+// only says a building exists (category, footprint, and `facing` — which
+// visible wall its door is on); tier never lives in map.json.
 
 export async function loadCity(base = './') {
   const [atlas, map] = await Promise.all(['atlas.json', 'map.json'].map(f => fetch(base + f).then(r => r.json())));
@@ -40,25 +41,49 @@ function skyAt(hour) {
   return { color: `rgb(${a.map((v, k) => Math.round(v + (b[k] - v) * t)).join(',')})`, night: Math.max(0, Math.min(1, h < 12 ? (7 - h) / 2 : (h - 18) / 2)) };
 }
 
-// A glow sheet the same size as the atlas: window-glass pixels recoloured to
-// the glow colour, everything else transparent. Built once, from city.png, in code.
+// A glow sheet the same size as the atlas: window panes recoloured to the
+// glow colour, everything else transparent. Built once, from city.png, in code.
+// A pane is a small, enclosed patch of glass-coloured pixels. Long runs of the
+// same colour are trim or outline, and anything touching the silhouette edge
+// is outline, so neither lights up.
 function buildGlowSheet(image, atlas) {
   const c = document.createElement('canvas');
   c.width = image.width; c.height = image.height;
   const g = c.getContext('2d');
   g.drawImage(image, 0, 0);
-  const px = g.getImageData(0, 0, c.width, c.height), d = px.data;
-  const glass = new Set((atlas.lighting?.glass || []).map(h => h.toLowerCase()));
-  const glow = atlas.lighting?.glow || '#E0C27A';
-  const [gr, gg, gb] = [1, 3, 5].map(k => parseInt(glow.slice(k, k + 2), 16));
-  const inBuilding = new Uint8Array(c.width * c.height);
-  for (const f of Object.values(atlas.frames)) if (f.type === 'building')
-    for (let y = f.y; y < f.y + f.h; y++) inBuilding.fill(1, y * c.width + f.x, y * c.width + f.x + f.w);
-  for (let p = 0; p < inBuilding.length; p++) {
-    const i = p * 4;
-    const hex = '#' + [d[i], d[i + 1], d[i + 2]].map(v => v.toString(16).padStart(2, '0')).join('');
-    if (inBuilding[p] && d[i + 3] && glass.has(hex)) { d[i] = gr; d[i + 1] = gg; d[i + 2] = gb; }
-    else d[i + 3] = 0;
+  const W = c.width, px = g.getImageData(0, 0, W, c.height), d = px.data;
+  const glass = new Set((atlas.lighting?.glass || []).map(h => parseInt(h.slice(1), 16)));
+  const [gr, gg, gb] = [1, 3, 5].map(k => parseInt((atlas.lighting?.glow || '#E8C878').slice(k, k + 2), 16));
+  const isGlass = p => d[p * 4 + 3] && glass.has((d[p * 4] << 16) | (d[p * 4 + 1] << 8) | d[p * 4 + 2]);
+  const lit = new Uint8Array(W * c.height), seen = new Uint8Array(W * c.height);
+  for (const f of Object.values(atlas.frames)) {
+    if (f.type !== 'building') continue;
+    const inside = (x, y) => x >= f.x && y >= f.y && x < f.x + f.w && y < f.y + f.h;
+    // Skip the roof: the top face is a 2:1 diamond centred on the roof socket.
+    const [rx, ry] = f.sockets?.roof || [-1e9, -1e9];
+    const onRoof = (x, y) => Math.abs(x - f.x - rx) / (f.w / 2) + Math.abs(y - f.y - ry) / (f.w / 4) <= 1;
+    for (let y = f.y; y < f.y + f.h; y++) for (let x = f.x; x < f.x + f.w; x++) {
+      const s = y * W + x;
+      if (seen[s] || !isGlass(s) || onRoof(x, y)) continue;
+      // Flood one glass patch, tracking its size, extent and whether it touches the edge.
+      const patch = [s], stack = [s]; seen[s] = 1;
+      let edge = false, x0 = x, x1 = x, y0 = y, y1 = y;
+      while (stack.length) {
+        const p = stack.pop(), px_ = p % W, py = (p / W) | 0;
+        x0 = Math.min(x0, px_); x1 = Math.max(x1, px_); y0 = Math.min(y0, py); y1 = Math.max(y1, py);
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const nx = px_ + dx, ny = py + dy, q = ny * W + nx;
+          if (!inside(nx, ny) || !d[q * 4 + 3]) { edge = true; continue; }
+          if (!seen[q] && isGlass(q)) { seen[q] = 1; stack.push(q); patch.push(q); }
+        }
+      }
+      const pane = !edge && patch.length >= 5 && patch.length <= 60 && x1 - x0 <= 10 && y1 - y0 <= 14;
+      if (pane) for (const p of patch) lit[p] = 1;
+    }
+  }
+  for (let p = 0; p < lit.length; p++) {
+    if (lit[p]) { d[p * 4] = gr; d[p * 4 + 1] = gg; d[p * 4 + 2] = gb; }
+    else d[p * 4 + 3] = 0;
   }
   g.putImageData(px, 0, 0);
   return c;
@@ -82,6 +107,7 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
   }
 
   // Resolve an object to [{ id, x, y }] draw calls: base, then overlays on sockets.
+  const fpKey = f => f.join('x');
   function layersFor(o) {
     if (o.sprite) {
       const f = atlas.frames[o.sprite], b = bottom(o.col, o.row, o.footprint);
@@ -90,11 +116,24 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
     const state = resolve(o.objectId) || {};
     const tiers = atlas.stacks[o.category];
     if (!tiers) return [];
-    const stack = tiers[state.tier] || tiers[Math.max(...Object.keys(tiers).map(Number).filter(t => t <= (state.tier || 1)), 1)] || Object.values(tiers)[0];
-    const ids = stack.map((variants, i) => variants[hash(o.objectId, i) % variants.length]);
-    const base = atlas.frames[ids[0]], b = bottom(o.col, o.row, o.footprint);
+    // Highest tier at or below the saved one that has a base for this footprint.
+    const fits = id => fpKey(atlas.frames[id].footprint) === fpKey(o.footprint);
+    const want = state.tier || 1;
+    const tierKeys = Object.keys(tiers).map(Number).sort((a, b) => b - a);
+    const tier = tierKeys.find(t => t <= want && tiers[t][0].some(fits)) ?? tierKeys.reverse().find(t => tiers[t][0].some(fits));
+    if (tier === undefined) return [];
+    const [baseVariants, ...overlayLayers] = tiers[tier];
+    // Door on the wall the map says faces the street.
+    let bases = baseVariants.filter(id => fits(id) && (!o.facing || atlas.frames[id].door === o.facing));
+    if (!bases.length) bases = baseVariants.filter(fits);
+    const baseId = bases[hash(o.objectId, 0) % bases.length];
+    const base = atlas.frames[baseId], b = bottom(o.col, o.row, o.footprint);
     const bx = b.x - base.anchorX, by = b.y - base.anchorY;
-    return [{ id: ids[0], x: bx, y: by, base: true }, ...ids.slice(1).map(id => {
+    const ids = overlayLayers.map((variants, i) => variants[hash(o.objectId, i + 1) % variants.length]).filter(Boolean);
+    // Flat roofs on 2x2 and up get a piece of rooftop kit (or nothing, 1 in 3).
+    const roofKit = atlas.rooftops || [];
+    if (base.roof === 'flat' && o.footprint[0] >= 2 && roofKit.length && hash(o.objectId, 99) % 3) ids.push(roofKit[hash(o.objectId, 98) % roofKit.length]);
+    return [{ id: baseId, x: bx, y: by, base: true }, ...ids.map(id => {
       const f = atlas.frames[id], [sx, sy] = base.sockets[f.attach];
       return { id, x: bx + sx - f.anchorX, y: by + sy - f.anchorY };
     })];

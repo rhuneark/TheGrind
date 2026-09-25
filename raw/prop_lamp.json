@@ -1,0 +1,22 @@
+{
+  "id": "prop_lamp",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, black iron street lamp post",
+  "image_size": {
+    "width": 32,
+    "height": 80
+  },
+  "color_image": "<palette.json>",
+  "seed": 48730973,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:16:39.905Z",
+  "adoptedFrom": "prop_lamp:48730973"
+}

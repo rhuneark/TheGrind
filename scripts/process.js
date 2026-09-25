@@ -12,6 +12,7 @@ const png = require('../lib/png');
 const palette = require('../lib/palette');
 const grid = require('../lib/grid');
 const { inDiamond, fitTopFace } = require('../lib/ground');
+const roads = require('../lib/roads');
 
 const ROOT = path.join(__dirname, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets.json'), 'utf8'));
@@ -32,6 +33,35 @@ function quantize(img) {
     const [r, g, b] = pal.rgb[palette.nearest(pal.rgb, d.subarray(i, i + 3))];
     d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 255;
   }
+}
+
+// Pixflux only returns a transparent background up to 200x200; bigger
+// canvases come back on a flat or speckled backdrop. Knock it out by flood
+// filling from the border through the colours that dominate the border.
+// Runs after quantize, so "colour" means palette entry.
+function removeBackdrop(img) {
+  const { width: W, height: H } = img, d = img.data;
+  if (d[3] === 0 || d[(W * H - 1) * 4 + 3] === 0) return 0; // already transparent
+  const key = p => (d[p * 4] << 16) | (d[p * 4 + 1] << 8) | d[p * 4 + 2];
+  const border = [];
+  for (let x = 0; x < W; x++) border.push(x, (H - 1) * W + x);
+  for (let y = 0; y < H; y++) border.push(y * W, y * W + W - 1);
+  const hist = new Map();
+  for (const p of border) hist.set(key(p), (hist.get(key(p)) || 0) + 1);
+  const bg = new Set([...hist].filter(([, n]) => n >= border.length * 0.03).map(([k]) => k));
+  const seen = new Uint8Array(W * H), stack = border.filter(p => bg.has(key(p)));
+  let removed = 0;
+  for (const p of stack) seen[p] = 1;
+  while (stack.length) {
+    const p = stack.pop();
+    d.fill(0, p * 4, p * 4 + 4); removed++;
+    const x = p % W, y = (p / W) | 0;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx, ny = y + dy, q = ny * W + nx;
+      if (nx >= 0 && ny >= 0 && nx < W && ny < H && !seen[q] && d[q * 4 + 3] && bg.has(key(q))) { seen[q] = 1; stack.push(q); }
+    }
+  }
+  return removed;
 }
 
 // Background removal leaves stray specks; drop components much smaller than
@@ -98,26 +128,41 @@ function processGround(img) {
 function processSprite(asset, img) {
   const b = bounds(img);
   if (!b) reject('empty after quantize/despeckle');
-  if (b.x0 === 0 || b.x1 === img.width - 1 || b.y0 === 0) reject('content touches the canvas edge — probably cropped');
+  // Touching the top means cut off. Buildings generated at footprint width
+  // legitimately fill the canvas sideways; the front-corner check below
+  // catches the ones that are actually cropped.
+  if (b.y0 === 0) reject('content touches the top of the canvas — probably cropped');
+  if (asset.type !== 'building' && (b.x0 === 0 || b.x1 === img.width - 1)) reject('content touches the canvas edge — probably cropped');
   const footprint = asset.footprint || [1, 1];
   const fw = grid.footprintWidth(footprint);
   const by = b.y1 + 1; // content bottom, in pixel-edge coordinates
   let ax, ay, extraBottom = 0; const sockets = {};
 
   if (asset.type === 'building') {
-    if (b.w > fw + tileW / 4) reject(`${b.w}px wide — overhangs its ${footprint.join('x')} footprint (${fw}px)`);
-    if (b.w < fw * 0.6) reject(`${b.w}px wide — too small for its ${footprint.join('x')} footprint (${fw}px, need ≥60%)`);
+    // Downtown buildings stand shoulder to shoulder, so a base has to fill
+    // most of its lot or the street wall shows gaps.
+    if (b.w > fw + 12) reject(`${b.w}px wide — overhangs its ${footprint.join('x')} footprint (${fw}px)`);
+    if (b.w < fw * 0.78) reject(`${b.w}px wide — too narrow for its ${footprint.join('x')} footprint (${fw}px, need ≥78%)`);
     // The lowest row of an iso box is its front corner: the footprint's bottom vertex.
     ax = medianX(img, b.y1, b); ay = by;
+    // An iso box (or its forecourt plate) comes to a point at the bottom; a
+    // flat front elevation has a full-width bottom edge.
+    let bottomSpan = 0;
+    for (let x = b.x0; x <= b.x1; x++) if (opaque(img, x, b.y1)) bottomSpan++;
+    if (bottomSpan > b.w * 0.4) reject(`bottom edge is ${bottomSpan}px wide — a flat front view, not an isometric building`);
     const expected = b.x0 + b.w * footprint[0] / (footprint[0] + footprint[1]);
     if (Math.abs(ax - expected) > b.w * 0.12) reject(`front corner at x=${ax.toFixed(0)}, expected ≈${expected.toFixed(0)} — not a clean ${footprint.join('x')} iso box`);
-    // Roof socket = centre of the top face. The top of the silhouette's
-    // centre column is the face's back vertex; the centre sits a quarter of
-    // the box width below it. (A chimney right on that column will fool it —
-    // the contact sheet's socket markers are there to catch that.)
-    const cx = (b.x0 + b.x1 + 1) / 2;
-    let yb = b.y0; while (yb < b.y1 && !opaque(img, Math.floor(cx), yb)) yb++;
-    sockets.roof = [cx, yb + b.w / 4];
+    // Roof socket = centre of the top face. Measure the roof, not the whole
+    // silhouette (which includes any forecourt plate): the widest row in the
+    // top third is the roof's left/right vertices, and the face centre sits
+    // level with them.
+    let roofRow = b.y0, roofW = 0, roofX0 = b.x0;
+    for (let y = b.y0; y < b.y0 + b.h / 3; y++) {
+      let x0 = -1, x1 = -1;
+      for (let x = b.x0; x <= b.x1; x++) if (opaque(img, x, y)) { if (x0 < 0) x0 = x; x1 = x; }
+      if (x0 >= 0 && x1 - x0 + 1 > roofW) { roofW = x1 - x0 + 1; roofRow = y; roofX0 = x0; }
+    }
+    sockets.roof = [roofX0 + roofW / 2, roofRow];
     for (const [name, s] of Object.entries(asset.sockets || {})) {
       if (s.wall !== 'right') reject(`socket ${name}: only right-wall sockets are supported`);
       let yR = b.y1; while (yR > b.y0 && !opaque(img, b.x1, yR)) yR--;
@@ -163,53 +208,78 @@ function run(asset, img) {
     img = f;
   }
   quantize(img);
+  if (asset.type !== 'ground') removeBackdrop(img);
   const specks = asset.type === 'ground' ? 0 : despeckle(img);
   const r = asset.type === 'ground' ? processGround(img) : processSprite(asset, img);
   verify(r);
   return { ...r, specks };
 }
 
+// The manifest plus everything derived from it: the procedural road set, and
+// a mirrored copy of every building (flipping swaps the two visible faces, so
+// a door on the left wall becomes a door on the right wall).
+function expandAssets() {
+  const out = [];
+  for (const a of manifest.assets) {
+    if (a.procedural === 'roads') {
+      for (const t of roads.roadSet()) out.push({ id: t.id, type: 'ground', proc: t });
+      continue;
+    }
+    if (a.procedural === 'grass') { out.push({ id: a.id, type: 'ground', proc: { grass: true } }); continue; }
+    out.push({ ...a, door: a.type === 'building' ? a.door || manifest.defaults.door : undefined });
+    if (a.type === 'building' ? a.mirror !== false : a.mirror) {
+      const door = a.type === 'building' ? { left: 'right', right: 'left' }[a.door || manifest.defaults.door] : undefined;
+      out.push({ ...a, id: `${a.id}_m`, door, derive: { from: a.id, flipX: true }, mirrorOf: a.id });
+    }
+  }
+  return out;
+}
+
+// Raw input for an asset, before any processing.
+function source(asset) {
+  if (asset.proc) return asset.proc.grass ? roads.grass() : roads.render(asset.proc);
+  const from = manifest.assets.find(a => a.id === (asset.derive ? asset.derive.from : asset.id));
+  const file = path.join(ROOT, from.source || path.join('raw', `${from.id}.png`));
+  if (!fs.existsSync(file)) reject(`missing ${path.relative(ROOT, file)} — run generate`);
+  const img = png.read(file);
+  if (!from.source && (img.width !== from.size[0] || img.height !== from.size[1]))
+    reject(`raw is ${img.width}x${img.height}, manifest says ${from.size.join('x')}`);
+  return img;
+}
+
 function main() {
   for (const d of [OUT, REJ]) { fs.rmSync(d, { recursive: true, force: true }); fs.mkdirSync(d, { recursive: true }); }
   const report = { processed: [], rejected: [] };
-  // Derived assets read their source's processed output, so do them last.
-  const ordered = [...manifest.assets.filter(a => !a.derive), ...manifest.assets.filter(a => a.derive)];
-  for (const asset of ordered) {
+  let procCount = 0;
+  for (const asset of expandAssets()) {
     const { id } = asset;
     let img;
     try {
-      if (asset.derive) {
-        const src = path.join(OUT, `${asset.derive.from}.png`);
-        if (!fs.existsSync(src)) reject(`source ${asset.derive.from} was not processed`);
-        img = png.read(src);
-      } else {
-        const file = path.join(ROOT, asset.source || path.join('raw', `${id}.png`));
-        if (!fs.existsSync(file)) reject(`missing ${path.relative(ROOT, file)} — run generate`);
-        img = png.read(file);
-        if (!asset.source && (img.width !== asset.size[0] || img.height !== asset.size[1]))
-          reject(`raw is ${img.width}x${img.height}, manifest says ${asset.size.join('x')}`);
-      }
+      img = source(asset);
       const r = run(asset, img);
       png.write(path.join(OUT, `${id}.png`), r.img);
       const meta = {
         id, type: asset.type, w: r.img.width, h: r.img.height, anchorX: r.anchorX, anchorY: r.anchorY,
         footprint: r.footprint, trim: r.trim, sockets: r.sockets, attach: asset.attach,
-        coverage: r.coverage, specksRemoved: r.specks || undefined,
+        category: asset.category, tier: asset.tier, door: asset.door, roof: asset.roof, mirrorOf: asset.mirrorOf,
+        procedural: asset.proc ? true : undefined, coverage: r.coverage, specksRemoved: r.specks || undefined,
       };
       fs.writeFileSync(path.join(OUT, `${id}.json`), JSON.stringify(meta, null, 2) + '\n');
       report.processed.push(id);
-      console.log(`✓ ${id.padEnd(24)} ${r.img.width}x${r.img.height} anchor ${r.anchorX},${r.anchorY}`);
+      if (asset.proc) procCount++;
+      else console.log(`✓ ${id.padEnd(26)} ${r.img.width}x${r.img.height} anchor ${r.anchorX},${r.anchorY}`);
     } catch (e) {
       if (!(e instanceof Reject)) throw e;
       if (img) png.write(path.join(REJ, `${id}.png`), img);
       fs.writeFileSync(path.join(REJ, `${id}.json`), JSON.stringify({ id, reason: e.message }, null, 2) + '\n');
       report.rejected.push({ id, reason: e.message });
-      console.log(`✗ ${id.padEnd(24)} ${e.message}`);
+      console.log(`✗ ${id.padEnd(26)} ${e.message}`);
     }
   }
   fs.writeFileSync(path.join(OUT, '_report.json'), JSON.stringify(report, null, 2) + '\n');
+  console.log(`✓ ${procCount} procedural ground tiles (roads, grass)`);
   console.log(`\n${report.processed.length} processed, ${report.rejected.length} rejected`);
 }
 
 if (require.main === module) main();
-module.exports = { run, Reject };
+module.exports = { run, Reject, expandAssets };

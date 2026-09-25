@@ -1,0 +1,22 @@
+{
+  "id": "prop_car_a",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, small dark blue sedan car",
+  "image_size": {
+    "width": 64,
+    "height": 48
+  },
+  "color_image": "<palette.json>",
+  "seed": 187049860,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:17:14.745Z",
+  "adoptedFrom": "prop_car_a:187049860"
+}

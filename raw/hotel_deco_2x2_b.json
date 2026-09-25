@@ -1,0 +1,22 @@
+{
+  "id": "hotel_deco_2x2_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, ten storey art deco hotel, cream stone with vertical bands, canopy over the entrance",
+  "image_size": {
+    "width": 136,
+    "height": 336
+  },
+  "color_image": "<palette.json>",
+  "seed": 598272726,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:15:11.438Z",
+  "adoptedFrom": "hotel_deco_2x2:598272726"
+}

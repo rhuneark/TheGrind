@@ -1,0 +1,22 @@
+{
+  "id": "retail_bakery_1x1",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, narrow two storey bakery, navy blue shopfront with display window, pale stone upper floor",
+  "image_size": {
+    "width": 72,
+    "height": 144
+  },
+  "color_image": "<palette.json>",
+  "seed": 504560407,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:12:51.901Z",
+  "adoptedFrom": "retail_bakery_1x1:504560407"
+}

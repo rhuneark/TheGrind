@@ -7,10 +7,13 @@
 //   node scripts/generate.js --only a,b      # just these ids
 //   node scripts/generate.js --force         # regenerate even if raw exists
 //   node scripts/generate.js --dry-run       # print requests, spend nothing
-//   node scripts/generate.js --only a --candidates 6
-//        # try 6 seeds into candidates/<id>/ instead of raw/ (see contact sheet)
+//   node scripts/generate.js --only a --candidates 6 [--seed-offset 10]
+//        # try 6 seeds into candidates/<id>/ instead of raw/ (see contact sheet);
+//        # the offset moves on to fresh seeds after a batch with no keeper
 //   node scripts/generate.js --adopt a:1234  # pin seed 1234 in assets.json and
 //        # move that candidate into raw/ (it *is* what the pinned request returns)
+//   node scripts/generate.js --adopt a:1235:a_b  # keep another candidate as a
+//        # new variant entry a_b (same request, its own pinned seed)
 const fs = require('fs');
 const path = require('path');
 const palette = require('../lib/palette');
@@ -21,7 +24,8 @@ const args = process.argv.slice(2);
 const flag = f => args.includes(f);
 const only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',') : [];
 const nCandidates = args.includes('--candidates') ? +args[args.indexOf('--candidates') + 1] : 0;
-const CONCURRENCY = 4;
+const seedOffset = args.includes('--seed-offset') ? +args[args.indexOf('--seed-offset') + 1] : 0;
+const CONCURRENCY = +process.env.CONCURRENCY || 4;
 
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets.json'), 'utf8'));
 const D = manifest.defaults;
@@ -31,12 +35,15 @@ const colorImage = b64(palette.swatchPng(pal));
 function request(asset) {
   const body = {
     ...D.params,
+    ...D.typeParams?.[asset.type],
     ...asset.params,
-    description: `${D.style}, ${asset.prompt}`,
+    description: [D.style, D.typeStyle?.[asset.type], asset.prompt].filter(Boolean).join(', '),
     image_size: { width: asset.size[0], height: asset.size[1] },
     color_image: colorImage,
     seed: asset.seed ?? hashSeed(asset.id),
   };
+  // A null in the manifest removes an inherited default (pixflux has no coverage_percentage).
+  for (const k of Object.keys(body)) if (body[k] === null) delete body[k];
   if (asset.init === 'reference') {
     const ref = path.join(ROOT, manifest.reference);
     if (!fs.existsSync(ref)) throw new Error(`${asset.id} conditions on ${manifest.reference}, which doesn't exist yet — run make-reference first`);
@@ -54,34 +61,46 @@ function hashSeed(s) {
 }
 
 function adopt(spec) {
-  const [id, seedStr] = spec.split(':');
+  const [id, seedStr, newId] = spec.split(':');
   const seed = +seedStr, dir = path.join(ROOT, 'candidates', id);
   const src = path.join(dir, `seed_${seed}.png`);
   if (!fs.existsSync(src)) throw new Error(`no candidate ${path.relative(ROOT, src)}`);
-  // Pin the seed with a targeted edit so the manifest's formatting survives.
   const file = path.join(ROOT, 'assets.json');
   let text = fs.readFileSync(file, 'utf8');
   const at = text.indexOf(`"id": "${id}",`);
   if (at < 0) throw new Error(`${id} not found in assets.json`);
-  const end = text.indexOf('}', at);
-  const entry = text.slice(at, end).replace(/ "seed": \d+,/, '').replace(`"id": "${id}",`, `"id": "${id}", "seed": ${seed},`);
-  text = text.slice(0, at) + entry + text.slice(end);
+  // An asset entry is one {...} object; find its extent by brace depth.
+  const start = text.lastIndexOf('{', at);
+  let depth = 0, end = start;
+  for (; end < text.length; end++) { if (text[end] === '{') depth++; if (text[end] === '}' && --depth === 0) break; }
+  end++;
+  const target = newId || id;
+  // Pin the seed with a text edit so the manifest's formatting survives.
+  const entry = text.slice(start, end).replace(/ "seed": \d+,/, '').replace(`"id": "${id}",`, `"id": "${target}", "seed": ${seed},`);
+  if (newId) {
+    // A second keeper from the same candidates: a new variant entry right after the original.
+    if (text.includes(`"id": "${newId}",`)) throw new Error(`${newId} already exists`);
+    text = text.slice(0, end) + ',\n    ' + entry + text.slice(end);
+  } else {
+    text = text.slice(0, start) + entry + text.slice(end);
+  }
   JSON.parse(text);
   fs.writeFileSync(file, text);
   fs.mkdirSync(path.join(ROOT, 'raw'), { recursive: true });
-  fs.copyFileSync(src, path.join(ROOT, 'raw', `${id}.png`));
-  fs.copyFileSync(src.replace(/\.png$/, '.json'), path.join(ROOT, 'raw', `${id}.json`));
-  console.log(`adopted ${id} seed ${seed}`);
+  fs.copyFileSync(src, path.join(ROOT, 'raw', `${target}.png`));
+  const meta = JSON.parse(fs.readFileSync(src.replace(/\.png$/, '.json'), 'utf8'));
+  fs.writeFileSync(path.join(ROOT, 'raw', `${target}.json`), JSON.stringify({ ...meta, id: target, adoptedFrom: `${id}:${seed}` }, null, 2) + '\n');
+  console.log(`adopted ${id} seed ${seed}${newId ? ` as ${newId}` : ''}`);
 }
 
 async function main() {
-  if (args.includes('--adopt')) return adopt(args[args.indexOf('--adopt') + 1]);
+  if (args.includes('--adopt')) return args.slice(args.indexOf('--adopt') + 1).filter(a => !a.startsWith('--')).forEach(adopt);
   if (nCandidates && !only.length) throw new Error('--candidates needs --only');
   let todo = manifest.assets.filter(a =>
-    !a.derive && !a.source && (!only.length || only.includes(a.id)) &&
+    !a.derive && !a.source && !a.procedural && (!only.length || only.includes(a.id)) &&
     (nCandidates || flag('--force') || !fs.existsSync(path.join(ROOT, 'raw', `${a.id}.png`))));
   // Each candidate is the manifest request with only the seed changed.
-  if (nCandidates) todo = todo.flatMap(a => Array.from({ length: nCandidates }, (_, i) => ({ ...a, seed: hashSeed(a.id) + i + 1, candidate: true })));
+  if (nCandidates) todo = todo.flatMap(a => Array.from({ length: nCandidates }, (_, i) => ({ ...a, seed: hashSeed(a.id) + seedOffset + i + 1, candidate: true })));
 
   if (!todo.length) return console.log('nothing to generate (use --force to regenerate)');
 

@@ -1,0 +1,22 @@
+{
+  "id": "prop_park_tree",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, large leafy park tree with full round green canopy",
+  "image_size": {
+    "width": 64,
+    "height": 96
+  },
+  "color_image": "<palette.json>",
+  "seed": 90860529,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:16:32.896Z",
+  "adoptedFrom": "prop_park_tree:90860529"
+}

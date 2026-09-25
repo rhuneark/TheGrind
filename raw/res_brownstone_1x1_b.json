@@ -1,0 +1,22 @@
+{
+  "id": "res_brownstone_1x1_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, narrow four storey brown stone row house with stoop steps up to the front door and a cornice, seen from the corner",
+  "image_size": {
+    "width": 72,
+    "height": 192
+  },
+  "color_image": "<palette.json>",
+  "seed": 442372263,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:21:59.085Z",
+  "adoptedFrom": "res_brownstone_1x1:442372263"
+}

@@ -10,9 +10,10 @@ const ROOT = path.join(__dirname, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets.json'), 'utf8'));
 const PROC = path.join(ROOT, 'processed'), DIST = path.join(ROOT, 'dist');
 const PAD = 2;
-const ATLAS_W = 512;
+const ATLAS_W = 2048;
 
-const sprites = manifest.assets
+const { expandAssets } = require('./process');
+const sprites = expandAssets()
   .filter(a => fs.existsSync(path.join(PROC, `${a.id}.json`)))
   .map(a => ({ meta: JSON.parse(fs.readFileSync(path.join(PROC, `${a.id}.json`), 'utf8')), img: png.read(path.join(PROC, `${a.id}.png`)) }));
 
@@ -36,23 +37,32 @@ for (const s of sprites) { // manifest order in the JSON, packed order in the im
     x: s.x, y: s.y, w: m.w, h: m.h, anchorX: m.anchorX, anchorY: m.anchorY,
     footprint: m.footprint, type: m.type,
     ...(m.sockets && { sockets: m.sockets }), ...(m.attach && { attach: m.attach }),
+    ...(m.category && { category: m.category, tier: m.tier }), ...(m.door && { door: m.door }), ...(m.roof && { roof: m.roof }),
   };
 }
 
-// Tier → layer stacks. Art data, so it ships with the atlas; tier itself
-// lives in RUN's save file. Variants that didn't make it through Stage 3 are
-// dropped; a layer with no surviving variants drops its whole tier.
+// Tier → layer stacks, built from the category/tier tags on each building.
+// Art data, so it ships with the atlas; tier itself lives in RUN's save file.
+// Layer 0 lists every base for that category and tier — all footprints and
+// both door sides. RUN picks the ones matching the object's footprint and
+// facing, then one of those by hashing the objectId.
 const stacks = {}, problems = [];
-for (const [category, tiers] of Object.entries(manifest.stacks || {})) {
-  for (const [tier, layers] of Object.entries(tiers)) {
-    const kept = layers.map(vs => vs.filter(id => frames[id]));
-    const missing = layers.flat().filter(id => !frames[id]);
-    if (missing.length) problems.push(`${category} tier ${tier}: missing ${missing.join(', ')}`);
-    if (kept.some(vs => !vs.length)) { problems.push(`${category} tier ${tier}: dropped (a layer has no sprites)`); continue; }
-    const bad = kept.slice(1).flat().filter(id => !frames[kept[0][0]].sockets?.[frames[id].attach]);
-    if (bad.length) { problems.push(`${category} tier ${tier}: base has no socket for ${bad.join(', ')}`); continue; }
-    (stacks[category] ||= {})[tier] = kept;
-  }
+for (const [id, f] of Object.entries(frames)) {
+  if (f.type !== 'building') continue;
+  const t = ((stacks[f.category] ||= {})[f.tier] ||= [[]]);
+  t[0].push(id);
+}
+// Rooftop overlays go on flat-roofed bases of 2x2 and up, at the roof socket.
+const rooftops = (manifest.rooftops || []).filter(id => frames[id]);
+const missingRoof = (manifest.rooftops || []).filter(id => !frames[id]);
+if (missingRoof.length) problems.push(`rooftops missing: ${missingRoof.join(', ')}`);
+
+// Coverage report: which footprints each category can fill, per door side.
+for (const [cat, tiers] of Object.entries(stacks)) for (const [tier, [bases]] of Object.entries(tiers)) {
+  const have = new Set(bases.map(id => `${frames[id].footprint.join('x')}/${frames[id].door}`));
+  const fps = new Set(bases.map(id => frames[id].footprint.join('x')));
+  for (const fp of fps) for (const door of ['left', 'right'])
+    if (!have.has(`${fp}/${door}`)) problems.push(`${cat} tier ${tier}: no ${fp} base with a ${door} door`);
 }
 
 fs.mkdirSync(DIST, { recursive: true });
@@ -60,7 +70,7 @@ png.write(path.join(DIST, 'city.png'), atlasImg);
 // Which palette colours are window glass, so RUN can light them in code.
 const pal = JSON.parse(fs.readFileSync(path.join(ROOT, manifest.defaults.palette), 'utf8'));
 const lighting = { glass: pal.glass || [], glow: pal.glow };
-const atlas = { image: 'city.png', tileW: grid.tileW, tileH: grid.tileH, frames, stacks, lighting };
+const atlas = { image: 'city.png', tileW: grid.tileW, tileH: grid.tileH, frames, stacks, rooftops, lighting };
 fs.writeFileSync(path.join(DIST, 'atlas.json'), JSON.stringify(atlas, null, 2) + '\n');
 console.log(`packed ${sprites.length} sprites into ${ATLAS_W}x${H}`);
 for (const p of problems) console.log(`  ! ${p}`);

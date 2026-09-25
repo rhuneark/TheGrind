@@ -3,48 +3,9 @@
   "tileW": 64,
   "tileH": 32,
   "frames": {
-    "ground_pavement_01": {
-      "x": 398,
-      "y": 2,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ns": {
-      "x": 134,
-      "y": 148,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_ew": {
-      "x": 68,
-      "y": 148,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "ground"
-    },
-    "ground_road_cross": {
-      "x": 2,
-      "y": 148,
+    "ground_sidewalk_01": {
+      "x": 662,
+      "y": 1230,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -56,8 +17,8 @@
       "type": "ground"
     },
     "ground_grass_01": {
-      "x": 332,
-      "y": 2,
+      "x": 368,
+      "y": 1180,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -68,13 +29,726 @@
       ],
       "type": "ground"
     },
-    "bldg_base_brick_t1": {
-      "x": 100,
-      "y": 2,
+    "ground_road_ns_cc": {
+      "x": 134,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_cy": {
+      "x": 266,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_yc": {
+      "x": 530,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_cw": {
+      "x": 200,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_wY": {
+      "x": 464,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_Yw": {
+      "x": 596,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_wc": {
+      "x": 398,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ns_nn": {
+      "x": 332,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_cn": {
+      "x": 1058,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_nc": {
+      "x": 1124,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_nn": {
+      "x": 1190,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ns_cc": {
+      "x": 992,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_parking_ns": {
+      "x": 1556,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_cc": {
+      "x": 1622,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_cy": {
+      "x": 1754,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_yc": {
+      "x": 2,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_cw": {
+      "x": 1688,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_wY": {
+      "x": 1952,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_Yw": {
+      "x": 68,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_wc": {
+      "x": 1886,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_road_ew_nn": {
+      "x": 1820,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_cn": {
+      "x": 794,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_nc": {
+      "x": 860,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_nn": {
+      "x": 926,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_xwalk_ew_cc": {
+      "x": 728,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_parking_ew": {
+      "x": 1490,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nnnn": {
+      "x": 1424,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cnnn": {
+      "x": 896,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ncnn": {
+      "x": 1160,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ccnn": {
+      "x": 632,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nncn": {
+      "x": 1292,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cncn": {
+      "x": 764,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nccn": {
+      "x": 1028,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cccn": {
+      "x": 500,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nnnc": {
+      "x": 1358,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cnnc": {
+      "x": 830,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ncnc": {
+      "x": 1094,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_ccnc": {
+      "x": 566,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nncc": {
+      "x": 1226,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cncc": {
+      "x": 698,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_nccc": {
+      "x": 962,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_junction_cccc": {
+      "x": 434,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "ground_asphalt": {
+      "x": 302,
+      "y": 1180,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 32,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "ground"
+    },
+    "shop_cafe_1x1": {
+      "x": 850,
+      "y": 1034,
       "w": 96,
       "h": 112,
-      "anchorX": 40,
+      "anchorX": 49,
       "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          23
+        ]
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "left"
+    },
+    "shop_cafe_1x1_m": {
+      "x": 1144,
+      "y": 1034,
+      "w": 96,
+      "h": 112,
+      "anchorX": 49,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          23
+        ]
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "right"
+    },
+    "shop_cafe_1x1_b": {
+      "x": 948,
+      "y": 1034,
+      "w": 96,
+      "h": 112,
+      "anchorX": 49,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          18
+        ]
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "left"
+    },
+    "shop_cafe_1x1_b_m": {
+      "x": 1046,
+      "y": 1034,
+      "w": 96,
+      "h": 112,
+      "anchorX": 49,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          18
+        ]
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "right"
+    },
+    "shop_cafe_1x1_t2": {
+      "x": 980,
+      "y": 856,
+      "w": 96,
+      "h": 160,
+      "anchorX": 49,
+      "anchorY": 160,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          20
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "left"
+    },
+    "shop_cafe_1x1_t2_b": {
+      "x": 1078,
+      "y": 856,
+      "w": 64,
+      "h": 160,
+      "anchorX": 33,
+      "anchorY": 160,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          28
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "left"
+    },
+    "shop_cafe_1x1_t2_b_m": {
+      "x": 1144,
+      "y": 856,
+      "w": 64,
+      "h": 160,
+      "anchorX": 33,
+      "anchorY": 160,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          28
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "right"
+    },
+    "shop_cafe_2x2": {
+      "x": 1210,
+      "y": 856,
+      "w": 160,
+      "h": 160,
+      "anchorX": 80,
+      "anchorY": 160,
       "footprint": [
         2,
         2
@@ -82,21 +756,1264 @@
       "type": "building",
       "sockets": {
         "roof": [
-          48,
-          33
-        ],
-        "awning": [
-          65,
-          70
+          80,
+          34
         ]
-      }
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
     },
-    "bldg_base_brick_t2": {
+    "shop_cafe_2x2_m": {
+      "x": 1372,
+      "y": 856,
+      "w": 160,
+      "h": 160,
+      "anchorX": 81,
+      "anchorY": 160,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          34
+        ]
+      },
+      "category": "shop",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t2": {
+      "x": 1754,
+      "y": 372,
+      "w": 160,
+      "h": 224,
+      "anchorX": 78,
+      "anchorY": 224,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          78,
+          35
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "left",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t2_m": {
+      "x": 2,
+      "y": 630,
+      "w": 160,
+      "h": 224,
+      "anchorX": 82,
+      "anchorY": 224,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          82,
+          35
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "right",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t2_b": {
+      "x": 748,
+      "y": 630,
+      "w": 128,
+      "h": 208,
+      "anchorX": 64,
+      "anchorY": 208,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          38
+        ]
+      },
+      "category": "shop",
+      "tier": 2,
+      "door": "left",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t3": {
+      "x": 2,
+      "y": 372,
+      "w": 128,
+      "h": 256,
+      "anchorX": 65,
+      "anchorY": 256,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          38
+        ]
+      },
+      "category": "shop",
+      "tier": 3,
+      "door": "left",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t3_m": {
+      "x": 132,
+      "y": 372,
+      "w": 128,
+      "h": 256,
+      "anchorX": 65,
+      "anchorY": 256,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          38
+        ]
+      },
+      "category": "shop",
+      "tier": 3,
+      "door": "right",
+      "roof": "flat"
+    },
+    "shop_cafe_2x2_t3_b": {
+      "x": 1886,
+      "y": 2,
+      "w": 160,
+      "h": 272,
+      "anchorX": 86,
+      "anchorY": 272,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          62
+        ]
+      },
+      "category": "shop",
+      "tier": 3,
+      "door": "left",
+      "roof": "flat"
+    },
+    "retail_bakery_1x1": {
+      "x": 1342,
+      "y": 1034,
+      "w": 96,
+      "h": 96,
+      "anchorX": 48,
+      "anchorY": 96,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          47,
+          26
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_bakery_1x1_m": {
+      "x": 1440,
+      "y": 1034,
+      "w": 96,
+      "h": 96,
+      "anchorX": 49,
+      "anchorY": 96,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          49,
+          26
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_books_1x1": {
+      "x": 392,
+      "y": 856,
+      "w": 96,
+      "h": 176,
+      "anchorX": 53,
+      "anchorY": 176,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          45,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_books_1x1_m": {
+      "x": 490,
+      "y": 856,
+      "w": 96,
+      "h": 176,
+      "anchorX": 44,
+      "anchorY": 176,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          50,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_deli_1x1": {
+      "x": 654,
+      "y": 1034,
+      "w": 96,
+      "h": 112,
+      "anchorX": 49,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          24
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_deli_1x1_m": {
+      "x": 752,
+      "y": 1034,
+      "w": 96,
+      "h": 112,
+      "anchorX": 48,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          24
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_deli_1x1_b": {
+      "x": 392,
+      "y": 1034,
+      "w": 96,
+      "h": 128,
+      "anchorX": 50,
+      "anchorY": 128,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          49,
+          28
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_deli_1x1_b_m": {
+      "x": 490,
+      "y": 1034,
+      "w": 96,
+      "h": 128,
+      "anchorX": 46,
+      "anchorY": 128,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          46,
+          28
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_diner_2x2": {
+      "x": 1538,
+      "y": 1034,
+      "w": 128,
+      "h": 80,
+      "anchorX": 63,
+      "anchorY": 80,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          22
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_diner_2x2_m": {
+      "x": 1668,
+      "y": 1034,
+      "w": 128,
+      "h": 80,
+      "anchorX": 66,
+      "anchorY": 80,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          65,
+          22
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_dept_2x2": {
+      "x": 424,
+      "y": 630,
+      "w": 160,
+      "h": 208,
+      "anchorX": 81,
+      "anchorY": 208,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "retail_dept_2x2_m": {
+      "x": 586,
+      "y": 630,
+      "w": 160,
+      "h": 208,
+      "anchorX": 81,
+      "anchorY": 208,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "retail_dept_2x2_b": {
+      "x": 588,
+      "y": 856,
+      "w": 128,
+      "h": 176,
+      "anchorX": 63,
+      "anchorY": 176,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          49
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "retail_dept_2x2_b_m": {
+      "x": 718,
+      "y": 856,
+      "w": 128,
+      "h": 176,
+      "anchorX": 66,
+      "anchorY": 176,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          49
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "res_brownstone_1x1": {
+      "x": 196,
+      "y": 856,
+      "w": 96,
+      "h": 176,
+      "anchorX": 48,
+      "anchorY": 176,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          31
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left"
+    },
+    "res_brownstone_1x1_m": {
+      "x": 294,
+      "y": 856,
+      "w": 96,
+      "h": 176,
+      "anchorX": 48,
+      "anchorY": 176,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          31
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right"
+    },
+    "res_brownstone_1x1_b": {
+      "x": 878,
+      "y": 630,
+      "w": 96,
+      "h": 192,
+      "anchorX": 49,
+      "anchorY": 192,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          22
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left"
+    },
+    "res_brownstone_1x1_b_m": {
+      "x": 976,
+      "y": 630,
+      "w": 96,
+      "h": 192,
+      "anchorX": 49,
+      "anchorY": 192,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          48,
+          22
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right"
+    },
+    "res_walkup_1x1": {
+      "x": 1074,
+      "y": 630,
+      "w": 64,
+      "h": 192,
+      "anchorX": 37,
+      "anchorY": 192,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          28
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left"
+    },
+    "res_walkup_1x1_m": {
+      "x": 1140,
+      "y": 630,
+      "w": 64,
+      "h": 192,
+      "anchorX": 29,
+      "anchorY": 192,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          28
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right"
+    },
+    "res_walkup_1x1_b": {
+      "x": 848,
+      "y": 856,
+      "w": 64,
+      "h": 160,
+      "anchorX": 33,
+      "anchorY": 160,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          21
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left"
+    },
+    "res_walkup_1x1_b_m": {
+      "x": 914,
+      "y": 856,
+      "w": 64,
+      "h": 160,
+      "anchorX": 33,
+      "anchorY": 160,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          32,
+          21
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right"
+    },
+    "res_apartments_2x2": {
+      "x": 522,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 65,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          39
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "res_apartments_2x2_m": {
+      "x": 912,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 64,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          39
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "res_apartments_2x2_c": {
+      "x": 164,
+      "y": 630,
+      "w": 128,
+      "h": 208,
+      "anchorX": 67,
+      "anchorY": 208,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          28
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "res_apartments_2x2_c_m": {
+      "x": 294,
+      "y": 630,
+      "w": 128,
+      "h": 208,
+      "anchorX": 63,
+      "anchorY": 208,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          28
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "res_apartments_2x2_b": {
+      "x": 652,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 65,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          27
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "res_apartments_2x2_b_m": {
+      "x": 782,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 63,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          27
+        ]
+      },
+      "category": "residential",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "office_mid_2x2": {
+      "x": 1626,
+      "y": 2,
+      "w": 128,
+      "h": 288,
+      "anchorX": 64,
+      "anchorY": 288,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          74
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "office_mid_2x2_m": {
+      "x": 1756,
+      "y": 2,
+      "w": 128,
+      "h": 288,
+      "anchorX": 65,
+      "anchorY": 288,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          74
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "office_mid_2x2_b": {
+      "x": 262,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 65,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          40
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "office_mid_2x2_b_m": {
+      "x": 392,
+      "y": 372,
+      "w": 128,
+      "h": 240,
+      "anchorX": 64,
+      "anchorY": 240,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          40
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "office_warehouse_3x3": {
+      "x": 1042,
+      "y": 372,
+      "w": 160,
+      "h": 224,
+      "anchorX": 81,
+      "anchorY": 224,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          40
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "office_warehouse_3x3_m": {
+      "x": 1592,
+      "y": 372,
+      "w": 160,
+      "h": 224,
+      "anchorX": 81,
+      "anchorY": 224,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          40
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "office_warehouse_3x3_b": {
+      "x": 1204,
+      "y": 372,
+      "w": 192,
+      "h": 224,
+      "anchorX": 97,
+      "anchorY": 224,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          96,
+          46
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "office_warehouse_3x3_b_m": {
+      "x": 1398,
+      "y": 372,
+      "w": 192,
+      "h": 224,
+      "anchorX": 97,
+      "anchorY": 224,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          96,
+          46
+        ]
+      },
+      "category": "office",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "tower_glass_2x2": {
       "x": 2,
       "y": 2,
-      "w": 96,
+      "w": 128,
+      "h": 368,
+      "anchorX": 65,
+      "anchorY": 368,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          31
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "tower_glass_2x2_m": {
+      "x": 392,
+      "y": 2,
+      "w": 128,
+      "h": 368,
+      "anchorX": 65,
+      "anchorY": 368,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          31
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "tower_glass_2x2_b": {
+      "x": 132,
+      "y": 2,
+      "w": 128,
+      "h": 368,
+      "anchorX": 65,
+      "anchorY": 368,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          31
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "tower_glass_2x2_b_m": {
+      "x": 262,
+      "y": 2,
+      "w": 128,
+      "h": 368,
+      "anchorX": 65,
+      "anchorY": 368,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          31
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "tower_dark_2x2_b": {
+      "x": 684,
+      "y": 2,
+      "w": 128,
+      "h": 352,
+      "anchorX": 68,
+      "anchorY": 352,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          65,
+          35
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "tower_dark_2x2_b_m": {
+      "x": 814,
+      "y": 2,
+      "w": 128,
+      "h": 352,
+      "anchorX": 63,
+      "anchorY": 352,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          35
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "tower_dark_2x2": {
+      "x": 522,
+      "y": 2,
+      "w": 160,
+      "h": 352,
+      "anchorX": 81,
+      "anchorY": 352,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          39
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "left",
+      "roof": "flat"
+    },
+    "tower_dark_2x2_m": {
+      "x": 944,
+      "y": 2,
+      "w": 160,
+      "h": 352,
+      "anchorX": 81,
+      "anchorY": 352,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          39
+        ]
+      },
+      "category": "tower",
+      "tier": 1,
+      "door": "right",
+      "roof": "flat"
+    },
+    "hotel_deco_2x2": {
+      "x": 1106,
+      "y": 2,
+      "w": 128,
+      "h": 320,
+      "anchorX": 55,
+      "anchorY": 320,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          70,
+          59
+        ]
+      },
+      "category": "hotel",
+      "tier": 1,
+      "door": "left"
+    },
+    "hotel_deco_2x2_m": {
+      "x": 1496,
+      "y": 2,
+      "w": 128,
+      "h": 320,
+      "anchorX": 74,
+      "anchorY": 320,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          57,
+          59
+        ]
+      },
+      "category": "hotel",
+      "tier": 1,
+      "door": "right"
+    },
+    "hotel_deco_2x2_b": {
+      "x": 1236,
+      "y": 2,
+      "w": 128,
+      "h": 320,
+      "anchorX": 65,
+      "anchorY": 320,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          49
+        ]
+      },
+      "category": "hotel",
+      "tier": 1,
+      "door": "left"
+    },
+    "hotel_deco_2x2_b_m": {
+      "x": 1366,
+      "y": 2,
+      "w": 128,
+      "h": 320,
+      "anchorX": 64,
+      "anchorY": 320,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          49
+        ]
+      },
+      "category": "hotel",
+      "tier": 1,
+      "door": "right"
+    },
+    "civic_bank_2x2": {
+      "x": 1534,
+      "y": 856,
+      "w": 160,
       "h": 144,
-      "anchorX": 58,
+      "anchorX": 81,
       "anchorY": 144,
       "footprint": [
         2,
@@ -105,22 +2022,263 @@
       "type": "building",
       "sockets": {
         "roof": [
-          48,
-          33
-        ],
-        "awning": [
-          73,
-          107
+          80,
+          24
         ]
-      }
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "left"
     },
-    "roof_vents": {
-      "x": 200,
-      "y": 148,
-      "w": 32,
-      "h": 16,
-      "anchorX": 16,
-      "anchorY": 12,
+    "civic_bank_2x2_m": {
+      "x": 1696,
+      "y": 856,
+      "w": 160,
+      "h": 144,
+      "anchorX": 80,
+      "anchorY": 144,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          24
+        ]
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "right"
+    },
+    "civic_bank_2x2_b": {
+      "x": 132,
+      "y": 1034,
+      "w": 128,
+      "h": 128,
+      "anchorX": 71,
+      "anchorY": 128,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          70,
+          38
+        ]
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "left"
+    },
+    "civic_bank_2x2_b_m": {
+      "x": 262,
+      "y": 1034,
+      "w": 128,
+      "h": 128,
+      "anchorX": 59,
+      "anchorY": 128,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          58,
+          38
+        ]
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_brick_2x2_b": {
+      "x": 1368,
+      "y": 630,
+      "w": 128,
+      "h": 192,
+      "anchorX": 67,
+      "anchorY": 192,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          70,
+          31
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_brick_2x2_b_m": {
+      "x": 1498,
+      "y": 630,
+      "w": 128,
+      "h": 192,
+      "anchorX": 62,
+      "anchorY": 192,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          59,
+          31
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "retail_brick_2x2": {
+      "x": 1206,
+      "y": 630,
+      "w": 160,
+      "h": 192,
+      "anchorX": 81,
+      "anchorY": 192,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "left"
+    },
+    "retail_brick_2x2_m": {
+      "x": 1628,
+      "y": 630,
+      "w": 160,
+      "h": 192,
+      "anchorX": 81,
+      "anchorY": 192,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          80,
+          32
+        ]
+      },
+      "category": "retail",
+      "tier": 1,
+      "door": "right"
+    },
+    "civic_cityhall_3x3": {
+      "x": 1790,
+      "y": 630,
+      "w": 192,
+      "h": 176,
+      "anchorX": 96,
+      "anchorY": 176,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          96,
+          61
+        ]
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "left"
+    },
+    "civic_cityhall_3x3_m": {
+      "x": 2,
+      "y": 856,
+      "w": 192,
+      "h": 176,
+      "anchorX": 96,
+      "anchorY": 176,
+      "footprint": [
+        3,
+        3
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          96,
+          61
+        ]
+      },
+      "category": "civic",
+      "tier": 1,
+      "door": "right"
+    },
+    "garage_2x2": {
+      "x": 1858,
+      "y": 856,
+      "w": 128,
+      "h": 144,
+      "anchorX": 52,
+      "anchorY": 144,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          46
+        ]
+      },
+      "category": "parking",
+      "tier": 1,
+      "door": "left"
+    },
+    "garage_2x2_m": {
+      "x": 2,
+      "y": 1034,
+      "w": 128,
+      "h": 144,
+      "anchorX": 76,
+      "anchorY": 144,
+      "footprint": [
+        2,
+        2
+      ],
+      "type": "building",
+      "sockets": {
+        "roof": [
+          64,
+          46
+        ]
+      },
+      "category": "parking",
+      "tier": 1,
+      "door": "right"
+    },
+    "roof_hvac": {
+      "x": 1256,
+      "y": 1230,
+      "w": 64,
+      "h": 32,
+      "anchorX": 32,
+      "anchorY": 24,
       "footprint": [
         1,
         1
@@ -129,12 +2287,12 @@
       "attach": "roof"
     },
     "roof_watertank": {
-      "x": 298,
-      "y": 2,
+      "x": 268,
+      "y": 1180,
       "w": 32,
       "h": 48,
       "anchorX": 16,
-      "anchorY": 41,
+      "anchorY": 42,
       "footprint": [
         1,
         1
@@ -142,27 +2300,156 @@
       "type": "overlay",
       "attach": "roof"
     },
-    "awning_striped": {
-      "x": 232,
-      "y": 2,
+    "prop_street_tree": {
+      "x": 1276,
+      "y": 1034,
       "w": 64,
-      "h": 48,
+      "h": 96,
       "anchorX": 32,
-      "anchorY": 40,
+      "anchorY": 96,
       "footprint": [
         1,
         1
       ],
-      "type": "overlay",
-      "attach": "awning"
+      "type": "prop"
     },
-    "prop_tree_round": {
-      "x": 198,
-      "y": 2,
+    "prop_park_tree": {
+      "x": 588,
+      "y": 1034,
+      "w": 64,
+      "h": 112,
+      "anchorX": 40,
+      "anchorY": 112,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_lamp": {
+      "x": 1242,
+      "y": 1034,
       "w": 32,
-      "h": 64,
+      "h": 96,
       "anchorX": 17,
+      "anchorY": 96,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_hydrant": {
+      "x": 200,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 17,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_bench": {
+      "x": 1930,
+      "y": 1034,
+      "w": 32,
+      "h": 48,
+      "anchorX": 23,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_trashcan": {
+      "x": 234,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 17,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_a": {
+      "x": 1964,
+      "y": 1034,
+      "w": 64,
+      "h": 48,
+      "anchorX": 23,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_a_m": {
+      "x": 2,
+      "y": 1180,
+      "w": 64,
+      "h": 48,
+      "anchorX": 42,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_b": {
+      "x": 1798,
+      "y": 1034,
+      "w": 64,
+      "h": 64,
+      "anchorX": 26,
       "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_b_m": {
+      "x": 1864,
+      "y": 1034,
+      "w": 64,
+      "h": 64,
+      "anchorX": 40,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_c": {
+      "x": 68,
+      "y": 1180,
+      "w": 64,
+      "h": 48,
+      "anchorX": 29,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_car_c_m": {
+      "x": 134,
+      "y": 1180,
+      "w": 64,
+      "h": 48,
+      "anchorX": 36,
+      "anchorY": 48,
       "footprint": [
         1,
         1
@@ -174,28 +2461,144 @@
     "shop": {
       "1": [
         [
-          "bldg_base_brick_t1"
-        ],
-        [
-          "roof_vents"
+          "shop_cafe_1x1",
+          "shop_cafe_1x1_m",
+          "shop_cafe_1x1_b",
+          "shop_cafe_1x1_b_m",
+          "shop_cafe_2x2",
+          "shop_cafe_2x2_m"
         ]
       ],
       "2": [
         [
-          "bldg_base_brick_t2"
-        ],
+          "shop_cafe_1x1_t2",
+          "shop_cafe_1x1_t2_b",
+          "shop_cafe_1x1_t2_b_m",
+          "shop_cafe_2x2_t2",
+          "shop_cafe_2x2_t2_m",
+          "shop_cafe_2x2_t2_b"
+        ]
+      ],
+      "3": [
         [
-          "roof_watertank"
+          "shop_cafe_2x2_t3",
+          "shop_cafe_2x2_t3_m",
+          "shop_cafe_2x2_t3_b"
+        ]
+      ]
+    },
+    "retail": {
+      "1": [
+        [
+          "retail_bakery_1x1",
+          "retail_bakery_1x1_m",
+          "retail_books_1x1",
+          "retail_books_1x1_m",
+          "retail_deli_1x1",
+          "retail_deli_1x1_m",
+          "retail_deli_1x1_b",
+          "retail_deli_1x1_b_m",
+          "retail_diner_2x2",
+          "retail_diner_2x2_m",
+          "retail_dept_2x2",
+          "retail_dept_2x2_m",
+          "retail_dept_2x2_b",
+          "retail_dept_2x2_b_m",
+          "retail_brick_2x2_b",
+          "retail_brick_2x2_b_m",
+          "retail_brick_2x2",
+          "retail_brick_2x2_m"
+        ]
+      ]
+    },
+    "residential": {
+      "1": [
+        [
+          "res_brownstone_1x1",
+          "res_brownstone_1x1_m",
+          "res_brownstone_1x1_b",
+          "res_brownstone_1x1_b_m",
+          "res_walkup_1x1",
+          "res_walkup_1x1_m",
+          "res_walkup_1x1_b",
+          "res_walkup_1x1_b_m",
+          "res_apartments_2x2",
+          "res_apartments_2x2_m",
+          "res_apartments_2x2_c",
+          "res_apartments_2x2_c_m",
+          "res_apartments_2x2_b",
+          "res_apartments_2x2_b_m"
+        ]
+      ]
+    },
+    "office": {
+      "1": [
+        [
+          "office_mid_2x2",
+          "office_mid_2x2_m",
+          "office_mid_2x2_b",
+          "office_mid_2x2_b_m",
+          "office_warehouse_3x3",
+          "office_warehouse_3x3_m",
+          "office_warehouse_3x3_b",
+          "office_warehouse_3x3_b_m"
+        ]
+      ]
+    },
+    "tower": {
+      "1": [
+        [
+          "tower_glass_2x2",
+          "tower_glass_2x2_m",
+          "tower_glass_2x2_b",
+          "tower_glass_2x2_b_m",
+          "tower_dark_2x2_b",
+          "tower_dark_2x2_b_m",
+          "tower_dark_2x2",
+          "tower_dark_2x2_m"
+        ]
+      ]
+    },
+    "hotel": {
+      "1": [
+        [
+          "hotel_deco_2x2",
+          "hotel_deco_2x2_m",
+          "hotel_deco_2x2_b",
+          "hotel_deco_2x2_b_m"
+        ]
+      ]
+    },
+    "civic": {
+      "1": [
+        [
+          "civic_bank_2x2",
+          "civic_bank_2x2_m",
+          "civic_bank_2x2_b",
+          "civic_bank_2x2_b_m",
+          "civic_cityhall_3x3",
+          "civic_cityhall_3x3_m"
+        ]
+      ]
+    },
+    "parking": {
+      "1": [
+        [
+          "garage_2x2",
+          "garage_2x2_m"
         ]
       ]
     }
   },
+  "rooftops": [
+    "roof_hvac",
+    "roof_watertank"
+  ],
   "lighting": {
     "glass": [
-      "#34424F",
-      "#4E6272",
-      "#7690A0"
+      "#3A4A5A",
+      "#5B7082"
     ],
-    "glow": "#E0C27A"
+    "glow": "#E8C878"
   }
 }

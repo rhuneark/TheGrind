@@ -1,0 +1,22 @@
+{
+  "id": "office_warehouse_3x3_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, six storey old red brick warehouse converted to offices, large arched windows, flat roof",
+  "image_size": {
+    "width": 200,
+    "height": 272
+  },
+  "color_image": "<palette.json>",
+  "seed": 836567865,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:14:46.035Z",
+  "adoptedFrom": "office_warehouse_3x3:836567865"
+}

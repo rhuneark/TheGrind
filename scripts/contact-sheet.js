@@ -22,12 +22,16 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 function frame(id, f, k) {
   const marks = [[f.anchorX, f.anchorY, 'anchor'], ...Object.entries(f.sockets || {}).map(([n, [x, y]]) => [x, y, `socket:${n}`])]
     .map(([x, y, t]) => `<i class="mark ${t === 'anchor' ? 'a' : 's'}" style="left:${x * k}px;top:${y * k}px" title="${t} (${x},${y})"></i>`).join('');
-  return `<div class="spr" style="width:${f.w * k}px;height:${f.h * k}px;background-image:url(${atlasUri});background-position:${-f.x * k}px ${-f.y * k}px;background-size:${atlasW * k}px auto">${marks}</div>`;
+  return `<div class="spr" style="width:${f.w * k}px;height:${f.h * k}px;background-position:${-f.x * k}px ${-f.y * k}px;background-size:${atlasW * k}px auto">${marks}</div>`;
 }
 
+// Buildings group by category; road tiles get their own (procedural) group.
 const groups = {};
-for (const [id, f] of Object.entries(atlas.frames)) (groups[f.type] ||= []).push([id, f]);
-const order = ['ground', 'building', 'overlay', 'prop'];
+for (const [id, f] of Object.entries(atlas.frames)) {
+  const g = f.type === 'building' ? `building · ${f.category}` : f.type === 'ground' && /^ground_(road|xwalk|junction|parking|asphalt)/.test(id) ? 'ground · roads (procedural)' : f.type;
+  (groups[g] ||= []).push([id, f]);
+}
+const order = ['ground', 'ground · roads (procedural)', ...Object.keys(groups).filter(g => g.startsWith('building')).sort(), 'overlay', 'prop'];
 
 let html = '';
 for (const type of [...order, ...Object.keys(groups).filter(t => !order.includes(t))]) {
@@ -35,7 +39,9 @@ for (const type of [...order, ...Object.keys(groups).filter(t => !order.includes
   html += `<h2>${type} <small>${groups[type].length}</small></h2><div class="row">`;
   for (const [id, f] of groups[type]) {
     const fp = f.footprint ? ` · ${f.footprint.join('×')}` : '';
-    html += `<figure><div class="pair">${frame(id, f, 1)}${frame(id, f, 3)}</div><figcaption><b>${esc(id)}</b><br>${f.w}×${f.h} · anchor ${f.anchorX},${f.anchorY}${fp}${f.attach ? ` · attach ${f.attach}` : ''}</figcaption></figure>`;
+    const big = type.includes('roads') ? 2 : 3; // 38 road tiles at 3x would bury everything else
+    const extra = [f.attach && `attach ${f.attach}`, f.tier && `tier ${f.tier}`, f.door && `door ${f.door}`].filter(Boolean).join(' · ');
+    html += `<figure><div class="pair">${frame(id, f, 1)}${frame(id, f, big)}</div><figcaption><b>${esc(id)}</b><br>${f.w}×${f.h} · anchor ${f.anchorX},${f.anchorY}${fp}${extra ? `<br>${extra}` : ''}</figcaption></figure>`;
   }
   html += '</div>';
 }
@@ -82,7 +88,7 @@ h1{font-size:18px;margin:0 0 4px}h2{font-size:14px;margin:28px 0 10px;border-bot
 .row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
 figure{margin:0;max-width:100%}figcaption{margin-top:6px;color:var(--muted)}figcaption b{color:var(--ink)}
 .pair{display:flex;gap:12px;align-items:flex-end}
-.spr{position:relative;image-rendering:pixelated;background-repeat:no-repeat;outline:1px dashed #0000}
+.spr{position:relative;image-rendering:pixelated;background-repeat:no-repeat;outline:1px dashed #0000;background-image:url(${atlasUri})}
 body.guides .spr{outline-color:#0003}
 .mark{display:none;position:absolute;width:7px;height:7px;margin:-3px 0 0 -3px;border-radius:50%}
 body.guides .mark{display:block}.mark.a{background:#d33;box-shadow:0 0 0 1px #fff}.mark.s{background:#36c;box-shadow:0 0 0 1px #fff}

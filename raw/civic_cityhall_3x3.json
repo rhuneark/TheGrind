@@ -1,0 +1,22 @@
+{
+  "id": "civic_cityhall_3x3",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, grand three storey limestone city hall with columns, wide steps and a copper dome",
+  "image_size": {
+    "width": 200,
+    "height": 288
+  },
+  "color_image": "<palette.json>",
+  "seed": 668481371,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:15:39.123Z",
+  "adoptedFrom": "civic_cityhall_3x3:668481371"
+}

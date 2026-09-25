@@ -1,0 +1,22 @@
+{
+  "id": "shop_cafe_2x2",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, two storey red brick corner coffee shop with big windows and dark green frames, apartments above, flat roof",
+  "image_size": {
+    "width": 136,
+    "height": 176
+  },
+  "color_image": "<palette.json>",
+  "seed": 537563002,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T06:11:43.521Z",
+  "adoptedFrom": "shop_cafe_2x2:537563002"
+}
