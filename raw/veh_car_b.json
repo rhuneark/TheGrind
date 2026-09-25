@@ -1,0 +1,9 @@
+{
+  "id": "veh_car_b",
+  "endpoint": "/create-8-direction-object",
+  "description": "small white hatchback car",
+  "view": "low top-down",
+  "reference_image": "<raw/prop_car_b.png>",
+  "objectId": "598bf59c-9f1d-43c0-9d8a-6346095896e9",
+  "generatedAt": "2026-09-25T07:29:16.255Z"
+}

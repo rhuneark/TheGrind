@@ -1,0 +1,9 @@
+{
+  "id": "veh_car_a",
+  "endpoint": "/create-8-direction-object",
+  "description": "small dark blue sedan car",
+  "view": "low top-down",
+  "reference_image": "<raw/prop_car_a.png>",
+  "objectId": "02bdf071-746b-4d3f-8f05-b71c7d5b31c8",
+  "generatedAt": "2026-09-25T07:31:07.508Z"
+}

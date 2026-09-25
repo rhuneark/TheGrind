@@ -1,0 +1,16 @@
+{
+  "id": "ped_parent_kids",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, father walking with two young children",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 5,
+  "characterId": "dd932b2e-bff9-462c-a7a2-f730b93a336e",
+  "generatedAt": "2026-09-25T07:36:53.087Z"
+}

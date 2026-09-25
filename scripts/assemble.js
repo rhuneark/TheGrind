@@ -144,7 +144,10 @@ function prop(r, c, sprite) {
 const avail = {};
 for (const [cat, tiers] of Object.entries(atlas.stacks)) for (const [bases] of Object.values(tiers))
   for (const id of bases) (avail[cat] ||= new Set()).add(atlas.frames[id].footprint[0]);
-const cars = Object.keys(atlas.frames).filter(id => id.startsWith('prop_car_'));
+// Directional sprites (people, vehicles): frames `<group>_<dir>`, dir in se, sw, ne, nw.
+const groups = prefix => [...new Set(Object.values(atlas.frames).filter(f => f.group?.startsWith(prefix)).map(f => f.group))];
+const vehicles = groups('veh_');
+const pedestrians = groups('ped_');
 
 function district(r, c) {
   const d = Math.hypot((c - cols / 2) / (cols / 2), (r - rows / 2) / (rows / 2));
@@ -167,20 +170,22 @@ function chooseBuilding(r, c, maxK, facesAlley) {
 const setKind = (r, c, k) => { if (inMap(r, c) && kind[r][c] === null) kind[r][c] = k; };
 
 // A surface car park, laid out like a real one: rows of perpendicular stalls
-// along the lot, a driving aisle between them, every car nosed into its stall
-// on the same axis, centred, one per stall. Back to front the rows go
-// stall / aisle / stall..., so the aisle always opens onto the front sidewalk
-// or has stalls on both sides.
-const carAxis = cfg.props.carAxis || 'col';
-const carsAlongRow = cars.filter(id => id.endsWith('_m') === (carAxis !== 'row'));
+// along the lot, a driving aisle between them, one car per stall, centred,
+// pointing along the stall. Most are nosed in from the aisle; a few backed in.
+// Back to front the rows go stall / aisle / stall..., so the aisle always
+// opens onto the front sidewalk or has stalls on both sides.
+const parkedCars = vehicles.filter(g => !g.includes('taxi'));
 function fillParking(rTop, rFront, c0, c1) {
   const d = rFront - rTop + 1;
   const plan = d === 1 ? ['aisle'] : d === 2 ? ['stall', 'aisle'] : Array.from({ length: d }, (_, i) => (i % 3 === 1 ? 'aisle' : 'stall'));
   plan.forEach((type, i) => {
     const r = rTop + i;
+    const aisleAhead = plan[i + 1] === 'aisle'; // aisle on the +row side: nose in means facing −row (NE)
     for (let c = c0; c <= c1; c++) {
       kind[r][c] = type === 'stall' ? 'stall' : 'aisle';
-      if (type === 'stall' && carsAlongRow.length && rand() < cfg.props.carChance) prop(r, c, pick(carsAlongRow));
+      if (type !== 'stall' || !parkedCars.length || rand() >= cfg.props.lotCarChance) continue;
+      const noseIn = rand() < 0.8;
+      prop(r, c, `${pick(parkedCars)}_${(aisleAhead === noseIn) ? 'ne' : 'sw'}`);
     }
   });
 }
@@ -296,21 +301,93 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
 }
 
 // ---------------------------------------------------------------- street furniture
-// Only on the curbside row of the sidewalk, so doorways stay clear, and not
-// at corners, so crosswalks stay clear.
+// Only on the curbside row of the sidewalk, so doorways stay clear. Corner
+// cells (road on two sides) get the traffic lights; cells beside a crosswalk
+// stay clear apart from the odd hydrant.
+const nearCrossing = (r, c) => {
+  for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++)
+    if (inMap(r + dr, c + dc) && (kind[r + dr][c + dc] === 'junction' || ground[r + dr][c + dc].startsWith('ground_xwalk'))) return true;
+  return false;
+};
 for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
   if (kind[r][c] !== 'sidewalk' || !free(r, c)) continue;
   const nbr = [[0, -1], [0, 1], [-1, 0], [1, 0]].filter(([dr, dc]) => isRoad(r + dr, c + dc));
+  if (nbr.length === 2) { if (nearCrossing(r, c) && rand() < cfg.props.trafficLightChance) prop(r, c, 'prop_traffic_light'); continue; }
   if (nbr.length !== 1) continue;
-  let corner = false;
-  for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++)
-    if (inMap(r + dr, c + dc) && (kind[r + dr][c + dc] === 'junction' || ground[r + dr][c + dc].startsWith('ground_xwalk'))) corner = true;
   const along = nbr[0][0] === 0 ? r : c; // position along the curb
-  if (corner) { if (rand() < cfg.props.hydrantChance * 2) prop(r, c, 'prop_hydrant'); continue; }
+  if (nearCrossing(r, c)) { if (rand() < cfg.props.hydrantChance * 2) prop(r, c, 'prop_hydrant'); continue; }
   if (along % cfg.props.streetTreeEvery === 0) prop(r, c, 'prop_street_tree');
   else if (along % cfg.props.lampEvery === 2) prop(r, c, 'prop_lamp');
   else if (rand() < cfg.props.hydrantChance) prop(r, c, 'prop_hydrant');
   else if (rand() < cfg.props.trashChance) prop(r, c, 'prop_trashcan');
+}
+
+// Café seating on the sidewalk in front of coffee shops (and some other
+// shops): one table on the front row, beside the building rather than at
+// the corner cell, planters now and then.
+for (const o of [...objects]) {
+  if (!o.category || !['shop', 'retail'].includes(o.category)) continue;
+  if (rand() > (o.category === 'shop' ? cfg.props.cafeTableChance : cfg.props.cafeTableChance / 3)) continue;
+  const [w, h] = o.footprint;
+  const front = o.facing === 'left' ? [o.row + h, o.col] : [o.row, o.col + w];
+  // `belongsTo` lets RUN hide the seating while the shop isn't open yet.
+  if (inMap(...front) && kind[front[0]][front[1]] === 'sidewalk' && free(...front))
+    place({ objectId: nextId('cafe'), col: front[1], row: front[0], footprint: [1, 1], sprite: rand() < 0.8 ? 'prop_cafe_table' : 'prop_planter', belongsTo: o.objectId });
+}
+
+// ---------------------------------------------------------------- traffic
+// Traffic keeps right. On a north–south street (running along rows) the
+// −col lane heads SW and the +col lane NE; on an east–west street the +row
+// lane heads SE and the −row lane NW. Parked cars face the way their lane
+// flows and hug the curb (nudged a quarter tile toward it).
+const vehicleWeights = Object.fromEntries(vehicles.map(g => [g, g.includes('taxi') ? 1.2 : g.includes('van') ? 0.6 : 1]));
+function placeMover(r, c, group, dir, nudge) {
+  const sprite = `${group}_${dir}`;
+  if (!atlas.frames[sprite] || !free(r, c)) return;
+  place({ objectId: nextId(group.replace(/^(veh|ped)_/, '')), col: c, row: r, footprint: [1, 1], sprite, ...(nudge && { nudge }) });
+}
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  if (kind[r][c] !== 'road' || !vehicles.length) continue;
+  const l = lane[r][c];
+  if (ground[r][c].startsWith('ground_xwalk')) continue;
+  // Keep a car length clear of crosswalks and junctions.
+  const [ar, ac] = l.axis === 'ns' ? [1, 0] : [0, 1];
+  if ([-1, 1, -2, 2].some(k => inMap(r + ar * k, c + ac * k) && (kind[r + ar * k][c + ac * k] === 'junction' || ground[r + ar * k][c + ac * k].startsWith('ground_xwalk')))) continue;
+  const first = l.i === 0, last = l.i === l.w - 1;
+  const dir = l.axis === 'ns' ? (l.i < l.w / 2 ? 'sw' : 'ne') : (l.i < l.w / 2 ? 'nw' : 'se');
+  if ((first || last) && rand() < cfg.props.streetParkingChance) {
+    const k = first ? -cfg.props.curbNudge : cfg.props.curbNudge;
+    placeMover(r, c, weighted({ ...vehicleWeights, veh_taxi: 0.2 }), dir, l.axis === 'ns' ? [k, 0] : [0, k]);
+  } else if (rand() < cfg.props.trafficChance) {
+    placeMover(r, c, weighted(vehicleWeights), dir);
+  }
+}
+
+// ---------------------------------------------------------------- people
+// Pedestrians walk along the sidewalk (either way), cross at crosswalks, and
+// wander plazas and parks. Each is nudged a little so they don't stand on a
+// grid.
+const jitter = () => +(rand() * 0.4 - 0.2).toFixed(2);
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  if (!pedestrians.length || !free(r, c)) continue;
+  const k = kind[r][c];
+  let dirs = null, chance = 0;
+  if (k === 'sidewalk') {
+    const nbr = [[0, -1], [0, 1], [-1, 0], [1, 0]].filter(([dr, dc]) => isRoad(r + dr, c + dc));
+    // Walk parallel to the nearest street: road beside us in ±col → along rows.
+    const roadSide = [[0, -1], [0, 1]].some(([dr, dc]) => isRoad(r + dr, c + dc) || isRoad(r, c + 2 * dc)) ? 'ns'
+      : [[-1, 0], [1, 0]].some(([dr]) => isRoad(r + dr, c) || isRoad(r + 2 * dr, c)) ? 'ew' : null;
+    dirs = roadSide === 'ns' ? ['sw', 'ne'] : roadSide === 'ew' ? ['se', 'nw'] : ['se', 'sw', 'ne', 'nw'];
+    chance = nbr.length ? cfg.people.sidewalkChance * 0.6 : cfg.people.sidewalkChance; // a little less on the curb row
+  } else if (k === 'plaza' || k === 'grass') {
+    dirs = ['se', 'sw', 'ne', 'nw']; chance = cfg.people.parkChance;
+  } else if (k === 'road' && ground[r][c].startsWith('ground_xwalk')) {
+    const l = lane[r][c]; // crossing the street, so across its axis
+    dirs = l.axis === 'ns' ? ['se', 'nw'] : ['sw', 'ne']; chance = cfg.people.crossingChance;
+  }
+  if (!dirs || rand() >= chance) continue;
+  const group = weighted(Object.fromEntries(pedestrians.map(g => [g, cfg.people.weights[g] ?? 1])));
+  placeMover(r, c, group, pick(dirs), [jitter(), jitter()]);
 }
 
 // Painter's order: ascending front-most cell. Pre-sorted so RUN can draw

@@ -1,0 +1,22 @@
+{
+  "id": "prop_barrier",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, small road barricade: a white plank with orange diagonal stripes on two metal legs",
+  "image_size": {
+    "width": 48,
+    "height": 32
+  },
+  "color_image": "<palette.json>",
+  "seed": 476933698,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T07:36:58.450Z",
+  "adoptedFrom": "prop_barrier:476933698"
+}

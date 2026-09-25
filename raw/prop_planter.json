@@ -1,0 +1,22 @@
+{
+  "id": "prop_planter",
+  "endpoint": "/create-image-bitforge",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "coverage_percentage": 55,
+  "description": "isometric pixel art, single object, flat lighting, square concrete planter box with a small green shrub",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "color_image": "<palette.json>",
+  "seed": 442284165,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T07:29:30.806Z"
+}

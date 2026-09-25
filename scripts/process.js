@@ -131,9 +131,9 @@ function processSprite(asset, img) {
   // Touching the top means cut off. Buildings generated at footprint width
   // legitimately fill the canvas sideways; the front-corner check below
   // catches the ones that are actually cropped.
-  if (b.y0 === 0) reject('content touches the top of the canvas — probably cropped');
-  if (asset.type !== 'building' && (b.x0 === 0 || b.x1 === img.width - 1)) reject('content touches the canvas edge — probably cropped');
-  const footprint = asset.footprint || [1, 1];
+  if (b.y0 === 0 && asset.type !== 'lot') reject('content touches the top of the canvas — probably cropped');
+  if (asset.type !== 'building' && asset.type !== 'lot' && (b.x0 === 0 || b.x1 === img.width - 1)) reject('content touches the canvas edge — probably cropped');
+  const footprint = asset.compose?.footprint || asset.footprint || [1, 1];
   const fw = grid.footprintWidth(footprint);
   const by = b.y1 + 1; // content bottom, in pixel-edge coordinates
   let ax, ay, extraBottom = 0; const sockets = {};
@@ -180,6 +180,13 @@ function processSprite(asset, img) {
     ax = asset.anchor === 'centre' ? b.x0 + b.w / 2 : medianX(img, b.y1, b);
     ay = (asset.anchor === 'centre' ? by - b.w / 4 : by) + tileH / 2;
     extraBottom = Math.max(0, Math.ceil(ay - by));
+  } else if (asset.type === 'lot') {
+    // Composed on an exact footprint canvas: the bottom vertex sits at
+    // (w * tileW/2, canvas bottom) by construction.
+    ax = footprint[0] * tileW / 2; ay = img.height;
+    const out = png.create(img.width, img.height);
+    png.blit(img, out, 0, 0);
+    return { img: out, anchorX: ax, anchorY: ay, footprint, trim: { left: 0, top: 0, right: 0, bottom: 0 } };
   } else reject(`unknown type ${asset.type}`);
 
   // Re-pad: content bottom-aligned (plus any below-content anchor room),
@@ -212,36 +219,71 @@ function run(asset, img) {
     img = f;
   }
   quantize(img);
-  if (asset.type !== 'ground') removeBackdrop(img);
-  const specks = asset.type === 'ground' ? 0 : despeckle(img);
+  if (asset.type !== 'ground' && asset.type !== 'lot') removeBackdrop(img);
+  // Composed lots have deliberately small parts (cones) that despeckle would eat.
+  const specks = asset.type === 'ground' || asset.type === 'lot' ? 0 : despeckle(img);
   const r = asset.type === 'ground' ? processGround(img) : processSprite(asset, img);
   verify(r);
   return { ...r, specks };
 }
 
-// The manifest plus everything derived from it: the procedural road set, and
-// a mirrored copy of every building (flipping swaps the two visible faces, so
-// a door on the left wall becomes a door on the right wall).
+// The manifest plus everything derived from it: the procedural ground set, a
+// mirrored copy of every building (flipping swaps the two visible faces, so a
+// door on the left wall becomes a door on the right wall), one frame per
+// diagonal for people and vehicles, and composed lot sprites. Composed lots
+// come last because they are built from already-processed props.
 function expandAssets() {
-  const out = [];
+  const out = [], late = [];
   for (const a of manifest.assets) {
+    if (a.atlas === false) continue;
     if (a.procedural === 'roads') {
       for (const t of roads.roadSet()) out.push({ id: t.id, type: 'ground', proc: t });
       continue;
     }
-    if (a.procedural === 'grass') { out.push({ id: a.id, type: 'ground', proc: { grass: true } }); continue; }
+    if (a.procedural === 'grass' || a.procedural === 'dirt') { out.push({ id: a.id, type: 'ground', proc: { [a.procedural]: true } }); continue; }
+    if (a.compose) { late.push(a); continue; }
+    if (a.mode) {
+      for (const d of ['se', 'sw', 'ne', 'nw']) out.push({ ...a, id: `${a.id}_${d}`, dir: d, group: a.id, view: d });
+      continue;
+    }
     out.push({ ...a, door: a.type === 'building' ? a.door || manifest.defaults.door : undefined });
     if (a.type === 'building' ? a.mirror !== false : a.mirror) {
       const door = a.type === 'building' ? { left: 'right', right: 'left' }[a.door || manifest.defaults.door] : undefined;
       out.push({ ...a, id: `${a.id}_m`, door, derive: { from: a.id, flipX: true }, mirrorOf: a.id });
     }
   }
-  return out;
+  return [...out, ...late];
+}
+
+// A vacant lot, composed in code: dirt over the footprint, then props (cones,
+// a barrier) stood at grid points given in footprint units (0..w, 0..h).
+function compose(asset) {
+  const { footprint: [w, h], props = [] } = asset.compose;
+  const top = 48; // headroom for props above the footprint's top vertex
+  const W = grid.footprintWidth([w, h]), H = top + grid.footprintHeight([w, h]);
+  const img = png.create(W, H);
+  const at = (gc, gr) => ({ x: h * tileW / 2 + (gc - gr) * tileW / 2, y: top + (gc + gr) * tileH / 2 });
+  const dirt = roads.dirt();
+  for (let r = 0; r < h; r++) for (let c = 0; c < w; c++) { const p = at(c, r); png.over(dirt, img, p.x - tileW / 2, p.y); }
+  for (const [id, gc, gr] of [...props].sort((a, b) => (a[1] + a[2]) - (b[1] + b[2]))) {
+    const metaFile = path.join(OUT, `${id}.json`);
+    if (!fs.existsSync(metaFile)) reject(`needs ${id}, which was not processed`);
+    const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8')), spr = png.read(path.join(OUT, `${id}.png`));
+    const p = at(gc, gr);
+    png.over(spr, img, Math.round(p.x - meta.anchorX), Math.round(p.y + tileH / 2 - meta.anchorY));
+  }
+  return img;
 }
 
 // Raw input for an asset, before any processing.
 function source(asset) {
-  if (asset.proc) return asset.proc.grass ? roads.grass() : roads.render(asset.proc);
+  if (asset.proc) return asset.proc.grass ? roads.grass() : asset.proc.dirt ? roads.dirt() : roads.render(asset.proc);
+  if (asset.compose) return compose(asset);
+  if (asset.view) {
+    const file = path.join(ROOT, 'raw', `${asset.group}__${asset.view}.png`);
+    if (!fs.existsSync(file)) reject(`missing ${path.relative(ROOT, file)} — run generate`);
+    return png.read(file);
+  }
   const from = manifest.assets.find(a => a.id === (asset.derive ? asset.derive.from : asset.id));
   const file = path.join(ROOT, from.source || path.join('raw', `${from.id}.png`));
   if (!fs.existsSync(file)) reject(`missing ${path.relative(ROOT, file)} — run generate`);
@@ -266,6 +308,7 @@ function main() {
         id, type: asset.type, w: r.img.width, h: r.img.height, anchorX: r.anchorX, anchorY: r.anchorY,
         footprint: r.footprint, trim: r.trim, sockets: r.sockets, attach: asset.attach,
         category: asset.category, tier: asset.tier, door: asset.door, roof: asset.roof, mirrorOf: asset.mirrorOf,
+        dir: asset.dir, group: asset.group,
         procedural: asset.proc ? true : undefined, coverage: r.coverage, specksRemoved: r.specks || undefined,
       };
       fs.writeFileSync(path.join(OUT, `${id}.json`), JSON.stringify(meta, null, 2) + '\n');

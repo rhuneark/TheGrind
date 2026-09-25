@@ -7,7 +7,7 @@ RUN receives exactly three files, all in `dist/`:
 |---|---|
 | `dist/city.png` | One packed sprite atlas |
 | `dist/atlas.json` | Frame rects, anchors, footprints, sockets, door side, tier stacks, rooftop kit, glass colours for lighting |
-| `dist/map.json` | Ground grid plus object placements: category, footprint, and which wall the door is on (`facing`). Never tier |
+| `dist/map.json` | Ground grid plus object placements: category, footprint, which wall the door is on (`facing`), and for small movers a `nudge` within the tile. Never tier or ownership |
 
 `runtime/city-renderer.js` is the renderer RUN copies in. It has no knowledge of PixelLab.
 
@@ -44,6 +44,9 @@ Set `PIXELLAB_TOKEN`. Node's `fetch` needs `NODE_USE_ENV_PROXY=1` behind a proxy
 | Roads | **Drawn in code** (`lib/roads.js`): asphalt, dashed yellow centre lines, double yellow and dashed white on 4-lane avenues, curbs, zebra crosswalks, parking stalls, junctions. 43 tiles. Lane lines have to meet exactly at tile edges, and a generator can't know where those edges are |
 | Grass | PixelLab, top face fitted to the diamond |
 | Buildings, props, rooftop kit | PixelLab `create-image-pixflux`, forced palette, short prompts. Bitforge came out worse and caps canvas height at 200px |
+| People | PixelLab 8-direction characters; we keep the four diagonals, the four ways along an isometric street. Standard mode (1 generation) for one person on foot; pro mode (about 20) when there's a dog, kids, a bike or a scooter, which the standard template can't draw |
+| Vehicles | PixelLab 8-direction objects made from our own car sprites (`reference`), plus a taxi and a van styled from them (`styleFrom`), so traffic and parked cars can face either way |
+| Vacant lots | Composed in Stage 3: dirt ground plus the generated cones and barrier, one sprite per footprint (`atlas.lots`) |
 
 Every building is mirrored automatically, which swaps its two visible walls. That gives a right-door variant of each left-door building for free. Sprites with legible lettering set `"mirror": false`, because mirrored text reads backwards.
 
@@ -65,8 +68,23 @@ Every building is mirrored automatically, which swaps its two visible walls. Tha
   - Car parks are laid out like real ones: rows of perpendicular stalls with white dividers between them, a driving aisle, and every car centred in its stall and pointing the same way (`props.carAxis`).
   - Breathing room: `lots.gapChance` leaves a one-tile passage or garden between buildings, and `lots.openBackChance` turns the row behind the alley into a courtyard or car park. The assembler prints how much of the block interiors is built on (about a third by default).
   - Districts shift from towers, offices, hotels and civic buildings in the core to retail, shops and residential at the edges.
-  - Street trees, lamps, hydrants and bins go only on the curbside row of the sidewalk, and never at corners, so doorways and crosswalks stay clear.
+  - Street trees, lamps, hydrants and bins go only on the curbside row of the sidewalk, so doorways stay clear. Corners get traffic lights, and cells beside crosswalks stay clear.
+  - Street parking: cars against the curb (`nudge`), facing the way their lane flows. Traffic keeps right, with a few moving cars, taxis and vans in the lanes, and none within a car length of a crosswalk. Car parks are now rare.
+  - People walk along the sidewalks in both directions: on their own, with a dog, with kids, on a bike or a scooter. Some cross at crosswalks and some wander the plazas and parks. Café tables go outside coffee shops.
 - **Human check, `contact-sheet.html`.** Shows every atlas sprite at 1× and 3×, grouped by category, with anchors and sockets you can toggle. Also lists rejects and pending seed candidates, each run through the real Stage 3.
+
+## Building states and animations
+
+Whether a coffee spot is bought, and what's happening to it, is save-file state, so `map.json` never changes. `resolve(objectId)` returns `{ state, tier, producing, progress }`:
+
+| `state` | What's drawn |
+|---|---|
+| `vacant` | An unbought spot: dirt, cones along the street edges, a barrier |
+| `constructing` | Five frames: foundation, then the frame rising in scaffolding, topped out in bare concrete, cladding going on, and finished with a little dust. Pass `progress` (0–1) to drive it, or leave it out and it loops |
+| `built` (default) | The building for its tier |
+| `renovating` | The building with a four-frame dust loop around its base, up the facade and off the roof |
+
+The construction and dust frames are drawn by the runtime from the actual building sprite, so every shop variant, tier and footprint gets a build-up that ends in exactly that building, with nothing extra in the atlas. `preview/frames.html` lays every frame out side by side. Pass `time` to `draw()` and keep redrawing while `r.animating()` is true.
 
 ## Runtime
 

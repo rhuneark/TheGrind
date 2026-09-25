@@ -1,0 +1,17 @@
+{
+  "id": "ped_student",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, teenager with a backpack walking",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 10,
+  "characterId": "3fcbca24-8625-48ce-9314-d176ab0cb2ad",
+  "generatedAt": "2026-09-25T07:27:31.371Z"
+}

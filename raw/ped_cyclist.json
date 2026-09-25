@@ -1,0 +1,16 @@
+{
+  "id": "ped_cyclist",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, person in a red jacket riding a bicycle",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 6,
+  "characterId": "396e220d-00ee-41e4-97e3-ddb3d95ce1c4",
+  "generatedAt": "2026-09-25T07:36:59.107Z"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "ped_elder",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, old man with a flat cap and a walking cane",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 9,
+  "characterId": "e5a39a03-828c-437c-b602-eb1a371b9a37",
+  "generatedAt": "2026-09-25T07:27:56.553Z"
+}

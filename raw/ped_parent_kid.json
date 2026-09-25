@@ -1,0 +1,16 @@
+{
+  "id": "ped_parent_kid",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, mother walking hand in hand with a small child",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 4,
+  "characterId": "a696e2db-0d1e-4555-a6f2-68ea5fb32748",
+  "generatedAt": "2026-09-25T07:35:43.047Z"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "ped_woman_dog",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, woman in a navy jacket walking a small white dog on a leash",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 2,
+  "characterId": "1fb7d6f1-3e75-489e-9f50-c2d64d7495d8",
+  "generatedAt": "2026-09-25T07:35:32.951Z"
+}

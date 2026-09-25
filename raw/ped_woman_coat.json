@@ -1,0 +1,17 @@
+{
+  "id": "ped_woman_coat",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, woman in a dark green coat walking, city pedestrian",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 1,
+  "characterId": "3824d2a5-104e-43ff-91f7-c4be1e972826",
+  "generatedAt": "2026-09-25T07:25:25.967Z"
+}

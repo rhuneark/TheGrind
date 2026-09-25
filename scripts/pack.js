@@ -38,6 +38,7 @@ for (const s of sprites) { // manifest order in the JSON, packed order in the im
     footprint: m.footprint, type: m.type,
     ...(m.sockets && { sockets: m.sockets }), ...(m.attach && { attach: m.attach }),
     ...(m.category && { category: m.category, tier: m.tier }), ...(m.door && { door: m.door }), ...(m.roof && { roof: m.roof }),
+    ...(m.dir && { dir: m.dir, group: m.group }),
   };
 }
 
@@ -70,7 +71,11 @@ png.write(path.join(DIST, 'city.png'), atlasImg);
 // Which palette colours are window glass, so RUN can light them in code.
 const pal = JSON.parse(fs.readFileSync(path.join(ROOT, manifest.defaults.palette), 'utf8'));
 const lighting = { glass: pal.glass || [], glow: pal.glow };
-const atlas = { image: 'city.png', tileW: grid.tileW, tileH: grid.tileH, frames, stacks, rooftops, lighting };
+// Vacant-lot sprites by footprint: what an unbought shop spot shows.
+const lots = {};
+for (const [id, f] of Object.entries(frames)) if (f.type === 'lot') lots[f.footprint.join('x')] = id;
+
+const atlas = { image: 'city.png', tileW: grid.tileW, tileH: grid.tileH, frames, stacks, rooftops, lots, lighting };
 fs.writeFileSync(path.join(DIST, 'atlas.json'), JSON.stringify(atlas, null, 2) + '\n');
 console.log(`packed ${sprites.length} sprites into ${ATLAS_W}x${H}`);
 for (const p of problems) console.log(`  ! ${p}`);

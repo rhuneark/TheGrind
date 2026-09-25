@@ -1,0 +1,16 @@
+{
+  "id": "ped_scooter",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, young man riding a kick scooter",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 7,
+  "characterId": "b30d7539-64a0-4865-9d26-cf3f78ea8cd4",
+  "generatedAt": "2026-09-25T07:36:56.914Z"
+}

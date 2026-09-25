@@ -1,0 +1,17 @@
+{
+  "id": "ped_business",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, businessman in a dark suit carrying a briefcase, walking",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 3,
+  "characterId": "6f3cf5da-ac78-4ae3-a1bc-755fe458aef1",
+  "generatedAt": "2026-09-25T07:25:14.422Z"
+}

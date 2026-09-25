@@ -17,7 +17,9 @@
 const fs = require('fs');
 const path = require('path');
 const palette = require('../lib/palette');
-const { post, b64, decode } = require('../lib/pixellab');
+const { post, get, waitForJob, b64, decode } = require('../lib/pixellab');
+const { unzip } = require('../lib/unzip');
+const png = require('../lib/png');
 
 const ROOT = path.join(__dirname, '..');
 const args = process.argv.slice(2);
@@ -93,12 +95,67 @@ function adopt(spec) {
   console.log(`adopted ${id} seed ${seed}${newId ? ` as ${newId}` : ''}`);
 }
 
+// Directional assets (people, vehicles) come back as several views. We keep
+// the four diagonals, which are the four ways along an isometric street.
+const DIAGONALS = { 'south-east': 'se', 'south-west': 'sw', 'north-east': 'ne', 'north-west': 'nw' };
+
+// The rotations row of a PixelLab spritesheet export (a zip: sheet + layout).
+// The image URLs in job results point at a storage host this environment may
+// not reach; the export comes from the API host itself.
+async function sheetViews(apiPath) {
+  const files = unzip(Buffer.from(await (await get(apiPath)).arrayBuffer()));
+  const layout = JSON.parse(files[Object.keys(files).find(n => n.endsWith('.json'))].toString());
+  const sheet = png.fromBuffer(files[Object.keys(files).find(n => n.endsWith('.png'))]);
+  const { width: cw, height: ch } = layout.spritesheet.cell_size, views = {};
+  layout.spritesheet.rows[0].directions.forEach((dir, i) => {
+    if (!DIAGONALS[dir]) return;
+    const cell = png.create(cw, ch);
+    png.blit(sheet, cell, 0, 0, i * cw, 0, cw, ch);
+    views[DIAGONALS[dir]] = png.toBuffer(cell);
+  });
+  return views;
+}
+
+async function generateDirectional(a) {
+  const description = [D.style, D.typeStyle?.[a.type], a.prompt].filter(Boolean).join(', ');
+  const seed = a.seed ?? hashSeed(a.id);
+  const views = {};
+  let record;
+  if (a.mode === 'character8' || a.mode === 'character8pro') {
+    // Standard mode is a humanoid template skeleton (1 generation) — fine for
+    // one person on foot. Pro mode (about 20) follows the description, so it
+    // can draw the bike, the dog or the kids.
+    const pro = a.mode === 'character8pro';
+    const body = { description, image_size: { width: a.size[0], height: a.size[1] }, mode: pro ? 'pro' : 'standard', isometric: true, view: 'low top-down', color_image: colorImage, seed };
+    if (!pro) body.force_colors = true;
+    const res = await post('/create-character-with-8-directions', body);
+    const job = await waitForJob(res.background_job_id);
+    for (const [dir, im] of Object.entries(job.last_response.images || {})) if (DIAGONALS[dir]) views[DIAGONALS[dir]] = decode(im);
+    if (!Object.keys(views).length) Object.assign(views, await sheetViews(`/characters/${res.character_id}/spritesheet`));
+    record = { id: a.id, endpoint: '/create-character-with-8-directions', ...body, color_image: '<palette.json>', characterId: res.character_id };
+  } else if (a.mode === 'object8') {
+    // One object seen from eight angles. With a reference, it is that exact
+    // sprite rotated; otherwise styleFrom borrows another object's look.
+    const body = { description: a.prompt, view: 'low top-down' };
+    if (a.reference) body.reference_image = b64(fs.readFileSync(path.join(ROOT, 'raw', `${a.reference}.png`)));
+    else body.size = a.size[0];
+    if (a.styleFrom) body.style_object_id = JSON.parse(fs.readFileSync(path.join(ROOT, 'raw', `${a.styleFrom}.json`), 'utf8')).objectId;
+    const res = await post('/create-8-direction-object', body);
+    await waitForJob(res.background_job_id);
+    Object.assign(views, await sheetViews(`/objects/${res.object_id}/spritesheet`));
+    record = { id: a.id, endpoint: '/create-8-direction-object', ...body, reference_image: a.reference ? `<raw/${a.reference}.png>` : undefined, objectId: res.object_id };
+  } else throw new Error(`unknown mode ${a.mode}`);
+  if (Object.keys(views).length !== 4) throw new Error(`${a.id}: expected 4 diagonal views, got ${Object.keys(views).join(',')}`);
+  for (const [d, buf] of Object.entries(views)) fs.writeFileSync(path.join(ROOT, 'raw', `${a.id}__${d}.png`), buf);
+  fs.writeFileSync(path.join(ROOT, 'raw', `${a.id}.json`), JSON.stringify({ ...record, generatedAt: new Date().toISOString() }, null, 2) + '\n');
+}
+
 async function main() {
   if (args.includes('--adopt')) return args.slice(args.indexOf('--adopt') + 1).filter(a => !a.startsWith('--')).forEach(adopt);
   if (nCandidates && !only.length) throw new Error('--candidates needs --only');
   let todo = manifest.assets.filter(a =>
     !a.derive && !a.source && !a.procedural && (!only.length || only.includes(a.id)) &&
-    (nCandidates || flag('--force') || !fs.existsSync(path.join(ROOT, 'raw', `${a.id}.png`))));
+    (nCandidates || flag('--force') || !fs.existsSync(path.join(ROOT, 'raw', a.mode ? `${a.id}.json` : `${a.id}.png`))));
   // Each candidate is the manifest request with only the seed changed.
   if (nCandidates) todo = todo.flatMap(a => Array.from({ length: nCandidates }, (_, i) => ({ ...a, seed: hashSeed(a.id) + seedOffset + i + 1, candidate: true })));
 
@@ -108,6 +165,13 @@ async function main() {
   const queue = [...todo];
   const worker = async () => {
     for (let a; (a = queue.shift());) {
+      if (a.mode) {
+        if (a.candidate) { console.log(`- ${a.id}: directional assets skip candidates; regenerate with --force and a new seed`); continue; }
+        if (flag('--dry-run')) { console.log(JSON.stringify({ id: a.id, mode: a.mode, prompt: a.prompt })); continue; }
+        try { fs.mkdirSync(path.join(ROOT, 'raw'), { recursive: true }); await generateDirectional(a); console.log(`✓ ${a.id} (4 views)`); }
+        catch (e) { failed++; console.error(`✗ ${a.id}: ${e.message}`); }
+        continue;
+      }
       const { endpoint, body } = request(a);
       const record = { id: a.id, endpoint, ...body, color_image: '<palette.json>', init_image: body.init_image ? `<${manifest.reference}>` : undefined };
       if (flag('--dry-run')) { console.log(JSON.stringify(record)); continue; }

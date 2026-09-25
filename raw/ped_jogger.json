@@ -1,0 +1,17 @@
+{
+  "id": "ped_jogger",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, jogger in a grey hoodie and shorts running",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 8,
+  "characterId": "a3600a60-818b-429c-8a9f-7000fb22c743",
+  "generatedAt": "2026-09-25T07:27:12.230Z"
+}

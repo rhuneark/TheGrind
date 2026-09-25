@@ -1,0 +1,21 @@
+{
+  "id": "prop_traffic_light",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, black metal traffic light pole with a signal box, unlit",
+  "image_size": {
+    "width": 32,
+    "height": 80
+  },
+  "color_image": "<palette.json>",
+  "seed": 648382277,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T07:28:52.849Z"
+}

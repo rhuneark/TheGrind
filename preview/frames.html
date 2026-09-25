@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grind City Frames</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2A2C30; color: #E6E2D6; font: 13px ui-monospace, Menlo, monospace; }
+  h2 { font-size: 13px; font-weight: normal; margin: 18px 0 6px; color: #CFC8B4; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+  figure { margin: 0; } figcaption { color: #A9A38C; margin-top: 2px; }
+  canvas { image-rendering: pixelated; background: #36393D; display: block; }
+</style></head><body>
+<div>Every frame of the vacant → construction → built → renovation sequence, per coffee-shop footprint. Rendered by the runtime itself.</div>
+<div id="out"></div>
+<script type="module">
+import { loadCity, createCityRenderer, CONSTRUCTION_FRAMES, DUST_FRAMES, FRAME_MS } from '../runtime/city-renderer.js';
+const city = await loadCity('../dist/');
+const q = new URLSearchParams(location.search);
+const K = +(q.get('scale') || 2);
+const out = document.getElementById('out');
+
+function tile(fp, category, state, extra = {}) {
+  const [w] = fp, n = w + 2;
+  const map = { tileW: 64, tileH: 32, size: { cols: n, rows: n },
+    ground: Array.from({ length: n }, () => Array(n).fill('ground_sidewalk_01')),
+    objects: [{ objectId: `x_${w}`, col: 1, row: 1, footprint: fp, category, facing: 'left' }] };
+  const c = document.createElement('canvas');
+  c.width = n * 64 * K; c.height = (n * 32 + (w === 1 ? 180 : w === 2 ? 240 : 300)) * K;
+  const r = createCityRenderer(c, { ...city, map }, { scale: K, background: '#36393D', resolve: () => ({ tier: +(q.get('tier') || 2), ...state }) });
+  r.draw({ camX: 0, camY: (r.bounds.y1) / 2 - (w === 1 ? 70 : w === 2 ? 100 : 130), ...extra });
+  return c;
+}
+function row(title, items) {
+  const h = document.createElement('h2'); h.textContent = title; out.append(h);
+  const d = document.createElement('div'); d.className = 'row'; out.append(d);
+  for (const [label, canvas] of items) { const f = document.createElement('figure'); f.append(canvas); const cap = document.createElement('figcaption'); cap.textContent = label; f.append(cap); d.append(f); }
+}
+for (const fp of [[2, 2], [1, 1]]) {
+  row(`${fp.join('×')} coffee shop — vacant, construction frames 1–${CONSTRUCTION_FRAMES}, built`, [
+    ['vacant', tile(fp, 'shop', { state: 'vacant' })],
+    ...Array.from({ length: CONSTRUCTION_FRAMES }, (_, i) => [`build ${i + 1}`, tile(fp, 'shop', { state: 'constructing', progress: (i + 0.5) / CONSTRUCTION_FRAMES })]),
+    ['built', tile(fp, 'shop', {})],
+  ]);
+  row(`${fp.join('×')} coffee shop — renovation dust frames 1–${DUST_FRAMES}`,
+    Array.from({ length: DUST_FRAMES }, (_, i) => [`dust ${i + 1}`, tile(fp, 'shop', { state: 'renovating' }, { time: i * FRAME_MS + 1 })]));
+}
+window.ready = true;
+</script>
+</body></html>

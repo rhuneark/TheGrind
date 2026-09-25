@@ -1,0 +1,17 @@
+{
+  "id": "ped_woman_bags",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, woman in a beige trench coat carrying shopping bags",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "standard",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "force_colors": true,
+  "seed": 11,
+  "characterId": "549a3da7-f5bc-4090-b9ec-1c5ee413222a",
+  "generatedAt": "2026-09-25T07:27:58.184Z"
+}

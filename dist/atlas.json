@@ -4,8 +4,8 @@
   "tileH": 32,
   "frames": {
     "ground_sidewalk_01": {
-      "x": 596,
-      "y": 1230,
+      "x": 1718,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -17,8 +17,8 @@
       "type": "ground"
     },
     "ground_grass_01": {
-      "x": 302,
-      "y": 1180,
+      "x": 1396,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -30,8 +30,8 @@
       "type": "ground"
     },
     "ground_road_ns_cc": {
-      "x": 68,
-      "y": 1230,
+      "x": 1190,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -43,8 +43,8 @@
       "type": "ground"
     },
     "ground_road_ns_cy": {
-      "x": 200,
-      "y": 1230,
+      "x": 1322,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -56,8 +56,8 @@
       "type": "ground"
     },
     "ground_road_ns_yc": {
-      "x": 464,
-      "y": 1230,
+      "x": 1586,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -69,8 +69,8 @@
       "type": "ground"
     },
     "ground_road_ns_cw": {
-      "x": 134,
-      "y": 1230,
+      "x": 1256,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -82,8 +82,8 @@
       "type": "ground"
     },
     "ground_road_ns_wY": {
-      "x": 398,
-      "y": 1230,
+      "x": 1520,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -95,8 +95,8 @@
       "type": "ground"
     },
     "ground_road_ns_Yw": {
-      "x": 530,
-      "y": 1230,
+      "x": 1652,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -108,8 +108,8 @@
       "type": "ground"
     },
     "ground_road_ns_wc": {
-      "x": 332,
-      "y": 1230,
+      "x": 1454,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -121,8 +121,8 @@
       "type": "ground"
     },
     "ground_road_ns_nn": {
-      "x": 266,
-      "y": 1230,
+      "x": 1388,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -134,8 +134,8 @@
       "type": "ground"
     },
     "ground_xwalk_ns_cn": {
-      "x": 992,
-      "y": 1230,
+      "x": 68,
+      "y": 1346,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -147,8 +147,8 @@
       "type": "ground"
     },
     "ground_xwalk_ns_nc": {
-      "x": 1058,
-      "y": 1230,
+      "x": 134,
+      "y": 1346,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -160,8 +160,8 @@
       "type": "ground"
     },
     "ground_xwalk_ns_nn": {
-      "x": 1124,
-      "y": 1230,
+      "x": 200,
+      "y": 1346,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -173,8 +173,8 @@
       "type": "ground"
     },
     "ground_xwalk_ns_cc": {
-      "x": 926,
-      "y": 1230,
+      "x": 2,
+      "y": 1346,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -186,8 +186,8 @@
       "type": "ground"
     },
     "ground_parking_ns": {
-      "x": 1490,
-      "y": 1180,
+      "x": 596,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -199,8 +199,8 @@
       "type": "ground"
     },
     "ground_road_ew_cc": {
-      "x": 1556,
-      "y": 1180,
+      "x": 662,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -212,8 +212,8 @@
       "type": "ground"
     },
     "ground_road_ew_cy": {
-      "x": 1688,
-      "y": 1180,
+      "x": 794,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -225,8 +225,8 @@
       "type": "ground"
     },
     "ground_road_ew_yc": {
-      "x": 1952,
-      "y": 1180,
+      "x": 1058,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -238,8 +238,8 @@
       "type": "ground"
     },
     "ground_road_ew_cw": {
-      "x": 1622,
-      "y": 1180,
+      "x": 728,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -251,8 +251,8 @@
       "type": "ground"
     },
     "ground_road_ew_wY": {
-      "x": 1886,
-      "y": 1180,
+      "x": 992,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -264,8 +264,8 @@
       "type": "ground"
     },
     "ground_road_ew_Yw": {
-      "x": 2,
-      "y": 1230,
+      "x": 1124,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -277,8 +277,8 @@
       "type": "ground"
     },
     "ground_road_ew_wc": {
-      "x": 1820,
-      "y": 1180,
+      "x": 926,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -290,8 +290,8 @@
       "type": "ground"
     },
     "ground_road_ew_nn": {
-      "x": 1754,
-      "y": 1180,
+      "x": 860,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -303,8 +303,8 @@
       "type": "ground"
     },
     "ground_xwalk_ew_cn": {
-      "x": 728,
-      "y": 1230,
+      "x": 1850,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -316,8 +316,8 @@
       "type": "ground"
     },
     "ground_xwalk_ew_nc": {
-      "x": 794,
-      "y": 1230,
+      "x": 1916,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -329,8 +329,8 @@
       "type": "ground"
     },
     "ground_xwalk_ew_nn": {
-      "x": 860,
-      "y": 1230,
+      "x": 1982,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -342,8 +342,8 @@
       "type": "ground"
     },
     "ground_xwalk_ew_cc": {
-      "x": 662,
-      "y": 1230,
+      "x": 1784,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -355,8 +355,8 @@
       "type": "ground"
     },
     "ground_parking_ew": {
-      "x": 1424,
-      "y": 1180,
+      "x": 530,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -368,8 +368,8 @@
       "type": "ground"
     },
     "ground_junction_nnnn": {
-      "x": 1358,
-      "y": 1180,
+      "x": 464,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -381,8 +381,8 @@
       "type": "ground"
     },
     "ground_junction_cnnn": {
-      "x": 830,
-      "y": 1180,
+      "x": 1924,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -394,8 +394,8 @@
       "type": "ground"
     },
     "ground_junction_ncnn": {
-      "x": 1094,
-      "y": 1180,
+      "x": 200,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -407,8 +407,8 @@
       "type": "ground"
     },
     "ground_junction_ccnn": {
-      "x": 566,
-      "y": 1180,
+      "x": 1660,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -420,8 +420,8 @@
       "type": "ground"
     },
     "ground_junction_nncn": {
-      "x": 1226,
-      "y": 1180,
+      "x": 332,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -433,8 +433,8 @@
       "type": "ground"
     },
     "ground_junction_cncn": {
-      "x": 698,
-      "y": 1180,
+      "x": 1792,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -446,8 +446,8 @@
       "type": "ground"
     },
     "ground_junction_nccn": {
-      "x": 962,
-      "y": 1180,
+      "x": 68,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -459,8 +459,8 @@
       "type": "ground"
     },
     "ground_junction_cccn": {
-      "x": 434,
-      "y": 1180,
+      "x": 1528,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -472,8 +472,8 @@
       "type": "ground"
     },
     "ground_junction_nnnc": {
-      "x": 1292,
-      "y": 1180,
+      "x": 398,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -485,8 +485,8 @@
       "type": "ground"
     },
     "ground_junction_cnnc": {
-      "x": 764,
-      "y": 1180,
+      "x": 1858,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -498,8 +498,8 @@
       "type": "ground"
     },
     "ground_junction_ncnc": {
-      "x": 1028,
-      "y": 1180,
+      "x": 134,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -511,8 +511,8 @@
       "type": "ground"
     },
     "ground_junction_ccnc": {
-      "x": 500,
-      "y": 1180,
+      "x": 1594,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -524,8 +524,8 @@
       "type": "ground"
     },
     "ground_junction_nncc": {
-      "x": 1160,
-      "y": 1180,
+      "x": 266,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -537,8 +537,8 @@
       "type": "ground"
     },
     "ground_junction_cncc": {
-      "x": 632,
-      "y": 1180,
+      "x": 1726,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -550,8 +550,8 @@
       "type": "ground"
     },
     "ground_junction_nccc": {
-      "x": 896,
-      "y": 1180,
+      "x": 2,
+      "y": 1312,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -563,8 +563,8 @@
       "type": "ground"
     },
     "ground_junction_cccc": {
-      "x": 368,
-      "y": 1180,
+      "x": 1462,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -576,8 +576,8 @@
       "type": "ground"
     },
     "ground_asphalt": {
-      "x": 236,
-      "y": 1180,
+      "x": 1330,
+      "y": 1262,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -589,7 +589,7 @@
       "type": "ground"
     },
     "shop_cafe_1x1": {
-      "x": 850,
+      "x": 1174,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -611,7 +611,7 @@
       "door": "left"
     },
     "shop_cafe_1x1_m": {
-      "x": 1144,
+      "x": 1468,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -633,7 +633,7 @@
       "door": "right"
     },
     "shop_cafe_1x1_b": {
-      "x": 948,
+      "x": 1272,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -655,7 +655,7 @@
       "door": "left"
     },
     "shop_cafe_1x1_b_m": {
-      "x": 1046,
+      "x": 1370,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -927,7 +927,7 @@
       "roof": "flat"
     },
     "retail_bakery_1x1": {
-      "x": 1342,
+      "x": 1700,
       "y": 1034,
       "w": 96,
       "h": 96,
@@ -949,7 +949,7 @@
       "door": "left"
     },
     "retail_bakery_1x1_m": {
-      "x": 1440,
+      "x": 1798,
       "y": 1034,
       "w": 96,
       "h": 96,
@@ -1015,7 +1015,7 @@
       "door": "right"
     },
     "retail_deli_1x1": {
-      "x": 654,
+      "x": 978,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -1037,7 +1037,7 @@
       "door": "left"
     },
     "retail_deli_1x1_m": {
-      "x": 752,
+      "x": 1076,
       "y": 1034,
       "w": 96,
       "h": 112,
@@ -1059,7 +1059,7 @@
       "door": "right"
     },
     "retail_deli_1x1_b": {
-      "x": 392,
+      "x": 586,
       "y": 1034,
       "w": 96,
       "h": 128,
@@ -1081,7 +1081,7 @@
       "door": "left"
     },
     "retail_deli_1x1_b_m": {
-      "x": 490,
+      "x": 684,
       "y": 1034,
       "w": 96,
       "h": 128,
@@ -1103,8 +1103,8 @@
       "door": "right"
     },
     "retail_diner_2x2": {
-      "x": 1538,
-      "y": 1034,
+      "x": 2,
+      "y": 1180,
       "w": 128,
       "h": 80,
       "anchorX": 63,
@@ -1125,8 +1125,8 @@
       "door": "left"
     },
     "retail_diner_2x2_m": {
-      "x": 1668,
-      "y": 1034,
+      "x": 132,
+      "y": 1180,
       "w": 128,
       "h": 80,
       "anchorX": 66,
@@ -2053,7 +2053,7 @@
       "door": "right"
     },
     "civic_bank_2x2_b": {
-      "x": 132,
+      "x": 326,
       "y": 1034,
       "w": 128,
       "h": 128,
@@ -2075,7 +2075,7 @@
       "door": "left"
     },
     "civic_bank_2x2_b_m": {
-      "x": 262,
+      "x": 456,
       "y": 1034,
       "w": 128,
       "h": 128,
@@ -2273,8 +2273,8 @@
       "door": "right"
     },
     "roof_hvac": {
-      "x": 1586,
-      "y": 1230,
+      "x": 266,
+      "y": 1346,
       "w": 64,
       "h": 32,
       "anchorX": 32,
@@ -2287,8 +2287,8 @@
       "attach": "roof"
     },
     "roof_watertank": {
-      "x": 202,
-      "y": 1180,
+      "x": 104,
+      "y": 1262,
       "w": 32,
       "h": 48,
       "anchorX": 16,
@@ -2301,7 +2301,7 @@
       "attach": "roof"
     },
     "prop_street_tree": {
-      "x": 1276,
+      "x": 1600,
       "y": 1034,
       "w": 64,
       "h": 96,
@@ -2314,7 +2314,7 @@
       "type": "prop"
     },
     "prop_park_tree": {
-      "x": 588,
+      "x": 912,
       "y": 1034,
       "w": 64,
       "h": 112,
@@ -2327,7 +2327,7 @@
       "type": "prop"
     },
     "prop_lamp": {
-      "x": 1242,
+      "x": 1566,
       "y": 1034,
       "w": 32,
       "h": 96,
@@ -2340,8 +2340,8 @@
       "type": "prop"
     },
     "prop_hydrant": {
-      "x": 134,
-      "y": 1180,
+      "x": 2,
+      "y": 1262,
       "w": 32,
       "h": 48,
       "anchorX": 16,
@@ -2353,8 +2353,8 @@
       "type": "prop"
     },
     "prop_bench": {
-      "x": 1798,
-      "y": 1034,
+      "x": 1962,
+      "y": 1180,
       "w": 32,
       "h": 48,
       "anchorX": 23,
@@ -2366,7 +2366,1040 @@
       "type": "prop"
     },
     "prop_trashcan": {
-      "x": 168,
+      "x": 70,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 17,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "ped_woman_coat_se": {
+      "x": 1010,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_woman_coat"
+    },
+    "ped_woman_coat_sw": {
+      "x": 1044,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 18,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_woman_coat"
+    },
+    "ped_woman_coat_ne": {
+      "x": 942,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 18,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_woman_coat"
+    },
+    "ped_woman_coat_nw": {
+      "x": 976,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_woman_coat"
+    },
+    "ped_man_dog_se": {
+      "x": 1316,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 23,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_man_dog"
+    },
+    "ped_man_dog_sw": {
+      "x": 1350,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 11,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_man_dog"
+    },
+    "ped_man_dog_ne": {
+      "x": 1248,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 21,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_man_dog"
+    },
+    "ped_man_dog_nw": {
+      "x": 1282,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 12,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_man_dog"
+    },
+    "ped_woman_dog_se": {
+      "x": 1860,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 21,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_woman_dog"
+    },
+    "ped_woman_dog_sw": {
+      "x": 1894,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 15,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_woman_dog"
+    },
+    "ped_woman_dog_ne": {
+      "x": 1792,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 21,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_woman_dog"
+    },
+    "ped_woman_dog_nw": {
+      "x": 1826,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 15,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_woman_dog"
+    },
+    "ped_business_se": {
+      "x": 330,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_business"
+    },
+    "ped_business_sw": {
+      "x": 364,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 20,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_business"
+    },
+    "ped_business_ne": {
+      "x": 262,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 18,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_business"
+    },
+    "ped_business_nw": {
+      "x": 296,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_business"
+    },
+    "ped_parent_kid_se": {
+      "x": 1452,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 14,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_parent_kid"
+    },
+    "ped_parent_kid_sw": {
+      "x": 1486,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 20,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_parent_kid"
+    },
+    "ped_parent_kid_ne": {
+      "x": 1384,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 21,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_parent_kid"
+    },
+    "ped_parent_kid_nw": {
+      "x": 1418,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 12,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_parent_kid"
+    },
+    "ped_parent_kids_se": {
+      "x": 1588,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 8,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_parent_kids"
+    },
+    "ped_parent_kids_sw": {
+      "x": 1622,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 24,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_parent_kids"
+    },
+    "ped_parent_kids_ne": {
+      "x": 1520,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 26,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_parent_kids"
+    },
+    "ped_parent_kids_nw": {
+      "x": 1554,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 7,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_parent_kids"
+    },
+    "ped_cyclist_se": {
+      "x": 1180,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 25,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_cyclist"
+    },
+    "ped_cyclist_sw": {
+      "x": 1214,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 9,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_cyclist"
+    },
+    "ped_cyclist_ne": {
+      "x": 1112,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 9,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_cyclist"
+    },
+    "ped_cyclist_nw": {
+      "x": 1146,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 23,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_cyclist"
+    },
+    "ped_scooter_se": {
+      "x": 1724,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 24,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_scooter"
+    },
+    "ped_scooter_sw": {
+      "x": 1758,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 9,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_scooter"
+    },
+    "ped_scooter_ne": {
+      "x": 1656,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 10,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_scooter"
+    },
+    "ped_scooter_nw": {
+      "x": 1690,
+      "y": 1180,
+      "w": 32,
+      "h": 48,
+      "anchorX": 23,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_scooter"
+    },
+    "ped_jogger_se": {
+      "x": 602,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_jogger"
+    },
+    "ped_jogger_sw": {
+      "x": 636,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 19,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_jogger"
+    },
+    "ped_jogger_ne": {
+      "x": 534,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 18,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_jogger"
+    },
+    "ped_jogger_nw": {
+      "x": 568,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_jogger"
+    },
+    "ped_elder_se": {
+      "x": 466,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_elder"
+    },
+    "ped_elder_sw": {
+      "x": 500,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 19,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_elder"
+    },
+    "ped_elder_ne": {
+      "x": 398,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 17,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_elder"
+    },
+    "ped_elder_nw": {
+      "x": 432,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 15,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_elder"
+    },
+    "ped_student_se": {
+      "x": 738,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 16,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_student"
+    },
+    "ped_student_sw": {
+      "x": 772,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 16,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_student"
+    },
+    "ped_student_ne": {
+      "x": 670,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 20,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_student"
+    },
+    "ped_student_nw": {
+      "x": 704,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 14,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_student"
+    },
+    "ped_woman_bags_se": {
+      "x": 874,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 14,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "ped_woman_bags"
+    },
+    "ped_woman_bags_sw": {
+      "x": 908,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 19,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "ped_woman_bags"
+    },
+    "ped_woman_bags_ne": {
+      "x": 806,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 18,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "ped_woman_bags"
+    },
+    "ped_woman_bags_nw": {
+      "x": 840,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
+      "anchorX": 16,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "ped_woman_bags"
+    },
+    "veh_car_a_se": {
+      "x": 270,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "veh_car_a"
+    },
+    "veh_car_a_sw": {
+      "x": 336,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "veh_car_a"
+    },
+    "veh_car_a_ne": {
+      "x": 138,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "veh_car_a"
+    },
+    "veh_car_a_nw": {
+      "x": 204,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "veh_car_a"
+    },
+    "veh_car_b_se": {
+      "x": 470,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "veh_car_b"
+    },
+    "veh_car_b_sw": {
+      "x": 504,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 47,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "veh_car_b"
+    },
+    "veh_car_b_ne": {
+      "x": 402,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 47,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "veh_car_b"
+    },
+    "veh_car_b_nw": {
+      "x": 436,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 16,
+      "anchorY": 47,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "veh_car_b"
+    },
+    "veh_car_c_se": {
+      "x": 670,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "veh_car_c"
+    },
+    "veh_car_c_sw": {
+      "x": 736,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "veh_car_c"
+    },
+    "veh_car_c_ne": {
+      "x": 538,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "veh_car_c"
+    },
+    "veh_car_c_nw": {
+      "x": 604,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "veh_car_c"
+    },
+    "veh_taxi_se": {
+      "x": 934,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "veh_taxi"
+    },
+    "veh_taxi_sw": {
+      "x": 1000,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "veh_taxi"
+    },
+    "veh_taxi_ne": {
+      "x": 802,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "veh_taxi"
+    },
+    "veh_taxi_nw": {
+      "x": 868,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "veh_taxi"
+    },
+    "veh_van_se": {
+      "x": 1198,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "se",
+      "group": "veh_van"
+    },
+    "veh_van_sw": {
+      "x": 1264,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "sw",
+      "group": "veh_van"
+    },
+    "veh_van_ne": {
+      "x": 1066,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "ne",
+      "group": "veh_van"
+    },
+    "veh_van_nw": {
+      "x": 1132,
+      "y": 1262,
+      "w": 64,
+      "h": 48,
+      "anchorX": 32,
+      "anchorY": 48,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop",
+      "dir": "nw",
+      "group": "veh_van"
+    },
+    "prop_cone": {
+      "x": 1996,
       "y": 1180,
       "w": 32,
       "h": 48,
@@ -2378,64 +3411,12 @@
       ],
       "type": "prop"
     },
-    "prop_car_a": {
-      "x": 1190,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_a_m": {
-      "x": 1388,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_a_b": {
-      "x": 1256,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_a_b_m": {
-      "x": 1322,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 32,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_b": {
-      "x": 1832,
-      "y": 1034,
+    "prop_barrier": {
+      "x": 1928,
+      "y": 1180,
       "w": 32,
       "h": 48,
-      "anchorX": 16,
+      "anchorX": 11,
       "anchorY": 48,
       "footprint": [
         1,
@@ -2443,12 +3424,38 @@
       ],
       "type": "prop"
     },
-    "prop_car_b_m": {
-      "x": 1998,
+    "prop_traffic_light": {
+      "x": 1666,
       "y": 1034,
       "w": 32,
-      "h": 48,
+      "h": 96,
+      "anchorX": 17,
+      "anchorY": 96,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_cafe_table": {
+      "x": 1078,
+      "y": 1180,
+      "w": 32,
+      "h": 64,
       "anchorX": 16,
+      "anchorY": 64,
+      "footprint": [
+        1,
+        1
+      ],
+      "type": "prop"
+    },
+    "prop_planter": {
+      "x": 36,
+      "y": 1262,
+      "w": 32,
+      "h": 48,
+      "anchorX": 17,
       "anchorY": 48,
       "footprint": [
         1,
@@ -2456,83 +3463,44 @@
       ],
       "type": "prop"
     },
-    "prop_car_b_b": {
-      "x": 1866,
+    "lot_vacant_1x1": {
+      "x": 1896,
       "y": 1034,
       "w": 64,
-      "h": 48,
+      "h": 80,
       "anchorX": 32,
-      "anchorY": 48,
+      "anchorY": 80,
       "footprint": [
         1,
         1
       ],
-      "type": "prop"
+      "type": "lot"
     },
-    "prop_car_b_b_m": {
-      "x": 1932,
+    "lot_vacant_2x2": {
+      "x": 782,
       "y": 1034,
-      "w": 64,
-      "h": 48,
-      "anchorX": 32,
-      "anchorY": 48,
+      "w": 128,
+      "h": 112,
+      "anchorX": 64,
+      "anchorY": 112,
       "footprint": [
-        1,
-        1
+        2,
+        2
       ],
-      "type": "prop"
+      "type": "lot"
     },
-    "prop_car_c": {
-      "x": 2,
-      "y": 1180,
-      "w": 64,
-      "h": 48,
-      "anchorX": 32,
-      "anchorY": 48,
+    "lot_vacant_3x3": {
+      "x": 132,
+      "y": 1034,
+      "w": 192,
+      "h": 144,
+      "anchorX": 96,
+      "anchorY": 144,
       "footprint": [
-        1,
-        1
+        3,
+        3
       ],
-      "type": "prop"
-    },
-    "prop_car_c_m": {
-      "x": 68,
-      "y": 1180,
-      "w": 64,
-      "h": 48,
-      "anchorX": 32,
-      "anchorY": 48,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_c_b": {
-      "x": 1454,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 31,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
-    },
-    "prop_car_c_b_m": {
-      "x": 1520,
-      "y": 1230,
-      "w": 64,
-      "h": 32,
-      "anchorX": 32,
-      "anchorY": 31,
-      "footprint": [
-        1,
-        1
-      ],
-      "type": "prop"
+      "type": "lot"
     }
   },
   "stacks": {
@@ -2672,6 +3640,11 @@
     "roof_hvac",
     "roof_watertank"
   ],
+  "lots": {
+    "1x1": "lot_vacant_1x1",
+    "2x2": "lot_vacant_2x2",
+    "3x3": "lot_vacant_3x3"
+  },
   "lighting": {
     "glass": [
       "#3A4A5A",

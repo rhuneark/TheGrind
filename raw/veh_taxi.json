@@ -1,0 +1,10 @@
+{
+  "id": "veh_taxi",
+  "endpoint": "/create-8-direction-object",
+  "description": "yellow taxi cab car",
+  "view": "low top-down",
+  "size": 48,
+  "style_object_id": "02bdf071-746b-4d3f-8f05-b71c7d5b31c8",
+  "objectId": "8864b7e9-a33e-4ddf-887f-63fc901e4731",
+  "generatedAt": "2026-09-25T07:37:02.717Z"
+}

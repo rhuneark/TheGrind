@@ -1,0 +1,16 @@
+{
+  "id": "ped_man_dog",
+  "endpoint": "/create-character-with-8-directions",
+  "description": "isometric pixel art, single object, flat lighting, man in a grey suit walking a small brown dog on a leash",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "mode": "pro",
+  "isometric": true,
+  "view": "low top-down",
+  "color_image": "<palette.json>",
+  "seed": 1,
+  "characterId": "9d6be097-9f25-4de3-a52e-7d84f7a6a28e",
+  "generatedAt": "2026-09-25T07:35:32.527Z"
+}

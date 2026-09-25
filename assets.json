@@ -458,7 +458,7 @@
       "prompt": "black metal city trash can"
     },
     {
-      "id": "prop_car_a", "seed": 187049858,
+      "id": "prop_car_a", "atlas": false, "seed": 187049858,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
@@ -466,7 +466,7 @@
       "prompt": "small dark blue sedan car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_a_b", "seed": 187049860,
+      "id": "prop_car_a_b", "atlas": false, "seed": 187049860,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
@@ -474,7 +474,7 @@
       "prompt": "small dark blue sedan car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_b", "seed": 136717004,
+      "id": "prop_car_b", "atlas": false, "seed": 136717004,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
@@ -482,7 +482,7 @@
       "prompt": "small white hatchback car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_b_b", "seed": 136717003,
+      "id": "prop_car_b_b", "atlas": false, "seed": 136717003,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
@@ -490,7 +490,7 @@
       "prompt": "small white hatchback car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_c", "seed": 153494620,
+      "id": "prop_car_c", "atlas": false, "seed": 153494620,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
@@ -498,13 +498,38 @@
       "prompt": "small silver grey sedan car, parked, seen from above at an angle"
     },
     {
-      "id": "prop_car_c_b", "seed": 153494621,
+      "id": "prop_car_c_b", "atlas": false, "seed": 153494621,
       "type": "prop", "anchor": "centre",
       "size": [48, 40],
       "footprint": [1, 1],
       "mirror": true,
       "prompt": "small silver grey sedan car, parked, seen from above at an angle"
-    }
+    },
+    {"id": "ped_woman_coat", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 1, "prompt": "woman in a dark green coat walking, city pedestrian"},
+    {"id": "ped_man_dog", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 1, "prompt": "man in a grey suit walking a small brown dog on a leash"},
+    {"id": "ped_woman_dog", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 2, "prompt": "woman in a navy jacket walking a small white dog on a leash"},
+    {"id": "ped_business", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 3, "prompt": "businessman in a dark suit carrying a briefcase, walking"},
+    {"id": "ped_parent_kid", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 4, "prompt": "mother walking hand in hand with a small child"},
+    {"id": "ped_parent_kids", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 5, "prompt": "father walking with two young children"},
+    {"id": "ped_cyclist", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 6, "prompt": "person in a red jacket riding a bicycle"},
+    {"id": "ped_scooter", "type": "prop", "mode": "character8pro", "size": [32, 32], "seed": 7, "prompt": "young man riding a kick scooter"},
+    {"id": "ped_jogger", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 8, "prompt": "jogger in a grey hoodie and shorts running"},
+    {"id": "ped_elder", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 9, "prompt": "old man with a flat cap and a walking cane"},
+    {"id": "ped_student", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 10, "prompt": "teenager with a backpack walking"},
+    {"id": "ped_woman_bags", "type": "prop", "mode": "character8", "size": [32, 32], "seed": 11, "prompt": "woman in a beige trench coat carrying shopping bags"},
+    {"id": "veh_car_a", "type": "prop", "mode": "object8", "reference": "prop_car_a", "anchor": "centre", "prompt": "small dark blue sedan car"},
+    {"id": "veh_car_b", "type": "prop", "mode": "object8", "reference": "prop_car_b", "anchor": "centre", "prompt": "small white hatchback car"},
+    {"id": "veh_car_c", "type": "prop", "mode": "object8", "reference": "prop_car_c", "anchor": "centre", "prompt": "small tan sedan car"},
+    {"id": "veh_taxi", "type": "prop", "mode": "object8", "styleFrom": "veh_car_a", "size": [48, 48], "anchor": "centre", "prompt": "yellow taxi cab car"},
+    {"id": "veh_van", "type": "prop", "mode": "object8", "styleFrom": "veh_car_a", "size": [48, 48], "anchor": "centre", "prompt": "small white delivery van"},
+    {"id": "prop_cone", "type": "prop", "size": [32, 32], "endpoint": "/create-image-bitforge", "params": {"coverage_percentage": 30}, "prompt": "single small orange traffic cone"},
+    {"id": "prop_barrier", "seed": 476933698, "type": "prop", "size": [48, 32], "prompt": "small road barricade: a white plank with orange diagonal stripes on two metal legs"},
+    {"id": "prop_traffic_light", "type": "prop", "size": [32, 80], "prompt": "black metal traffic light pole with a signal box, unlit"},
+    {"id": "prop_cafe_table", "type": "prop", "size": [48, 48], "prompt": "small round outdoor cafe table with two chairs under a cream parasol"},
+    {"id": "prop_planter", "type": "prop", "size": [32, 32], "endpoint": "/create-image-bitforge", "params": {"coverage_percentage": 55}, "prompt": "square concrete planter box with a small green shrub"},
+    {"id": "lot_vacant_1x1", "type": "lot", "compose": {"footprint": [1, 1], "props": [["prop_cone", 0.25, 0.82], ["prop_cone", 0.82, 0.25], ["prop_barrier", 0.65, 0.65]]}},
+    {"id": "lot_vacant_2x2", "type": "lot", "compose": {"footprint": [2, 2], "props": [["prop_cone", 0.33, 1.82], ["prop_cone", 1.82, 0.33], ["prop_cone", 1.0, 1.82], ["prop_cone", 1.82, 1.0], ["prop_barrier", 1.65, 1.65]]}},
+    {"id": "lot_vacant_3x3", "type": "lot", "compose": {"footprint": [3, 3], "props": [["prop_cone", 0.38, 2.82], ["prop_cone", 2.82, 0.38], ["prop_cone", 1.12, 2.82], ["prop_cone", 2.82, 1.12], ["prop_cone", 1.88, 2.82], ["prop_cone", 2.82, 1.88], ["prop_barrier", 2.65, 2.65]]}}
   ],
   "rooftops": ["roof_hvac", "roof_watertank"]
 }

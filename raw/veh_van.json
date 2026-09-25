@@ -1,0 +1,10 @@
+{
+  "id": "veh_van",
+  "endpoint": "/create-8-direction-object",
+  "description": "small white delivery van",
+  "view": "low top-down",
+  "size": 48,
+  "style_object_id": "02bdf071-746b-4d3f-8f05-b71c7d5b31c8",
+  "objectId": "8795510d-2b14-4d7e-93cc-f82064b040a4",
+  "generatedAt": "2026-09-25T07:41:07.047Z"
+}

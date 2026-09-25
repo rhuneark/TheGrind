@@ -31,9 +31,9 @@
       "3": 0.15
     },
     "special": {
-      "parking": 0.05,
-      "plaza": 0.03,
-      "pocketPark": 0.04
+      "parking": 0.015,
+      "plaza": 0.04,
+      "pocketPark": 0.05
     },
     "parkBlockChance": 0.06,
     "cornerTurnChance": 0.5,
@@ -91,7 +91,30 @@
     "lampEvery": 4,
     "hydrantChance": 0.025,
     "trashChance": 0.05,
-    "carChance": 0.7,
-    "carAxis": "row"
+    "trafficLightChance": 0.8,
+    "cafeTableChance": 0.6,
+    "streetParkingChance": 0.55,
+    "curbNudge": 0.28,
+    "trafficChance": 0.07,
+    "lotCarChance": 0.7
+  },
+  "people": {
+    "sidewalkChance": 0.15,
+    "parkChance": 0.06,
+    "crossingChance": 0.15,
+    "weights": {
+      "ped_woman_coat": 1.2,
+      "ped_business": 1.4,
+      "ped_elder": 0.6,
+      "ped_jogger": 0.5,
+      "ped_student": 0.9,
+      "ped_woman_bags": 1,
+      "ped_man_dog": 0.7,
+      "ped_woman_dog": 0.7,
+      "ped_parent_kid": 0.7,
+      "ped_parent_kids": 0.5,
+      "ped_cyclist": 0.5,
+      "ped_scooter": 0.4
+    }
   }
 }

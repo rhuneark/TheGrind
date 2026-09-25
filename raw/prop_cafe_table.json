@@ -1,0 +1,21 @@
+{
+  "id": "prop_cafe_table",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, single object, flat lighting, small round outdoor cafe table with two chairs under a cream parasol",
+  "image_size": {
+    "width": 48,
+    "height": 48
+  },
+  "color_image": "<palette.json>",
+  "seed": 582458863,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-25T07:29:10.057Z"
+}
