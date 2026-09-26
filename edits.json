@@ -1,0 +1,154 @@
+{
+  "edits": {
+    "stand_002": {
+      "col": 31,
+      "row": 68,
+      "nudge": null
+    },
+    "street_tree_024": {
+      "col": 33,
+      "row": 71,
+      "nudge": null
+    },
+    "man_dog_026": {
+      "col": 32,
+      "row": 69,
+      "nudge": null
+    },
+    "elder_030": {
+      "col": 30,
+      "row": 69,
+      "nudge": null
+    },
+    "woman_bags_034": {
+      "col": 31,
+      "row": 69,
+      "nudge": null
+    },
+    "street_tree_235": {
+      "remove": true
+    },
+    "shop_030": {
+      "remove": true
+    },
+    "shop_032": {
+      "remove": true
+    },
+    "edit_muhtunqt": {
+      "add": {
+        "footprint": [
+          1,
+          1
+        ],
+        "category": "shop",
+        "facing": "left",
+        "objectId": "edit_muhtunqt",
+        "col": 71,
+        "row": 52,
+        "startState": "vacant"
+      }
+    },
+    "lamp_010": {
+      "col": 70,
+      "row": 51,
+      "nudge": null
+    },
+    "shop_008": {
+      "col": 22,
+      "row": 38,
+      "nudge": null,
+      "facing": "right"
+    },
+    "shop_015": {
+      "remove": true
+    },
+    "shop_025": {
+      "remove": true
+    },
+    "edit_muhtxj4v": {
+      "add": {
+        "footprint": [
+          1,
+          1
+        ],
+        "category": "retail",
+        "facing": "left",
+        "objectId": "edit_muhtxj4v",
+        "col": 57,
+        "row": 38
+      }
+    },
+    "shop_022": {
+      "startState": "vacant"
+    },
+    "shop_021": {
+      "remove": true
+    },
+    "bench_025": {
+      "col": 63,
+      "row": 23,
+      "nudge": null
+    },
+    "edit_muhtzikx": {
+      "add": {
+        "footprint": [
+          1,
+          1
+        ],
+        "sprite": "ped_elder_se",
+        "objectId": "edit_muhtzikx",
+        "col": 64,
+        "row": 24
+      }
+    },
+    "edit_muhtzjkz": {
+      "add": {
+        "footprint": [
+          1,
+          1
+        ],
+        "sprite": "ped_elder_se",
+        "objectId": "edit_muhtzjkz",
+        "col": 53,
+        "row": 26
+      }
+    },
+    "street_tree_127": {
+      "remove": true
+    },
+    "parent_kids_004": {
+      "col": 28,
+      "row": 14,
+      "nudge": null
+    },
+    "edit_muhu1tql": {
+      "add": {
+        "footprint": [
+          1,
+          1
+        ],
+        "category": "stand",
+        "facing": "right",
+        "objectId": "edit_muhu1tql",
+        "col": 21,
+        "row": 8
+      }
+    },
+    "park_tree_005": {
+      "remove": true
+    },
+    "park_tree_003": {
+      "col": 15,
+      "row": 9,
+      "nudge": null
+    },
+    "park_tree_008": {
+      "col": 20,
+      "row": 9,
+      "nudge": null
+    },
+    "shop_017": {
+      "startState": "vacant"
+    }
+  }
+}

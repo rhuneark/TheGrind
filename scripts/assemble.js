@@ -414,38 +414,6 @@ for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
   placeMover(r, c, group, pick(dirs), [jitter(), jitter()]);
 }
 
-// ---------------------------------------------------------------- hand edits
-// edits.json (written by the map editor) is applied last, keyed by objectId,
-// so a rebuild with the same seed and settings keeps every hand placement:
-//   { "<objectId>": { "remove": true }
-//                 | { "col", "row", "facing", "startState": "vacant" | null }
-//                 | { "add": { ...a full map object } } }
-const editsFile = path.join(ROOT, 'edits.json');
-const edited = new Set();
-if (fs.existsSync(editsFile) && !args.includes('--no-edits')) {
-  const edits = JSON.parse(fs.readFileSync(editsFile, 'utf8')).edits || {};
-  let applied = 0, stale = [];
-  for (const [id, e] of Object.entries(edits)) {
-    const i = objects.findIndex(o => o.objectId === id);
-    if (e.add) { if (i >= 0) objects.splice(i, 1); objects.push({ ...e.add, objectId: id }); edited.add(id); applied++; continue; }
-    if (i < 0) { stale.push(id); continue; }
-    if (e.remove) { objects.splice(i, 1); applied++; continue; }
-    const o = objects[i];
-    for (const k of ['col', 'row', 'facing', 'nudge']) if (e[k] !== undefined) { if (e[k] === null) delete o[k]; else o[k] = e[k]; }
-    if (e.startState !== undefined) { if (e.startState) o.startState = e.startState; else delete o.startState; }
-    edited.add(id); applied++;
-  }
-  // Moved things take their cell: drop generated props they now sit on.
-  const taken = new Set();
-  for (const o of objects) if (edited.has(o.objectId)) for (let dc = 0; dc < o.footprint[0]; dc++) for (let dr = 0; dr < o.footprint[1]; dr++) taken.add(`${o.col + dc},${o.row + dr}`);
-  for (let i = objects.length - 1; i >= 0; i--) { const o = objects[i]; if (!edited.has(o.objectId) && o.sprite && taken.has(`${o.col},${o.row}`)) objects.splice(i, 1); }
-  console.log(`applied ${applied} hand edits from edits.json${stale.length ? ` (${stale.length} refer to objects that no longer exist: ${stale.slice(0, 5).join(', ')}${stale.length > 5 ? '…' : ''})` : ''}`);
-}
-
-// Painter's order: ascending front-most cell. Pre-sorted so RUN can draw
-// straight through the list (it still re-sorts if objects move).
-objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
-
 // Coffee spots that start the game unbought: the map marks them
 // `startState: "vacant"`, so RUN shows cones there until the save file says
 // otherwise. They have to be easy to find and click, so they are picked, not
@@ -497,6 +465,38 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
   for (const o of picked) o.startState = 'vacant';
 }
 
+// ---------------------------------------------------------------- hand edits
+// edits.json (written by the map editor) is applied last, keyed by objectId,
+// so a rebuild with the same seed and settings keeps every hand placement:
+//   { "<objectId>": { "remove": true }
+//                 | { "col", "row", "facing", "startState": "vacant" | null }
+//                 | { "add": { ...a full map object } } }
+const editsFile = path.join(ROOT, 'edits.json');
+const edited = new Set();
+if (fs.existsSync(editsFile) && !args.includes('--no-edits')) {
+  const edits = JSON.parse(fs.readFileSync(editsFile, 'utf8')).edits || {};
+  let applied = 0, stale = [];
+  for (const [id, e] of Object.entries(edits)) {
+    const i = objects.findIndex(o => o.objectId === id);
+    if (e.add) { if (i >= 0) objects.splice(i, 1); objects.push({ ...e.add, objectId: id }); edited.add(id); applied++; continue; }
+    if (i < 0) { stale.push(id); continue; }
+    if (e.remove) { objects.splice(i, 1); applied++; continue; }
+    const o = objects[i];
+    for (const k of ['col', 'row', 'facing', 'nudge']) if (e[k] !== undefined) { if (e[k] === null) delete o[k]; else o[k] = e[k]; }
+    if (e.startState !== undefined) { if (e.startState) o.startState = e.startState; else delete o.startState; }
+    edited.add(id); applied++;
+  }
+  // Moved things take their cell: drop generated props they now sit on.
+  const taken = new Set();
+  for (const o of objects) if (edited.has(o.objectId)) for (let dc = 0; dc < o.footprint[0]; dc++) for (let dr = 0; dr < o.footprint[1]; dr++) taken.add(`${o.col + dc},${o.row + dr}`);
+  for (let i = objects.length - 1; i >= 0; i--) { const o = objects[i]; if (!edited.has(o.objectId) && o.sprite && taken.has(`${o.col},${o.row}`)) objects.splice(i, 1); }
+  console.log(`applied ${applied} hand edits from edits.json${stale.length ? ` (${stale.length} refer to objects that no longer exist: ${stale.slice(0, 5).join(', ')}${stale.length > 5 ? '…' : ''})` : ''}`);
+}
+
+// Painter's order: ascending front-most cell. Pre-sorted so RUN can draw
+// straight through the list (it still re-sorts if objects move).
+objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
+
 // Door check: every building's door wall must face open ground.
 const byId = new Map(objects.map(o => [o.objectId, o]));
 let blocked = 0;
@@ -526,5 +526,5 @@ const map = { tileW: grid.tileW, tileH: grid.tileH, size: { cols, rows }, seed, 
 fs.writeFileSync(path.join(ROOT, 'dist', 'map.json'), JSON.stringify(map) + '\n');
 const cats = {};
 for (const o of objects) { const k = o.category || 'prop'; cats[k] = (cats[k] || 0) + 1; }
-console.log(`${objects.filter(o => o.startState === 'vacant').length} coffee-shop spots start vacant (prominent, street-facing); ${objects.filter(o => o.category === 'stand').length} coffee stands`);
+console.log(`${objects.filter(o => o.startState === 'vacant').length} coffee-shop spots start vacant; ${objects.filter(o => o.category === 'stand').length} coffee stands`);
 console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${Math.round(100 * built / interior)}% of block interiors built, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);
