@@ -28,6 +28,8 @@ Add the Grind City map to RUN, including buying and renovating coffee shops.
 
 8. **Leave the animations to the renderer.** Don't reimplement them; the renderer draws the build and dust frames from the target building.
 
+9. **UI art (optional but preferred):** copy `dist/ui.png`, `dist/ui.json` → `assets/ui/` and `runtime/ui-kit.js` → `src/ui/ui-kit.js`. Use it to skin RUN's existing HUD, shop panel, buttons and tabs, following section 6 of `docs/RUN_INTEGRATION.md` and `preview/hud.html`. Keep RUN's own game logic.
+
 **Done when:**
 - A fresh save shows cones on the vacant spots.
 - Buying one plays the build animation and ends as a coffee shop that persists across reloads.

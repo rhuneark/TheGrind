@@ -99,3 +99,24 @@ const shop = city.map.objects.find(o => ['shop', 'stand'].includes(o.category) &
 ```
 
 This hits the building's ground footprint, which is where the cones sit. The preview (`preview/index.html`, and the published preview page) does exactly this: click a coned spot to buy it, or click an open coffee shop to renovate it.
+
+## 6. UI art
+
+The UI kit is optional, but it's built to match the city.
+
+```
+dist/ui.png              → RUN/assets/ui/ui.png
+dist/ui.json             → RUN/assets/ui/ui.json
+runtime/ui-kit.js        → RUN/src/ui/ui-kit.js   (ES module, no dependencies)
+```
+
+```js
+import { loadUI } from './ui/ui-kit.js';
+const ui = await loadUI('assets/ui/');
+el.append(ui.icon('icon_cash', 2));                                      // crisp integer scale
+panel.style.backgroundImage = `url(${ui.url('panel', w / 2, h / 2, 2)})`; // nine-slice frame
+panel.style.backgroundSize = '100% 100%'; panel.style.imageRendering = 'pixelated';
+bar.replaceWith(ui.progress(0.4, 140, 8, 2));                             // code-drawn progress bar
+```
+
+Sprite ids: `icon_cash cup beans shop upgrade clock star lock settings trophy marketing expand premium boost hire staff customers close check info`, `worker_01`–`worker_12`, `button_primary success disabled premium`, `panel` (cream face), `panel_dark`, `ribbon` (titles, toasts), `tab`, `slot` (staff slots, top bar), `badge` (blank; draw the count as text). Re-skin elements when they resize, because the frame is rendered at the element's size. `preview/hud.html` wires all of it up.

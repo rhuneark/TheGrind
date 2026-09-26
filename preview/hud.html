@@ -1,0 +1,226 @@
+<meta charset="utf-8">
+<title>The Grind HUD</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap">
+<style>
+  :root { --cream: #F5F3EC; --paper: #E6E2D6; --ink: #1B1C1F; --espresso: #2A1C17; --brick: #8A4E40; --brass: #C9A444; --glow: #E8C878; --sage: #6C7F58; --muted: #6D6E63;
+    --font: "Pixelify Sans", "Courier New", monospace; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
+  body { background: #2A2C30; color: var(--cream); font: 16px/1.25 var(--font); overflow: hidden; user-select: none; }
+  #city { display: block; width: 100%; height: 100%; image-rendering: pixelated; touch-action: none; }
+  .px { image-rendering: pixelated; }
+  .skin { background-size: 100% 100%; image-rendering: pixelated; }
+
+  /* Top bar */
+  #top { position: fixed; top: calc(8px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); display: flex; gap: 6px; align-items: center; padding: 12px 22px; max-width: calc(100vw - 16px); flex-wrap: wrap; justify-content: center; }
+  .stat { display: flex; gap: 6px; align-items: center; font-size: 18px; font-weight: 600; text-shadow: 0 2px 0 #0008; padding: 0 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .stat small { font-size: 13px; font-weight: 400; color: var(--glow); }
+
+  /* Bottom tabs */
+  #tabs { position: fixed; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); display: flex; gap: 4px; max-width: calc(100vw - 16px); overflow-x: auto; padding-bottom: 2px; }
+  .tab { position: relative; width: 76px; height: 58px; border: 0; background: transparent; color: var(--cream); font: 11px var(--font); cursor: pointer; display: grid; place-items: center; padding: 6px 0 4px; flex: none; }
+  .tab canvas { display: block; }
+  .tab[aria-pressed="true"] { transform: translateY(-4px); }
+  .badge { position: absolute; top: -2px; right: 2px; width: 24px; height: 24px; display: grid; place-items: center; font: 700 12px var(--font); color: #fff; text-shadow: 0 1px 0 #0008; background-size: 100% 100%; image-rendering: pixelated; }
+
+  /* Panels */
+  .panel { position: fixed; padding: 34px 32px 30px; color: var(--ink); display: grid; gap: 10px; }
+  #shop { right: 12px; top: 50%; transform: translateY(-50%); width: min(360px, calc(100vw - 24px)); }
+  .ribbon { justify-self: center; margin-top: -52px; min-width: 220px; height: 48px; display: grid; place-items: center; color: var(--cream); font-size: 18px; font-weight: 600; text-shadow: 0 2px 0 #0006; padding: 0 28px 6px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .row.between { justify-content: space-between; }
+  .label { font-size: 13px; color: var(--muted); }
+  .big { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stars canvas { margin-right: -4px; }
+  .btn { border: 0; background: transparent; font: 600 16px var(--font); color: var(--cream); text-shadow: 0 2px 0 #0007; cursor: pointer; height: 44px; padding: 0 14px 4px; display: flex; gap: 6px; align-items: center; justify-content: center; }
+  .btn:active { transform: translateY(2px); }
+  .btn:disabled { cursor: default; }
+  .btn:focus-visible, .tab:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+  .slots { display: grid; grid-template-columns: repeat(4, 56px); gap: 8px; justify-content: center; }
+  .slot { width: 56px; height: 56px; display: grid; place-items: center; }
+  .close { position: absolute; top: 8px; right: 8px; border: 0; background: transparent; cursor: pointer; padding: 0; }
+  #modal { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(320px, calc(100vw - 24px)); text-align: center; justify-items: center; }
+  #toast { position: fixed; left: 50%; top: 90px; transform: translateX(-50%); padding: 14px 60px 18px; white-space: nowrap; max-width: calc(100vw - 16px); color: var(--cream); font-size: 15px; text-shadow: 0 2px 0 #0008; transition: opacity .3s; }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+  @media (max-width: 560px) { .tab { width: 48px; } .tab span:not(.badge) { display: none; } #shop { left: 8px; right: 8px; width: auto; top: auto; bottom: 84px; transform: none; padding: 30px 24px 26px; } }
+</style>
+
+<canvas id="city" aria-label="City map"></canvas>
+
+<header id="top" class="skin">
+  <div class="stat" title="Cash"><span data-icon="icon_cash"></span><span id="cash">$0</span><small id="rate">+$0/s</small></div>
+  <div class="stat" title="Cups served"><span data-icon="icon_cup"></span><span id="cups">0</span></div>
+  <div class="stat" title="Reputation"><span data-icon="icon_star"></span><span id="rep">3.8</span></div>
+  <div class="stat" title="Gems"><span data-icon="icon_premium"></span><span id="gems">25</span></div>
+</header>
+
+<nav id="tabs" aria-label="Menu"></nav>
+
+<section id="shop" class="panel skin" hidden aria-live="polite">
+  <div class="ribbon skin" id="shop-title">Coffee shop</div>
+  <button class="close" id="shop-close" aria-label="Close"></button>
+  <div id="shop-body"></div>
+</section>
+
+<section id="modal" class="panel skin" hidden>
+  <div class="ribbon skin">Welcome back!</div>
+  <div class="label">While you were away, your shops earned</div>
+  <div class="row"><span data-icon="icon_cash"></span><span class="big" id="offline">$0</span></div>
+  <div class="row">
+    <button class="btn" data-skin="button_success" id="collect">Collect</button>
+    <button class="btn" data-skin="button_premium" id="collect2"><span data-icon="icon_premium"></span>×2</button>
+  </div>
+</section>
+
+<div id="toast" class="skin" hidden></div>
+
+<script type="module">
+import { loadCity, createCityRenderer } from '../runtime/city-renderer.js';
+import { loadUI } from '../runtime/ui-kit.js';
+
+const CITY = window.__CITY_BASE__ ?? '../dist/', UIB = window.__UI_BASE__ ?? '../dist/';
+const [city, ui] = await Promise.all([loadCity(CITY), loadUI(UIB)]);
+const $ = id => document.getElementById(id);
+const S = 2; // UI scale
+const has = id => !!ui.kit.frames[id];
+
+// ---------------------------------------------------------------- skinning
+function skin(el, id) {
+  if (!has(id)) return;
+  const r = el.getBoundingClientRect(), w = Math.max(8, Math.round(r.width / S)), h = Math.max(8, Math.round(r.height / S));
+  el.style.backgroundImage = `url(${ui.url(id, w, h, S)})`;
+}
+function iconEl(id, scale = 1) { return has(id) ? ui.icon(id, scale) : document.createElement('span'); }
+function fillIcons(root = document) { for (const el of root.querySelectorAll('[data-icon]')) { el.replaceWith(iconEl(el.dataset.icon, +(el.dataset.scale || 1))); } }
+function skinAll(root = document) { for (const el of root.querySelectorAll('[data-skin]')) skin(el, el.dataset.skin); }
+
+// ---------------------------------------------------------------- game state (stand-in)
+const fmt = n => n >= 1e6 ? `$${(n / 1e6).toFixed(2)}M` : n >= 1e4 ? `$${(n / 1e3).toFixed(1)}K` : `$${Math.floor(n).toLocaleString()}`;
+const shops = city.map.objects.filter(o => ['shop', 'stand'].includes(o.category));
+const PORTRAITS = Object.keys(ui.kit.frames).filter(id => id.startsWith('worker_')).sort();
+const game = { cash: 1200, cups: 0, gems: 25, owned: {} };
+// Start owning a few built shops near the middle of the map.
+for (const o of shops.filter(o => !o.startState).sort((a, b) => Math.hypot(a.col - 40, a.row - 40) - Math.hypot(b.col - 40, b.row - 40)).slice(0, 4))
+  game.owned[o.objectId] = { state: 'built', tier: 1, staff: [PORTRAITS[0]].filter(Boolean) };
+const income = s => (s.state === 'built' || s.state === 'renovating') ? (4 * s.tier * s.tier) * (1 + 0.5 * s.staff.length) : 0;
+const rate = () => Object.values(game.owned).reduce((a, s) => a + income(s), 0);
+const buyCost = o => o.category === 'stand' ? 400 : o.footprint[0] > 1 ? 2500 : 1200;
+const upCost = s => Math.round(800 * Math.pow(3.2, s.tier));
+const hireCost = s => Math.round(250 * Math.pow(1.8, s.staff.length));
+const BUILD_MS = 5000, RENO_MS = 3000;
+
+function stateFor(id) {
+  const s = game.owned[id];
+  if (!s) return null;
+  if (s.startedAt) {
+    const t = (performance.now() - s.startedAt) / (s.state === 'constructing' ? BUILD_MS : RENO_MS);
+    if (t >= 1) { delete s.startedAt; if (s.state === 'renovating') s.tier = Math.min(3, s.tier + 1); s.state = 'built'; toast(`${nameOf(id)} is open for business!`); if (openId === id) openShop(id); }
+    else return { ...s, progress: s.state === 'constructing' ? t : undefined, producing: false };
+  }
+  return { ...s, producing: s.state === 'built' };
+}
+
+// ---------------------------------------------------------------- city
+const canvas = $('city');
+const r = createCityRenderer(canvas, city, { resolve: stateFor, background: '#2A2C30' });
+const dpr = () => Math.max(1, Math.round(devicePixelRatio || 1));
+let k = 2, cam = { x: 0, y: 700 }, hour = 17.5;
+function draw(now) {
+  canvas.width = Math.round(canvas.clientWidth * dpr()); canvas.height = Math.round(canvas.clientHeight * dpr());
+  r.setScale(k * dpr());
+  r.draw({ camX: cam.x, camY: cam.y, hour, time: now });
+}
+const STREETS = ['Elm St.', 'Maple Ave.', 'Harbor St.', 'Union Sq.', '5th Ave.', 'Canal St.', 'Main St.', 'Park Row', 'Bleecker St.', 'Grand St.'];
+const nameOf = id => { const o = shops.find(o => o.objectId === id); const n = parseInt(id.replace(/\D/g, '')) || 0; return `${o?.category === 'stand' ? 'Grind Cart' : 'The Grind'} · ${STREETS[n % STREETS.length]}`; };
+
+// ---------------------------------------------------------------- shop panel
+let openId = null;
+function openShop(id) {
+  openId = id;
+  const o = shops.find(o => o.objectId === id), s = game.owned[id];
+  $('shop-title').textContent = nameOf(id);
+  const body = $('shop-body'); body.innerHTML = '';
+  const add = html => { const d = document.createElement('div'); d.innerHTML = html; body.append(...d.childNodes); };
+  if (!s) {
+    add(`<div class="label">An empty ${o.category === 'stand' ? 'kiosk' : 'storefront'} on a busy street. Buy it and start brewing.</div>
+      <div class="row between"><span class="label">Size</span><span>${o.category === 'stand' ? 'Coffee stand' : o.footprint[0] > 1 ? 'Corner café' : 'Narrow café'}</span></div>
+      <button class="btn" data-skin="${game.cash >= buyCost(o) ? 'button_primary' : 'button_disabled'}" id="act" ${game.cash >= buyCost(o) ? '' : 'disabled'}><span data-icon="icon_cash"></span>Buy for ${fmt(buyCost(o))}</button>`);
+    $('act').onclick = () => { game.cash -= buyCost(o); game.owned[id] = { state: 'constructing', tier: 1, staff: [], startedAt: performance.now() }; openShop(id); };
+  } else {
+    const stars = `<span class="stars row">${Array.from({ length: 3 }, (_, i) => `<span data-icon="${i < s.tier ? 'icon_star' : 'icon_lock'}"></span>`).join('')}</span>`;
+    const busy = s.state !== 'built';
+    add(`<div class="row between"><span class="label">Tier</span>${stars}</div>
+      <div class="row between"><span class="label">Income</span><span class="row"><span data-icon="icon_cash"></span><span class="big">${fmt(income(s))}/s</span></span></div>
+      <div id="brew"></div>
+      <div class="label">${busy ? (s.state === 'constructing' ? 'Under construction…' : 'Renovating…') : 'Staff'}</div>
+      <div class="slots">${Array.from({ length: 4 }, (_, i) => `<div class="slot" data-skin="slot">${s.staff[i] ? `<span data-icon="${s.staff[i]}" data-scale="1"></span>` : i < 1 + s.tier ? '' : '<span data-icon="icon_lock"></span>'}</div>`).join('')}</div>
+      <div class="row">
+        <button class="btn" id="hire" data-skin="${!busy && s.staff.length < 1 + s.tier && game.cash >= hireCost(s) ? 'button_success' : 'button_disabled'}" ${!busy && s.staff.length < 1 + s.tier && game.cash >= hireCost(s) ? '' : 'disabled'}><span data-icon="icon_hire"></span>${fmt(hireCost(s))}</button>
+        <button class="btn" id="up" data-skin="${!busy && s.tier < 3 && game.cash >= upCost(s) ? 'button_primary' : 'button_disabled'}" ${!busy && s.tier < 3 && game.cash >= upCost(s) ? '' : 'disabled'}><span data-icon="icon_upgrade"></span>${s.tier < 3 ? fmt(upCost(s)) : 'Max'}</button>
+      </div>`);
+    $('hire').onclick = () => { game.cash -= hireCost(s); s.staff.push(PORTRAITS[(Object.keys(game.owned).indexOf(id) * 3 + s.staff.length + 1) % Math.max(1, PORTRAITS.length)]); openShop(id); };
+    $('up').onclick = () => { game.cash -= upCost(s); s.state = 'renovating'; s.startedAt = performance.now(); openShop(id); };
+  }
+  fillIcons(body);
+  $('shop').hidden = false;
+  requestAnimationFrame(() => { skinAll($('shop')); skin($('shop'), 'panel'); skin($('shop-title'), 'ribbon'); });
+}
+$('shop-close').append(iconEl('icon_close', 1));
+$('shop-close').onclick = () => { $('shop').hidden = true; openId = null; };
+
+// ---------------------------------------------------------------- tabs
+const TABS = [['Shops', 'icon_shop'], ['Staff', 'icon_staff'], ['Upgrades', 'icon_upgrade'], ['Marketing', 'icon_marketing'], ['Expand', 'icon_expand'], ['Trophies', 'icon_trophy'], ['Settings', 'icon_settings']];
+for (const [name, icon] of TABS) {
+  const b = document.createElement('button'); b.className = 'tab skin'; b.setAttribute('aria-pressed', name === 'Shops'); b.dataset.skin = 'tab';
+  b.append(iconEl(icon, 1)); const t = document.createElement('span'); t.textContent = name; b.append(t);
+  if (name === 'Staff' && has('badge')) { const bd = document.createElement('span'); bd.className = 'badge'; bd.textContent = '2'; bd.style.backgroundImage = `url(${ui.url('badge', 12, 12, 2)})`; b.append(bd); }
+  b.onclick = () => { for (const x of $('tabs').children) x.setAttribute('aria-pressed', x === b); toast(`${name} — coming soon in RUN`); };
+  $('tabs').append(b);
+}
+
+// ---------------------------------------------------------------- toast, modal
+let toastTimer;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.hidden = false; skin(t, 'ribbon'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.hidden = true, 2200); }
+$('offline').textContent = fmt(8420);
+$('collect').onclick = () => { game.cash += 8420; $('modal').hidden = true; };
+$('collect2').onclick = () => { if (game.gems >= 5) { game.gems -= 5; game.cash += 16840; } $('modal').hidden = true; };
+
+// ---------------------------------------------------------------- input
+let drag = null;
+canvas.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => { if (!drag) return; cam.x -= (e.clientX - drag.x) / k; cam.y -= (e.clientY - drag.y) / k; drag.x = e.clientX; drag.y = e.clientY; });
+canvas.addEventListener('pointerup', e => {
+  if (drag && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 5) {
+    const wx = (e.offsetX - canvas.clientWidth / 2) / k + cam.x, wy = (e.offsetY - canvas.clientHeight / 2) / k + cam.y;
+    const o = r.pick(wx, wy);
+    if (o && ['shop', 'stand'].includes(o.category)) openShop(o.objectId);
+  }
+  drag = null;
+});
+canvas.addEventListener('wheel', e => { e.preventDefault(); k = Math.min(4, Math.max(1, k + (e.deltaY < 0 ? 1 : -1))); }, { passive: false });
+
+// ---------------------------------------------------------------- loop
+fillIcons();
+let last = performance.now(), lastPanel = 0;
+function loop(now) {
+  const dt = (now - last) / 1000; last = now;
+  game.cash += rate() * dt; game.cups += rate() * dt / 3.5;
+  $('cash').textContent = fmt(game.cash); $('rate').textContent = `+${fmt(rate())}/s`;
+  $('cups').textContent = Math.floor(game.cups).toLocaleString(); $('gems').textContent = game.gems;
+  // Brewing bar on the open shop: one "batch" every 2 s while it's producing.
+  if (openId && $('brew')) {
+    const s = game.owned[openId];
+    $('brew').replaceChildren(ui.progress(s && s.state === 'built' ? (now % 2000) / 2000 : 0, 140, 8, S));
+    if (now - lastPanel > 1000) { lastPanel = now; if (!$('shop').hidden) openShop(openId); }
+  }
+  draw(now);
+  requestAnimationFrame(loop);
+}
+// Centre on the first owned shop.
+const first = shops.find(o => game.owned[o.objectId]);
+if (first) cam = { x: (first.col - first.row) * 32, y: (first.col + first.row) * 16 };
+requestAnimationFrame(() => { skinAll(); skin($('top'), 'slot'); requestAnimationFrame(loop); });
+let resizeT; addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { skinAll(); skin($('top'), 'slot'); if (!$('shop').hidden) openShop(openId); }, 100); });
+if (new URLSearchParams(location.search).get('modal') !== '0') { $('modal').hidden = false; requestAnimationFrame(() => { skin($('modal'), 'panel'); skinAll($('modal')); for (const el of $('modal').querySelectorAll('.ribbon')) skin(el, 'ribbon'); }); }
+window.ready = true;
+</script>

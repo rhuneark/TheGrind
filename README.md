@@ -111,3 +111,22 @@ r.draw({ camX, camY, hour });
 ```
 
 For each building, the runtime takes the highest saved tier that has a base for its footprint. It picks a base whose door matches `facing`, choosing between variants by hashing the objectId. Flat roofs on 2×2 and larger get a piece of rooftop kit at the roof socket. Draw order is ground, then objects in painter's order, then a time-of-day multiply, then window glow on producing buildings. The glow comes from recolouring the palette's glass colours in code.
+
+## UI kit
+
+The idle-sim interface art lives in `ui/` and packs to two more files:
+
+| File | What it is |
+|---|---|
+| `dist/ui.png` | 512×256 sheet: 20 icons, 12 barista portraits, 4 buttons, 2 panels, ribbon, tab, slot, notification badge |
+| `dist/ui.json` | `frames[id] = {x, y, w, h, slice?}`; `slice` is `[top, right, bottom, left]` for nine-slice stretching |
+
+`runtime/ui-kit.js` draws them: `icon(id, scale)`, `nineSlice(id, w, h, scale)`, `url(...)` for CSS backgrounds, and `progress(t, w, h, scale)`, which draws a pixel-exact bar in code. `preview/hud.html` is a playable mockup over the live city: top bar, tab bar, shop panel (buy, construction, hire staff, upgrade), welcome-back modal and toast.
+
+```sh
+node scripts/ui.js generate [--only id,...]   # PixelLab generate-ui-v2 → ui/candidates/<id>/NN.png
+node scripts/ui.js pick icon_cash:00 worker_portraits:03:worker_01
+node scripts/ui.js pack                       # ui/raw → dist/ui.png + dist/ui.json
+```
+
+Nine-slice insets live in `ui/slices.json`. `ui/fill.json` repaints panel faces that background removal ate, or that the generator painted as a fake transparency checkerboard. The badge is drawn in code so RUN can print any count on it. UI sprites keep their own colours and aren't snapped to the city palette, because snapping turned the green button grey.

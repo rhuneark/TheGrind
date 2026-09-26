@@ -1,0 +1,11 @@
+{
+  "panel": [16, 16, 16, 16],
+  "panel_dark": [16, 16, 16, 16],
+  "button_primary": [7, 7, 8, 7],
+  "button_success": [7, 7, 8, 7],
+  "button_disabled": [7, 7, 8, 7],
+  "button_premium": [9, 12, 9, 12],
+  "ribbon": [8, 30, 12, 30],
+  "tab": [7, 7, 7, 7],
+  "slot": [8, 8, 8, 8]
+}

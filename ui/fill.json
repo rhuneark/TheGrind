@@ -1,0 +1,5 @@
+{
+  "note": "Background removal can eat an enclosed panel centre. Pack fills any transparency the outside can't reach with this colour ('auto' = the most common colour just inside the frame).",
+  "panel": "#E6E2D6",
+  "panel_dark": "auto"
+}
