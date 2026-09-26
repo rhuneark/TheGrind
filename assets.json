@@ -529,7 +529,9 @@
     {"id": "prop_planter", "type": "prop", "size": [32, 32], "endpoint": "/create-image-bitforge", "params": {"coverage_percentage": 55}, "prompt": "square concrete planter box with a small green shrub"},
     {"id": "lot_vacant_1x1", "type": "lot", "compose": {"footprint": [1, 1], "props": [["prop_cone", 0.25, 0.82], ["prop_cone", 0.82, 0.25], ["prop_barrier", 0.65, 0.65]]}},
     {"id": "lot_vacant_2x2", "type": "lot", "compose": {"footprint": [2, 2], "props": [["prop_cone", 0.33, 1.82], ["prop_cone", 1.82, 0.33], ["prop_cone", 1.0, 1.82], ["prop_cone", 1.82, 1.0], ["prop_barrier", 1.65, 1.65]]}},
-    {"id": "lot_vacant_3x3", "type": "lot", "compose": {"footprint": [3, 3], "props": [["prop_cone", 0.38, 2.82], ["prop_cone", 2.82, 0.38], ["prop_cone", 1.12, 2.82], ["prop_cone", 2.82, 1.12], ["prop_cone", 1.88, 2.82], ["prop_cone", 2.82, 1.88], ["prop_barrier", 2.65, 2.65]]}}
+    {"id": "lot_vacant_3x3", "type": "lot", "compose": {"footprint": [3, 3], "props": [["prop_cone", 0.38, 2.82], ["prop_cone", 2.82, 0.38], ["prop_cone", 1.12, 2.82], ["prop_cone", 2.82, 1.12], ["prop_cone", 1.88, 2.82], ["prop_cone", 2.82, 1.88], ["prop_barrier", 2.65, 2.65]]}},
+    {"id": "stand_coffee_1x1", "seed": 666151211, "type": "building", "category": "stand", "tier": 1, "footprint": [1, 1], "size": [72, 80], "prompt": "small outdoor coffee kiosk stand with a striped awning, serving counter and espresso machine"},
+    {"id": "stand_coffee_1x1_b", "seed": 666151209, "type": "building", "mirror": false, "category": "stand", "tier": 1, "footprint": [1, 1], "size": [72, 80], "prompt": "small outdoor coffee kiosk stand with a striped awning, serving counter and espresso machine"}
   ],
   "rooftops": ["roof_hvac", "roof_watertank"]
 }

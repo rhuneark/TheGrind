@@ -49,7 +49,7 @@ If RUN doesn't redraw every frame, redraw at least every 100 ms while `renderer.
 | `producing` | true lights the windows at night |
 | `progress` | 0–1 while `constructing`, picks one of the 5 build frames. Leave it out and the frames loop |
 
-**The map already says which spots start unbought.** Coffee spots marked `startState: "vacant"` in `map.json` show cones from the start, with no save data needed. There are 13 of 37 in the current map; `city.json → shops.startVacant` sets the share.
+**The map already says which spots start unbought.** Coffee spots marked `startState: "vacant"` in `map.json` show cones from the start, with no save data needed. There are 12, on prominent street-facing 2×2 lots. There are also 3 coffee stands (`category: "stand"`), small kiosks in a park and on plazas, which work exactly like shops.
 
 A save file only needs entries for spots the player has touched:
 
@@ -94,7 +94,7 @@ const wx = (sx - canvas.clientWidth / 2) / k + camX;
 const wy = (sy - canvas.clientHeight / 2) / k + camY;
 const col = Math.floor((wx / 32 + wy / 16) / 2);
 const row = Math.floor((wy / 16 - wx / 32) / 2);
-const shop = city.map.objects.find(o => o.category === 'shop' &&
+const shop = city.map.objects.find(o => ['shop', 'stand'].includes(o.category) &&
   col >= o.col && col < o.col + o.footprint[0] && row >= o.row && row < o.row + o.footprint[1]);
 ```
 

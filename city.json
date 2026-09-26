@@ -131,6 +131,8 @@
     }
   },
   "shops": {
-    "startVacant": 0.35
+    "vacantSpots": 12,
+    "minSpacing": 8,
+    "coffeeStands": 3
   }
 }

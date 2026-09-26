@@ -1,0 +1,22 @@
+{
+  "id": "stand_coffee_1x1_b",
+  "endpoint": "/create-image-pixflux",
+  "isometric": true,
+  "no_background": true,
+  "outline": "selective outline",
+  "shading": "basic shading",
+  "detail": "medium detail",
+  "description": "isometric pixel art, flat lighting, small outdoor coffee kiosk stand with a striped awning, serving counter and espresso machine",
+  "image_size": {
+    "width": 72,
+    "height": 80
+  },
+  "color_image": "<palette.json>",
+  "seed": 666151209,
+  "usage": {
+    "type": "generations",
+    "generations": 1
+  },
+  "generatedAt": "2026-09-26T02:15:33.177Z",
+  "adoptedFrom": "stand_coffee_1x1:666151209"
+}

@@ -278,6 +278,28 @@ for (const bl of blocks) {
   for (; r >= ir0; r--) for (let c = ic0; c <= ic1; c++) kind[r][c] = back;
 }
 
+// ---------------------------------------------------------------- coffee stands
+// A few kiosks where people gather: one in a park, the rest on plazas and
+// squares. Placed before street furniture and people so the cell is theirs.
+if (avail.stand?.has(1)) {
+  const cells = (want) => { const out = []; for (let r = 1; r < rows - 1; r++) for (let c = 1; c < cols - 1; c++) {
+    if (kind[r][c] !== want || !free(r, c)) continue;
+    let same = 0; for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) if (kind[r + dr][c + dc] === want) same++;
+    if (same >= 7) out.push([r, c]); // well inside the park / plaza, not on its edge
+  } return out; };
+  const spots = [];
+  const take = (list, n) => { for (const cell of list.sort(() => rand() - 0.5)) {
+    if (spots.length >= n) break;
+    if (spots.some(([r, c]) => Math.max(Math.abs(r - cell[0]), Math.abs(c - cell[1])) < 12)) continue;
+    spots.push(cell);
+  } };
+  take(cells('grass'), 1);
+  take(cells('plaza'), cfg.shops.coffeeStands);
+  take(cells('grass'), cfg.shops.coffeeStands); // not enough plazas: another park
+  for (const [r, c] of spots.slice(0, cfg.shops.coffeeStands))
+    place({ objectId: nextId('stand'), col: c, row: r, footprint: [1, 1], category: 'stand', facing: 'left' });
+}
+
 // ---------------------------------------------------------------- ground ids
 const LANES = { 2: ['cy', 'yc'], 4: ['cw', 'wY', 'Yw', 'wc'] };
 const curb = (r, c) => (inMap(r, c) && !isRoad(r, c) ? 'c' : 'n');
@@ -398,12 +420,59 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
 
 // Coffee spots that start the game unbought: the map marks them
 // `startState: "vacant"`, so RUN shows cones there until the save file says
-// otherwise. Chosen evenly across the map rather than by chance clusters.
+// otherwise. They have to be easy to find and click, so they are picked, not
+// rolled: 2x2 street-facing lots (never alley-facing), scored by how much of
+// the lot taller buildings drawn in front of it would cover, with corners
+// preferred, and spread out across the map. Whatever sat there becomes a
+// coffee-shop location.
 {
-  const shops = objects.filter(o => o.category === 'shop');
-  const n = Math.round(shops.length * cfg.shops.startVacant);
-  const order = shops.map(o => ({ o, k: rand() })).sort((a, b) => a.k - b.k).map(x => x.o);
-  for (const o of order.slice(0, n)) o.startState = 'vacant';
+  const approxHeight = { tower: 330, hotel: 320, office: 260, residential: 220, civic: 170, parking: 150, retail: 170, shop: 200, stand: 60 };
+  const rect = o => {
+    const [w, h] = o.footprint, bx = (o.col + w - 1 - (o.row + h - 1)) * 32, by = (o.col + w - 1 + o.row + h - 1) * 16 + 32;
+    return { x0: bx - w * 32, x1: bx + h * 32, y1: by, key: grid.sortKey(o) };
+  };
+  const buildingsNow = objects.filter(o => o.category);
+  const facesStreet = o => {
+    const [w, h] = o.footprint;
+    for (let k = 1; k <= 3; k++) {
+      const cells = o.facing === 'left' ? Array.from({ length: w }, (_, i) => [o.row + h - 1 + k, o.col + i]) : Array.from({ length: h }, (_, i) => [o.row + i, o.col + w - 1 + k]);
+      if (cells.some(([r, c]) => isRoad(r, c))) return true;
+      if (cells.some(([r, c]) => !inMap(r, c) || kind[r][c] === 'alley')) return false;
+    }
+    return false;
+  };
+  const scored = buildingsNow
+    .filter(o => ['shop', 'retail'].includes(o.category) && o.footprint[0] === 2 && facesStreet(o)
+      && o.col >= 5 && o.row >= 5 && o.col + 2 <= cols - 5 && o.row + 2 <= rows - 5) // not on the map's edge
+    .map(o => {
+      const R = rect(o), lotTop = R.y1 - 64 - 24; // footprint diamond plus cone height
+      let cover = 0;
+      for (const f of buildingsNow) {
+        if (f === o) continue;
+        const F = rect(f); if (F.key <= R.key) continue; // only things drawn in front
+        const ox = Math.max(0, Math.min(R.x1, F.x1) - Math.max(R.x0, F.x0));
+        const oy = Math.max(0, Math.min(R.y1, F.y1) - Math.max(lotTop, F.y1 - (approxHeight[f.category] || 150)));
+        cover += ox * oy;
+      }
+      const [w, h] = o.footprint;
+      const corner = [[o.row + h, o.col + w], [o.row - 1, o.col + w], [o.row + h, o.col - 1]].some(([r, c]) => isRoad(r, c) || (inMap(r, c) && kind[r][c] === 'sidewalk' && (isRoad(r, c + 1) || isRoad(r + 1, c))));
+      return { o, score: cover / (128 * 88) - (corner ? 0.3 : 0) };
+    })
+    .sort((a, b) => a.score - b.score);
+  const picked = [];
+  for (const { o } of scored) {
+    if (picked.length >= cfg.shops.vacantSpots) break;
+    if (picked.some(p => Math.max(Math.abs(p.col - o.col), Math.abs(p.row - o.row)) < cfg.shops.minSpacing)) continue;
+    picked.push(o);
+  }
+  for (const o of picked) {
+    if (o.category !== 'shop') { // a coffee spot now, and named like one
+      const old = o.objectId;
+      o.category = 'shop'; o.objectId = nextId('shop');
+      for (const p of objects) if (p.belongsTo === old) p.belongsTo = o.objectId;
+    }
+    o.startState = 'vacant';
+  }
 }
 
 // Door check: every building's door wall must face open ground.
@@ -434,5 +503,5 @@ const map = { tileW: grid.tileW, tileH: grid.tileH, size: { cols, rows }, seed, 
 fs.writeFileSync(path.join(ROOT, 'dist', 'map.json'), JSON.stringify(map) + '\n');
 const cats = {};
 for (const o of objects) { const k = o.category || 'prop'; cats[k] = (cats[k] || 0) + 1; }
-console.log(`${objects.filter(o => o.startState === 'vacant').length} of ${objects.filter(o => o.category === 'shop').length} coffee spots start vacant`);
+console.log(`${objects.filter(o => o.startState === 'vacant').length} coffee spots start vacant (prominent 2x2 street-facing lots); ${objects.filter(o => o.category === 'stand').length} coffee stands`);
 console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${Math.round(100 * built / interior)}% of block interiors built, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);

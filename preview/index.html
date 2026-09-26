@@ -88,7 +88,7 @@ function onClick(sx, sy) {
   const k = r.scale, wx = (sx - canvas.clientWidth / 2) / k + cam.x, wy = (sy - canvas.clientHeight / 2) / k + cam.y;
   const c = Math.floor((wx / 32 + wy / 16) / 2), row = Math.floor((wy / 16 - wx / 32) / 2);
   const map = mode === 'test' ? testMap : city.map;
-  const o = map.objects.find(o => o.category === 'shop' && c >= o.col && c < o.col + o.footprint[0] && row >= o.row && row < o.row + o.footprint[1]);
+  const o = map.objects.find(o => ['shop', 'stand'].includes(o.category) && c >= o.col && c < o.col + o.footprint[0] && row >= o.row && row < o.row + o.footprint[1]);
   if (!o || TEST[o.objectId]) return;
   const state = saved[o.objectId]?.state ?? o.startState ?? 'built';
   if (state === 'vacant') saved[o.objectId] = { state: 'constructing', startedAt: performance.now(), tier: 1 };

@@ -24,7 +24,7 @@ Add the Grind City map to RUN, including buying and renovating coffee shops.
 
 6. **Renovating/upgrading:** clicking an open shop offers renovation. On confirm, set `{ ...entry, state: 'renovating', tier: entry.tier + 1, startedAt, durationMs }`. Tiers top out at 3.
 
-7. **Click → cell:** `col = floor((wx/32 + wy/16)/2)`, `row = floor((wy/16 - wx/32)/2)`, where `wx = (sx - canvas.clientWidth/2)/scale + camX` and `wy` works the same way. Pick the `map.objects` entry with `category === 'shop'` whose footprint contains `(col, row)`.
+7. **Click → cell:** `col = floor((wx/32 + wy/16)/2)`, `row = floor((wy/16 - wx/32)/2)`, where `wx = (sx - canvas.clientWidth/2)/scale + camX` and `wy` works the same way. Pick the `map.objects` entry with `category` `'shop'` or `'stand'` whose footprint contains `(col, row)`. Stands (3 coffee kiosks in a park and on plazas) are ownable the same way as shops.
 
 8. **Leave the animations to the renderer.** Don't reimplement them; the renderer draws the build and dust frames from the target building.
 

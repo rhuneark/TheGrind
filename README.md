@@ -77,7 +77,7 @@ Every building is mirrored automatically, which swaps its two visible walls. Tha
 
 **Wiring it into RUN:** see [`docs/RUN_INTEGRATION.md`](docs/RUN_INTEGRATION.md).
 
-Coffee spots that start unbought are marked `startState: "vacant"` in `map.json` (`city.json → shops.startVacant`), so the handed-off map already shows their cones.
+Coffee spots that start unbought are marked `startState: "vacant"` in `map.json`, so the handed-off map already shows their cones. There are 12 of them (`city.json → shops.vacantSpots`), all 2×2 lots facing a street, away from the map edge and spread apart. They're picked for being easy to see and click: the fewest taller buildings in front, corners preferred. Three coffee stands (`category: "stand"`, 1×1 kiosks) sit in a park and on plazas (`shops.coffeeStands`).
 
 Whether a coffee spot is bought, and what's happening to it, is save-file state, so `map.json` never changes. `resolve(objectId)` returns `{ state, tier, producing, progress }`:
 
