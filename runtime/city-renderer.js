@@ -59,7 +59,14 @@ function skyAt(hour) {
 // A pane is a small, enclosed patch of glass-coloured pixels. Long runs of the
 // same colour are trim or outline, and anything touching the silhouette edge
 // is outline, so neither lights up.
+const glowCache = new WeakMap();
 function buildGlowSheet(image, atlas) {
+  if (glowCache.has(image)) return glowCache.get(image);
+  const sheet = buildGlowSheetUncached(image, atlas);
+  glowCache.set(image, sheet);
+  return sheet;
+}
+function buildGlowSheetUncached(image, atlas) {
   const c = document.createElement('canvas');
   c.width = image.width; c.height = image.height;
   const g = c.getContext('2d');
@@ -216,10 +223,16 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
 
   // A building's state: what the save file says, else the map's starting
   // state (`startState: "vacant"` on spots that begin unbought), else built.
-  const byId = new Map(map.objects.map(o => [o.objectId, o]));
   const stateOf = id => { const saved = resolve(id) || {}; return { ...saved, state: saved.state ?? byId.get(id)?.startState ?? 'built' }; };
 
-  const objects = [...map.objects].sort((a, b) => sortKey(a) - sortKey(b) || a.col - b.col);
+  let objects = [];
+  const byId = new Map();
+  // Re-read map.objects (call after editing the map in place).
+  function refresh() {
+    objects = [...map.objects].sort((a, b) => sortKey(a) - sortKey(b) || a.col - b.col);
+    byId.clear(); for (const o of map.objects) byId.set(o.objectId, o);
+  }
+  refresh();
 
   // Bottom vertex of a footprint in world pixels (origin = top vertex of cell 0,0).
   const bottom = (col, row, [w, h]) => ({ x: (col + w - 1 - (row + h - 1)) * tileW / 2, y: (col + w - 1 + row + h - 1) * tileH / 2 + tileH });
@@ -344,5 +357,20 @@ export function createCityRenderer(canvas, { atlas, map, image }, opts = {}) {
   // redrawing (a requestAnimationFrame loop at ~10fps is plenty).
   const animating = () => objects.some(o => o.category && ['constructing', 'renovating'].includes(stateOf(o.objectId).state));
 
-  return { draw, bounds, animating, setScale: s => { scale = Math.max(1, Math.round(s)); }, get scale() { return scale; } };
+  // The object drawn on top at a world-space point (pixel-accurate against the
+  // atlas), for click-to-select. World space: origin = top vertex of cell 0,0.
+  let alpha = null;
+  function pick(wx, wy) {
+    if (!alpha) { const c = document.createElement('canvas'); c.width = image.width; c.height = image.height; const g = c.getContext('2d'); g.drawImage(image, 0, 0); alpha = g.getImageData(0, 0, c.width, c.height).data; }
+    for (let i = objects.length - 1; i >= 0; i--) {
+      for (const l of layersFor(objects[i])) {
+        if (l.canvas || !l.id) continue;
+        const f = atlas.frames[l.id], x = Math.floor(wx - Math.round(l.x)), y = Math.floor(wy - Math.round(l.y));
+        if (x >= 0 && y >= 0 && x < f.w && y < f.h && alpha[((f.y + y) * image.width + f.x + x) * 4 + 3]) return objects[i];
+      }
+    }
+    return null;
+  }
+
+  return { draw, bounds, animating, pick, refresh, setScale: s => { scale = Math.max(1, Math.round(s)); }, get scale() { return scale; } };
 }

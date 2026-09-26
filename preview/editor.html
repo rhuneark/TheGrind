@@ -1,0 +1,254 @@
+<meta charset="utf-8">
+<title>Grind City Editor</title>
+<style>
+  :root {
+    --ground: #F5F3EC; --panel: #F5F3ECf2; --ink: #1B1C1F; --muted: #5A5E63; --line: #B5AB93;
+    --accent: #8A4E40; --sel: #C9A444; --stage: #2A2C30; --danger: #6A2E36;
+    --sans: "Chivo", "Helvetica Neue", Arial, sans-serif; --mono: "Chivo Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --ground: #1B1C1F; --panel: #1B1C1Ff2; --ink: #E6E2D6; --muted: #A9A38C; --line: #44474C; --accent: #A8705C; --sel: #E8C878; --stage: #15161A; --danger: #B08A94; } }
+  :root[data-theme="dark"] { color-scheme: dark; --ground: #1B1C1F; --panel: #1B1C1Ff2; --ink: #E6E2D6; --muted: #A9A38C; --line: #44474C; --accent: #A8705C; --sel: #E8C878; --stage: #15161A; --danger: #B08A94; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--stage); color: var(--ink); font: 13px/1.45 var(--sans); overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; touch-action: none; }
+  .panel { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; width: min(290px, calc(100vw - 24px)); max-height: calc(100% - 24px); overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 10px; }
+  h1 { margin: 0; font-size: 15px; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .label { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  button, select { font: 500 12px var(--sans); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.danger { color: var(--danger); }
+  select { width: 100%; }
+  .sel { border-top: 1px solid var(--line); padding-top: 8px; display: grid; gap: 6px; }
+  .sel b { font-family: var(--mono); font-weight: 500; }
+  .muted { color: var(--muted); font-size: 12px; }
+  .status { font: 11px var(--mono); color: var(--muted); }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--sel); outline-offset: 1px; }
+</style>
+
+<canvas id="c" aria-label="City map editor"></canvas>
+<section class="panel">
+  <h1>Grind City editor</h1>
+  <div class="row" role="group" aria-label="Tool">
+    <button id="t-select" aria-pressed="true">Select &amp; move</button>
+    <button id="t-add" aria-pressed="false">Add</button>
+  </div>
+  <div id="add-box" hidden>
+    <div class="label">Place</div>
+    <select id="palette" aria-label="What to place"></select>
+    <div class="muted">Click the map to place it.</div>
+  </div>
+  <div class="sel" id="sel-box" hidden>
+    <div><span class="label">Selected</span><br><b id="sel-name"></b><br><span class="muted" id="sel-info"></span></div>
+    <div class="row">
+      <button id="b-cones">Start with cones</button>
+      <button id="b-flip">Flip door</button>
+    </div>
+    <div class="row">
+      <button id="b-revert">Undo my changes to this</button>
+      <button id="b-delete" class="danger">Delete</button>
+    </div>
+  </div>
+  <div class="muted">Drag a building or prop to move it. Drag empty ground to pan, scroll to zoom. Arrow keys move the selection one tile; Delete removes it.</div>
+  <div class="row">
+    <button id="b-export">Save edits.json</button>
+    <button id="b-reset" class="danger">Reset all edits</button>
+  </div>
+  <div class="status" id="status">Loading…</div>
+</section>
+
+<script type="module">
+import { loadCity, createCityRenderer } from '../runtime/city-renderer.js';
+
+const BASE = window.__CITY_BASE__ ?? '../dist/';
+const $ = id => document.getElementById(id);
+const canvas = $('c');
+const city = await loadCity(BASE);
+const map = city.map;
+const baseObjects = new Map(map.objects.map(o => [o.objectId, structuredClone(o)]));
+
+// ---------------------------------------------------------------- storage
+// Published page: the artifact's shared database (so Claude can read the
+// edits back and bake them into the pipeline). Local file: this browser.
+const store = await (async () => {
+  const db = window.claude ? await window.claude.use('db').catch(() => null) : null;
+  if (db) return {
+    kind: 'shared',
+    async all() { const out = {}; for (const d of (await db.collection("edits").limit(1000).get()).docs ?? []) out[d.id] = d.data(); return out; },
+    put: (id, e) => db.doc(`edits/${id}`).set(e),
+    drop: id => db.doc(`edits/${id}`).delete(),
+  };
+  const KEY = 'grind-city-edits';
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  const write = v => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+  return { kind: 'local', async all() { return read(); }, async put(id, e) { const v = read(); v[id] = e; write(v); }, async drop(id) { const v = read(); delete v[id]; write(v); } };
+})();
+let edits = await store.all().catch(() => ({}));
+
+// Apply saved edits to the map (same rules as scripts/assemble.js).
+function applyAll() {
+  map.objects = [...baseObjects.values()].map(o => structuredClone(o));
+  for (const [id, e] of Object.entries(edits)) {
+    const i = map.objects.findIndex(o => o.objectId === id);
+    if (e.add) { if (i >= 0) map.objects.splice(i, 1); map.objects.push({ ...e.add, objectId: id }); continue; }
+    if (i < 0) continue;
+    if (e.remove) { map.objects.splice(i, 1); continue; }
+    const o = map.objects[i];
+    for (const k of ['col', 'row', 'facing', 'nudge']) if (e[k] !== undefined) { if (e[k] === null) delete o[k]; else o[k] = e[k]; }
+    if (e.startState !== undefined) { if (e.startState) o.startState = e.startState; else delete o.startState; }
+  }
+}
+applyAll();
+
+// The edit record for one object, from its current state vs the generated map.
+function recordFor(o) {
+  const base = baseObjects.get(o.objectId);
+  if (!base) return { add: structuredClone(o) };
+  const e = {};
+  if (o.col !== base.col || o.row !== base.row) { e.col = o.col; e.row = o.row; e.nudge = o.nudge ?? null; }
+  if (o.facing !== base.facing) e.facing = o.facing;
+  if ((o.startState ?? null) !== (base.startState ?? null)) e.startState = o.startState ?? null;
+  return Object.keys(e).length ? e : null;
+}
+let saving = Promise.resolve();
+function save(o) {
+  const e = recordFor(o);
+  if (e) edits[o.objectId] = e; else delete edits[o.objectId];
+  saving = saving.then(() => e ? store.put(o.objectId, e) : store.drop(o.objectId)).catch(err => setStatus(`Couldn't save: ${err?.message || err}`));
+  setStatus();
+}
+
+// ---------------------------------------------------------------- rendering
+const r = createCityRenderer(canvas, city, { resolve: () => null, background: '#2A2C30' });
+let k = 1, cam = { x: (r.bounds.x0 + r.bounds.x1) / 2, y: (r.bounds.y0 + r.bounds.y1) / 2 };
+const dpr = () => Math.max(1, Math.round(devicePixelRatio || 1));
+let selected = null;
+
+function frame() {
+  canvas.width = Math.round(canvas.clientWidth * dpr()); canvas.height = Math.round(canvas.clientHeight * dpr());
+  const S = k * dpr();
+  r.setScale(S);
+  r.draw({ camX: cam.x, camY: cam.y, hour: 12, time: 0 });
+  if (!selected) return;
+  const g = canvas.getContext('2d'), ox = Math.round(canvas.width / 2 / S - cam.x), oy = Math.round(canvas.height / 2 / S - cam.y);
+  g.setTransform(S, 0, 0, S, ox * S, oy * S);
+  const [w, h] = selected.footprint, bx = (selected.col + w - 1 - (selected.row + h - 1)) * 32, by = (selected.col + w - 1 + selected.row + h - 1) * 16 + 32;
+  g.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--sel').trim() || '#E8C878';
+  g.lineWidth = 2 / S;
+  g.beginPath(); g.moveTo(bx, by); g.lineTo(bx - w * 32, by - w * 16); g.lineTo(bx + (h - w) * 32, by - (w + h) * 16); g.lineTo(bx + h * 32, by - h * 16); g.closePath(); g.stroke();
+}
+const toWorld = (sx, sy) => ({ x: (sx - canvas.clientWidth / 2) / k + cam.x, y: (sy - canvas.clientHeight / 2) / k + cam.y });
+const toCell = ({ x, y }) => ({ col: Math.floor((x / 32 + y / 16) / 2), row: Math.floor((y / 16 - x / 32) / 2) });
+
+// ---------------------------------------------------------------- panel
+function describe(o) {
+  if (o.category) return `${o.category === 'shop' ? 'coffee shop' : o.category === 'stand' ? 'coffee stand' : o.category} · ${o.footprint.join('×')} · door ${o.facing}`;
+  return o.sprite.replace(/^(prop|ped|veh)_/, '').replace(/_/g, ' ');
+}
+function showSelection() {
+  $('sel-box').hidden = !selected;
+  if (!selected) return frame();
+  $('sel-name').textContent = selected.objectId;
+  $('sel-info').textContent = `${describe(selected)} · cell ${selected.col}, ${selected.row}${edits[selected.objectId] ? ' · edited' : ''}`;
+  const ownable = ['shop', 'stand'].includes(selected.category);
+  $('b-cones').hidden = !ownable;
+  $('b-cones').textContent = selected.startState === 'vacant' ? 'Remove cones' : 'Start with cones';
+  $('b-flip').hidden = !selected.category;
+  $('b-revert').disabled = !edits[selected.objectId];
+  frame();
+}
+function setStatus(msg) {
+  const n = Object.keys(edits).length;
+  $('status').textContent = msg || `${n} edit${n === 1 ? '' : 's'} · ${store.kind === 'shared' ? 'saved to this page' : 'saved in this browser'}`;
+}
+function commit(o) { r.refresh(); save(o); showSelection(); }
+
+// Palette: every building category and footprint in the atlas, then props.
+const palette = [];
+for (const [cat, tiers] of Object.entries(city.atlas.stacks)) {
+  const fps = new Set(Object.values(tiers).flatMap(([b]) => b.map(id => city.atlas.frames[id].footprint[0])));
+  for (const n of [...fps].sort()) palette.push({ label: `${cat === 'shop' ? 'Coffee shop' : cat === 'stand' ? 'Coffee stand' : cat[0].toUpperCase() + cat.slice(1)} ${n}×${n}`, make: () => ({ footprint: [n, n], category: cat, facing: 'left' }) });
+}
+const groups = new Map();
+for (const [id, f] of Object.entries(city.atlas.frames)) if (f.type === 'prop' && !id.endsWith('_m')) groups.set(f.group ? `${f.group}_se` : id, f.group || id);
+for (const [sprite, name] of [...groups].sort((a, b) => a[1].localeCompare(b[1])))
+  palette.push({ label: name.replace(/^(prop|ped|veh)_/, '').replace(/_/g, ' '), make: () => ({ footprint: [1, 1], sprite }) });
+palette.forEach((p, i) => $('palette').append(new Option(p.label, i)));
+
+let tool = 'select';
+function setTool(t) { tool = t; $('t-select').setAttribute('aria-pressed', t === 'select'); $('t-add').setAttribute('aria-pressed', t === 'add'); $('add-box').hidden = t !== 'add'; }
+$('t-select').onclick = () => setTool('select');
+$('t-add').onclick = () => setTool('add');
+
+$('b-cones').onclick = () => { if (selected.startState === 'vacant') delete selected.startState; else selected.startState = 'vacant'; commit(selected); };
+$('b-flip').onclick = () => { selected.facing = selected.facing === 'left' ? 'right' : 'left'; commit(selected); };
+$('b-delete').onclick = () => deleteSelected();
+$('b-revert').onclick = async () => {
+  const id = selected.objectId;
+  delete edits[id]; await store.drop(id).catch(() => {});
+  applyAll(); r.refresh(); selected = map.objects.find(o => o.objectId === id) || null; showSelection(); setStatus();
+};
+$('b-reset').onclick = async () => {
+  if ($('b-reset').dataset.armed !== '1') { $('b-reset').dataset.armed = '1'; $('b-reset').textContent = 'Click again to reset'; setTimeout(() => { $('b-reset').dataset.armed = ''; $('b-reset').textContent = 'Reset all edits'; }, 3000); return; }
+  for (const id of Object.keys(edits)) await store.drop(id).catch(() => {});
+  edits = {}; applyAll(); r.refresh(); selected = null; showSelection(); setStatus();
+  $('b-reset').dataset.armed = ''; $('b-reset').textContent = 'Reset all edits';
+};
+$('b-export').onclick = async () => {
+  const data = JSON.stringify({ edits }, null, 2) + '\n';
+  const downloads = window.claude ? await window.claude.use('downloads').catch(() => null) : null;
+  if (downloads) { try { await downloads.save({ filename: 'edits.json', data }); } catch {} return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = 'edits.json'; a.click();
+};
+
+function deleteSelected() {
+  if (!selected) return;
+  const id = selected.objectId;
+  if (baseObjects.has(id)) { edits[id] = { remove: true }; store.put(id, { remove: true }).catch(() => {}); }
+  else { delete edits[id]; store.drop(id).catch(() => {}); }
+  map.objects = map.objects.filter(o => o.objectId !== id);
+  r.refresh(); selected = null; showSelection(); setStatus();
+}
+
+// ---------------------------------------------------------------- pointer
+let drag = null;
+canvas.addEventListener('pointerdown', e => {
+  canvas.setPointerCapture(e.pointerId);
+  const w = toWorld(e.offsetX, e.offsetY), cell = toCell(w);
+  if (tool === 'add') {
+    const o = { ...palette[+$('palette').value].make(), objectId: `edit_${Date.now().toString(36)}`, col: cell.col, row: cell.row };
+    map.objects.push(o); selected = o; commit(o); return;
+  }
+  const hit = r.pick(w.x, w.y);
+  if (hit) { selected = hit; drag = { kind: 'move', o: hit, dc: cell.col - hit.col, dr: cell.row - hit.row, moved: false }; showSelection(); }
+  else drag = { kind: 'pan', x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY };
+});
+canvas.addEventListener('pointermove', e => {
+  if (!drag) return;
+  if (drag.kind === 'pan') { cam.x -= (e.clientX - drag.x) / k; cam.y -= (e.clientY - drag.y) / k; drag.x = e.clientX; drag.y = e.clientY; frame(); return; }
+  const cell = toCell(toWorld(e.offsetX, e.offsetY)), col = cell.col - drag.dc, row = cell.row - drag.dr;
+  if (col === drag.o.col && row === drag.o.row) return;
+  drag.o.col = col; drag.o.row = row; delete drag.o.nudge; drag.moved = true;
+  r.refresh(); showSelection();
+});
+canvas.addEventListener('pointerup', () => {
+  if (drag?.kind === 'move' && drag.moved) commit(drag.o);
+  if (drag?.kind === 'pan' && Math.hypot(drag.x - drag.x0, drag.y - drag.y0) < 4) { selected = null; showSelection(); }
+  drag = null;
+});
+canvas.addEventListener('wheel', e => { e.preventDefault(); const n = Math.min(4, Math.max(1, k + (e.deltaY < 0 ? 1 : -1))); if (n !== k) { k = n; frame(); } }, { passive: false });
+addEventListener('keydown', e => {
+  if (!selected || e.target.tagName === 'SELECT') return;
+  const d = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[e.key];
+  if (d) { e.preventDefault(); selected.col += d[0]; selected.row += d[1]; delete selected.nudge; commit(selected); }
+  if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); deleteSelected(); }
+  if (e.key === 'Escape') { selected = null; showSelection(); }
+});
+addEventListener('resize', frame);
+r.refresh(); frame(); setStatus();
+window.ready = true;
+</script>

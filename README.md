@@ -73,6 +73,17 @@ Every building is mirrored automatically, which swaps its two visible walls. Tha
   - People walk along the sidewalks in both directions: on their own, with a dog, with kids, on a bike or a scooter. Some cross at crosswalks and some wander the plazas and parks. Café tables go outside coffee shops.
 - **Human check, `contact-sheet.html`.** Shows every atlas sprite at 1× and 3×, grouped by category, with anchors and sockets you can toggle. Also lists rejects and pending seed candidates, each run through the real Stage 3.
 
+## Map editor
+
+`preview/editor.html` (run `npm run preview`, then open `/preview/editor.html`) and the published editor page let you:
+- click to select anything, drag it to move it, or nudge it with the arrow keys;
+- delete things, flip a building's door side, and toggle cones on coffee spots;
+- add buildings and props from a palette.
+
+Edits are saved per object in `edits.json` (`{ "edits": { "<objectId>": … } }`). `scripts/assemble.js` applies them after generating the map, so rebuilding with the same seed and settings keeps them. Any generated prop sitting where you placed something is removed. If you change the seed, edits that point at objects which no longer exist are reported and skipped. `--no-edits` builds without them.
+
+On the published page, edits go to the page's shared storage; ask Claude to "apply the editor edits" and they're written to `edits.json` and rebuilt. Locally they're kept in the browser; **Save edits.json** downloads the file to drop into the repo.
+
 ## Building states and animations
 
 **Wiring it into RUN:** see [`docs/RUN_INTEGRATION.md`](docs/RUN_INTEGRATION.md).
