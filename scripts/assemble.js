@@ -421,10 +421,10 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
 // Coffee spots that start the game unbought: the map marks them
 // `startState: "vacant"`, so RUN shows cones there until the save file says
 // otherwise. They have to be easy to find and click, so they are picked, not
-// rolled: 2x2 street-facing lots (never alley-facing), scored by how much of
+// rolled: street-facing coffee-shop lots (never alley-facing), scored by how much of
 // the lot taller buildings drawn in front of it would cover, with corners
-// preferred, and spread out across the map. Whatever sat there becomes a
-// coffee-shop location.
+// and bigger lots preferred, and spread out across the map. Only coffee-shop
+// lots (category "shop") are ever candidates.
 {
   const approxHeight = { tower: 330, hotel: 320, office: 260, residential: 220, civic: 170, parking: 150, retail: 170, shop: 200, stand: 60 };
   const rect = o => {
@@ -442,7 +442,7 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
     return false;
   };
   const scored = buildingsNow
-    .filter(o => ['shop', 'retail'].includes(o.category) && o.footprint[0] === 2 && facesStreet(o)
+    .filter(o => o.category === 'shop' && facesStreet(o)
       && o.col >= 5 && o.row >= 5 && o.col + 2 <= cols - 5 && o.row + 2 <= rows - 5) // not on the map's edge
     .map(o => {
       const R = rect(o), lotTop = R.y1 - 64 - 24; // footprint diamond plus cone height
@@ -456,7 +456,8 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
       }
       const [w, h] = o.footprint;
       const corner = [[o.row + h, o.col + w], [o.row - 1, o.col + w], [o.row + h, o.col - 1]].some(([r, c]) => isRoad(r, c) || (inMap(r, c) && kind[r][c] === 'sidewalk' && (isRoad(r, c + 1) || isRoad(r + 1, c))));
-      return { o, score: cover / (128 * 88) - (corner ? 0.3 : 0) };
+      // Bigger lots are easier to click, so 2x2 gets a head start.
+      return { o, score: cover / (o.footprint[0] * 64 * 88) - (corner ? 0.3 : 0) - (o.footprint[0] >= 2 ? 0.2 : 0) };
     })
     .sort((a, b) => a.score - b.score);
   const picked = [];
@@ -465,14 +466,7 @@ objects.sort((a, b) => grid.sortKey(a) - grid.sortKey(b) || a.col - b.col);
     if (picked.some(p => Math.max(Math.abs(p.col - o.col), Math.abs(p.row - o.row)) < cfg.shops.minSpacing)) continue;
     picked.push(o);
   }
-  for (const o of picked) {
-    if (o.category !== 'shop') { // a coffee spot now, and named like one
-      const old = o.objectId;
-      o.category = 'shop'; o.objectId = nextId('shop');
-      for (const p of objects) if (p.belongsTo === old) p.belongsTo = o.objectId;
-    }
-    o.startState = 'vacant';
-  }
+  for (const o of picked) o.startState = 'vacant';
 }
 
 // Door check: every building's door wall must face open ground.
@@ -503,5 +497,5 @@ const map = { tileW: grid.tileW, tileH: grid.tileH, size: { cols, rows }, seed, 
 fs.writeFileSync(path.join(ROOT, 'dist', 'map.json'), JSON.stringify(map) + '\n');
 const cats = {};
 for (const o of objects) { const k = o.category || 'prop'; cats[k] = (cats[k] || 0) + 1; }
-console.log(`${objects.filter(o => o.startState === 'vacant').length} coffee spots start vacant (prominent 2x2 street-facing lots); ${objects.filter(o => o.category === 'stand').length} coffee stands`);
+console.log(`${objects.filter(o => o.startState === 'vacant').length} coffee-shop spots start vacant (prominent, street-facing); ${objects.filter(o => o.category === 'stand').length} coffee stands`);
 console.log(`map ${cols}x${rows}: ${ns.length} N–S streets, ${blocks.length} blocks, ${Math.round(100 * built / interior)}% of block interiors built, ${objects.length} objects (${Object.entries(cats).map(([k, v]) => `${v} ${k}`).join(', ')})`);
